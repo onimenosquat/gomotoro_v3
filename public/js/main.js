@@ -1,4 +1,11 @@
+// functions app
+
 app = {
+
+	setting : {
+		timer : 1500,
+	},
+
 	router : {
 		changePage : function() {
 			var dataUrl = window.location.hash.toLowerCase().split('/');
@@ -25,5 +32,13 @@ app = {
 
 			return texte;
 		},
-	}
+
+		timer : function ( s ) {
+			var hours = parseInt( s / 3600 ) % 24,
+			minutes = parseInt( s / 60 ) % 60,
+			seconds = s % 60;
+
+			return (hours > 0 ? (hours < 10 ? "0" + hours : hours) + ":" : "" ) + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+		}
+	},
 };

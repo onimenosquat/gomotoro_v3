@@ -49,20 +49,23 @@ Template.register.events({
 			});
 
 			return false;
-		}
+		};
 
 		Accounts.createUser({
 
 			email: email,
 			password : password,
-			username : name
+			username : name,
+			profile : {
+				timer : app.setting.timer,
+			}
 
 		}, function(err){
 		
 			if (err) {
 
 				Session.set('notify', {
-					message : 'Error ! Please contact the support. lol.',
+					message : 'Error ! Please contact support. lol.',
 					status : 'error'
 				});
 

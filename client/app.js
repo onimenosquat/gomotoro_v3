@@ -1,3 +1,6 @@
+Pomodoro = new Meteor.Collection("pomodoro");
+Project = new Meteor.Collection("project");
+Notify = new Meteor.Collection("notify");
 
 // init router fn & obj
 Session.set('router', {});
