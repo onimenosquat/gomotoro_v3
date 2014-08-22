@@ -1,0 +1,43 @@
+.navbar {
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-color: $white;
+	margin: 0;
+	height: 4em;
+	line-height: 4em;
+	@include borderRadius(0);
+	@include boxShadow;
+
+	& > div {
+		display: inline-block;
+		vertical-align: -1.1em;
+		width: 100%;
+	}
+	
+	.navbar-brand h2 {
+		margin: 0;
+		font-size: 1.4em;
+		line-height: 0.7em;
+		color: $black;
+		font-weight: normal;
+		display: inline-block;
+	}
+
+	.nav > li > a {
+		color: $black;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background: none;
+			color: $green;
+		}
+	}
+
+	.nav > li.active a {
+		color: $green;
+	}
+}

@@ -1,0 +1,30 @@
+.nav-tabs {
+	border-color: $black;
+	
+	& > li {
+		margin: 0;
+	}
+
+	& > li > a,
+	& > li > a:hover {
+		margin: 0;
+		color: $black;
+		background: none;
+		border: none;
+		@include borderRadius(0);
+	}
+
+	& > li.active > a,
+	& > li.active > a:focus,
+	& > li.active > a:hover {
+		border: none;
+		color: $white;
+		background-color: $black;
+	}
+	
+	& > li.active > a:focus,
+	& > li > a:focus {
+		background-color: fade-out($black, 0.6);
+		color: $white;
+	}
+}

@@ -1,0 +1,56 @@
+@mixin borderRadius ( $r: $borderRadiusDefault ) {
+	-webkit-border-radius: $r;
+	-moz-border-radius: $r;
+	-ms-border-radius: $r;
+	-o-border-radius: $r;
+	border-radius: $r;
+}
+
+@mixin boxShadow ( $string: 0px 0px 1px rgba(0, 0, 0, 0.1) ) {
+	-webkit-box-shadow: $string;
+	-moz-box-shadow: $string;
+	-ms-box-shadow: $string;
+	-o-box-shadow: $string;
+	box-shadow: $string;
+}
+
+@mixin outLine ( $string ) {
+	-webkit-outline: $string;
+	-moz-outline: $string;
+	-ms-outline: $string;
+	-o-outline: $string;
+	outline: $string;
+}
+
+@mixin boxSizing ( $string: border-box ) {
+	-webkit-box-sizing: $string;
+	-moz-box-sizing: $string;
+	-ms-box-sizing: $string;
+	-o-box-sizing: $string;
+	box-sizing: $string;
+}
+
+@mixin transition ( $string ) {
+	-webkit-transition: $string;
+	-moz-transition: $string;
+	-ms-transition: $string;
+	-o-transition: $string;
+	transition: $string;
+}
+
+@mixin imgBg ($img: "http://lorempixel.com/300/300", $p: center center) {
+	background-image: url( $img );
+	background-repeat: no-repeat;
+	background-position: $p;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-ms-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+@mixin vScroll () {
+	overflow: auto;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
+}

@@ -1,0 +1,29 @@
+.login {
+	padding: 2em;
+	background-color: fade-out($white, 0.25);
+	overflow: hidden;
+	@include borderRadius;
+
+	.nav-tabs {
+		margin-right: -2em;
+		margin-left: -2em;
+		padding: 0 2em;
+	}
+	.nav-tabs  > li {
+		width: 50%;
+		text-align: center;
+	}
+
+	.tab-content {
+		margin: 0 -2em -2em;
+		padding: 2em;
+		background: $white;
+	}
+}
+
+.login-title {
+	font-size: 2em;
+	text-align: center;
+	color: $black;
+	margin-bottom: 2em;
+}

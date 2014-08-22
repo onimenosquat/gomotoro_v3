@@ -1,0 +1,14 @@
+.page {
+	position: relative;
+	padding-top: 4em;
+	height: 100%;
+	background-color: $white;
+	@include boxSizing;
+}
+
+.page-login {
+	@extend .page;
+	@include imgBg( "../images/bg-nature-blur.jpg" );
+
+	padding-top: 4em;
+}

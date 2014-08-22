@@ -1,0 +1,38 @@
+html {
+	height: 100%;
+}
+
+body {
+	z-index: 1;
+	position: relative;
+	margin: 0;
+	color: $black;
+	height: 100%;
+	font-size: 16px;
+	font-family: 'Source Sans Pro', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, a, p, strong, span, *, li, input, button, textarea {
+	font-family: 'Source Sans Pro', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+a {
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: none;
+	}
+
+	&:focus {
+		@include outLine( none );
+		@include boxShadow( none );
+	}
+}
+
+.col-center {
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}

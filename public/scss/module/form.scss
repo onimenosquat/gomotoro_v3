@@ -1,0 +1,43 @@
+@mixin _input ( $c ){
+	@include borderRadius(0);
+	@include boxShadow(none);
+	@include boxSizing;
+	border: none;
+	background-color: $white;
+	border: 1px solid $white;
+	border-bottom-color: $gray;
+	height: 3em;
+
+	&.active,
+	&:hover,
+	&:focus {
+		border-color: $c !important;
+		@include boxShadow(none);
+	}
+}
+
+$input: (
+	success: (
+		color: $green
+	),
+	warning: (
+		color: $orange
+	),
+	error: (
+		color: $red
+	),
+);
+
+.form-control {
+	@include _input(
+		$c: $blue
+	);
+}
+
+@each $thm in $input {
+	$_name: nth($thm, 1);
+	$_values: nth($thm, 2);
+	.form-control--#{$_name} {
+		@include _input( $c: map-get($_values, color) );
+	}
+}

@@ -1,0 +1,28 @@
+.team-listing {
+	float: left;
+	width: 33.34%;
+	height: 100%;
+	background-color: $whitesmoke;
+	@include vScroll;
+
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+
+	ul > li {
+		display: block;
+		list-style: none;
+	}
+
+	ul > li > a {
+		display: inline-block;
+		width: 100%;
+		padding: 2em;
+		@include transition (0.2s ease);
+
+		&:hover {
+			background-color: $gray;
+		}
+	}
+}

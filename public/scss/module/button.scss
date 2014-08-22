@@ -1,0 +1,56 @@
+@mixin _btn ( $c, $bg ){
+	background-color: $bg;
+	border-color: darken($bg, 10%);
+	color: $c;
+	@include borderRadius(0);
+
+	&:hover,
+	&:focus {
+		background-color: darken($bg, 10%);
+		border-color: darken($bg, 10%);
+		color: $c;
+		@include outLine( none );
+		@include boxShadow( none );
+	}
+}
+
+$btn: (
+	default: (
+		color: $white,
+		bg: $gray
+	),
+	primary: (
+		color: $white,
+		bg: $blue
+	),
+	success: (
+		color: $white,
+		bg: $green
+	),
+	warning: (
+		color: $white,
+		bg: $orange
+	),
+	error: (
+		color: $white,
+		bg: $red
+	),
+);
+
+.btn {
+	@include _btn(
+		$c: $black,
+		$bg: $gray
+	);
+}
+
+@each $thm in $btn {
+	$_name: nth($thm, 1);
+	$_values: nth($thm, 2);
+	.btn-#{$_name} {
+		@include _btn(
+			$c: map-get($_values, color),
+			$bg: map-get($_values, bg)
+		);
+	}
+}
