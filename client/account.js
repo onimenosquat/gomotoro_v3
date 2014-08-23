@@ -4,6 +4,7 @@ Template.login.events({
 
 	'submit #login-form' : function(e, t){
 		e.preventDefault();
+		
 		var email = t.find('#login-email').value,
 			password = t.find('#login-password').value;
 
@@ -35,6 +36,7 @@ Template.login.events({
 Template.register.events({
 	'submit #register-form' : function(e, t) {
 		e.preventDefault();
+
 		var email = t.find('#account-email').value,
 			name = t.find('#account-name').value,
 			password = t.find('#account-password').value;
@@ -58,6 +60,7 @@ Template.register.events({
 			username : name,
 			profile : {
 				timer : app.setting.timer,
+				occuped : false,
 			}
 
 		}, function(err){

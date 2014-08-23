@@ -22,19 +22,27 @@ Template.home.pomodoro_timer = function () {
 }
 
 Template.home.events({
-	'click .start_pomodoro' : function ( e ) {
+	'click .pomodoro_start' : function ( e ) {
 		e.preventDefault();
 
 		var t = {
-			user_id : Meteor.userId(),
-			timer : Meteor.user().profile.timer,
-			time_start : Date.now(),
-			time_end : Date.now() + Meteor.user().profile.timer,
-			timer_current : 0,
-			complete : false,
-			cancel : false
-		};
+    		user_id : Meteor.userId(),
+    		timestamp : Date.now(),
+    		timer : Meteor.user().profile.timer,
+    		complete : false,
+    		cancel : false
+    	};
 
-		Pomodoro.insert( t );
+    	Pomodoro.insert( t, function( error, id) {
+    		console.log( Pomodoro.find( id ).fetch() );
+    	})
+
+		// Meteor.call('pomodoro_start', Meteor.userId());
+	},
+
+	'click .pomodoro_stop' : function ( e ) {
+		e.preventDefault();
+
+		// Meteor.call('pomodoro_stop', Meteor.userId());
 	}
 })
