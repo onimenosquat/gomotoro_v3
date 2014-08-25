@@ -38,6 +38,11 @@ a {
   margin-left: auto;
   margin-right: auto; }
 
+.row-small {
+  margin: 0 -8px; }
+  .row-small [class^=col-] {
+    padding: 0 8px; }
+
 .page, .page-login {
   position: relative;
   padding-top: 4em;
@@ -94,7 +99,7 @@ a {
   .team-listing ul > li > a {
     display: inline-block;
     width: 100%;
-    padding: 2em;
+    padding: 2em 0;
     -webkit-transition: 0.2s ease;
     -moz-transition: 0.2s ease;
     -ms-transition: 0.2s ease;
@@ -645,3 +650,128 @@ a {
       color: #33cc99; }
   .navbar .nav > li.active a {
     color: #33cc99; }
+
+.circle_pmdr {
+  position: relative;
+  margin: auto;
+  z-index: 1;
+  width: 1em;
+  height: 1em;
+  font-size: 4em;
+  overflow: hidden;
+  border-radius: 100%;
+  background-color: white;
+  color: #222222; }
+
+.circle_pmdr-half {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0.5em;
+  overflow: hidden; }
+
+.circle_pmdr-half-container {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  -webkit-transform-origin: 100% 50%;
+  -moz-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  -o-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg); }
+
+.circle_pmdr-half-progress {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  background: #ff6600;
+  border-radius: 100%;
+  -webkit-transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  -ms-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  transition: 0.3s ease; }
+
+.circle_pmdr-timer {
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  top: 0.25em;
+  left: 0.25em;
+  bottom: 0.25em;
+  right: 0.25em;
+  border-radius: 100%;
+  overflow: hidden;
+  font-size: 0.25em;
+  background-image: url("../images/john-doe.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  .circle_pmdr-timer:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(34, 34, 34, 0.6); }
+  .circle_pmdr-timer .time {
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 100%;
+    line-height: 0;
+    font-size: 16px;
+    text-align: center;
+    color: white; }
+
+.circle_pmdr-half:nth-child(2) {
+  right: 0;
+  left: auto; }
+  .circle_pmdr-half:nth-child(2) .circle_pmdr-half-container {
+    right: 0;
+    left: auto;
+    -webkit-transform-origin: 0% 50%;
+    -moz-transform-origin: 0% 50%;
+    -ms-transform-origin: 0% 50%;
+    -o-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+    transform: rotate(-180deg); }
+  .circle_pmdr-half:nth-child(2) .circle_pmdr-half-progress {
+    right: 0;
+    left: auto; }
+
+.is-occuped .circle_pmdr-half-container {
+  -webkit-transition: 1s linear;
+  -moz-transition: 1s linear;
+  -ms-transition: 1s linear;
+  -o-transition: 1s linear;
+  transition: 1s linear; }
+
+.is-free .circle_pmdr-half-progress {
+  background-color: #33cc99; }
+.is-free .circle_pmdr-timer:before,
+.is-free .circle_pmdr-timer .timer {
+  opacity: 0; }

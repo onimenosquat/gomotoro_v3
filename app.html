@@ -34,14 +34,14 @@
 
 <!-- NOTIFY -->
 <template name="notify">
-	{{#if notify}}
-		<div class="app-notify app-notify--{{notify.status}} animated fadeInRight">
+	{{#each notify}}
+		<div class="app-notify app-notify--{{status}} animated fadeInRight">
 			<a href="#" class="remove-notify">
 				<i class="glyphicon glyphicon-remove"></i>
 			</a>
-			<span>{{{notify.message}}}</span>
+			<span>{{{message}}}</span>
 		</div>
-	{{/if}}
+	{{/each}}
 </template>
 
 <!-- LOGIN -->
@@ -142,12 +142,18 @@
 
 <template name="home">
 	<div class="page">
-		<h1>Home</h1>
-
-		<div class="pomodoro">
-			<p class="timer">{{pomodoro_timer}}</p>
-			<button class="btn pomodoro_start">start</button>
-			<button class="btn pomodoro_stop">stop</button>
+		<div class="container-fluid">
+			<div class="row">
+			<div class="col-xs-12">
+					<h4>Pomodoro</h4>
+					<h6>{{user_occuped}}</h6>
+					<div class="pomodoro">
+						<p class="timer">{{pomodoro_timer}}</p>
+						<button class="btn pomodoro_start">start</button>
+						<button class="btn pomodoro_stop">stop</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -162,17 +168,42 @@
 			</ul>
 		</div>
 		<div class="timeline-user">
-			{{#each timeline_items}}
-				{{> timeline_item}}
-			{{/each}}
+			<ul>
+				{{#each timeline_items}}
+					{{> timeline_item}}
+				{{/each}}
+			</ul>
 		</div>
 	</div>
 </template>
 
 <template name="team_user">
-	<li>
+	<li class=" {{user_occuped}}">
 		<a href="#">
-			{{username}}
+			<div class="container-fluid">
+				<div class="row row-small">
+					<div class="col-xs-4">
+						<div class="circle_pmdr">
+							<div class="circle_pmdr-half">
+								<div class="circle_pmdr-half-container" style="transform: rotate( {{pomodoro_timer_progress_2}}deg ); -webkit-transform: rotate( {{pomodoro_timer_progress_2}}deg ); -moz-transform: rotate( {{pomodoro_timer_progress_2}}deg ); -ms-transform: rotate( {{pomodoro_timer_progress_2}}deg ); -o-transform: rotate( {{pomodoro_timer_progress_2}}deg )">
+									<div class="circle_pmdr-half-progress"></div>
+								</div>
+							</div>
+							<div class="circle_pmdr-half">
+								<div class="circle_pmdr-half-container" style="transform: rotate( {{pomodoro_timer_progress_1}}deg ); -webkit-transform: rotate( {{pomodoro_timer_progress_1}}deg ); -moz-transform: rotate( {{pomodoro_timer_progress_1}}deg ); -ms-transform: rotate( {{pomodoro_timer_progress_1}}deg ); -o-transform: rotate( {{pomodoro_timer_progress_1}}deg )">
+									<div class="circle_pmdr-half-progress"></div>
+								</div>
+							</div>
+							<div class="circle_pmdr-timer">
+								<span class="time">{{pomodoro_timer}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-8">
+						<h4>{{username}} <small>{{status}}</small> </h4>
+					</div>
+				</div>
+			</div>
 		</a>
 	</li>
 </template>

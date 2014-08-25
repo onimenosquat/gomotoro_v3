@@ -37,3 +37,11 @@ a {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.row-small {
+	margin: 0 -8px;
+
+	[class^=col-] {
+		padding: 0 8px;
+	}
+}

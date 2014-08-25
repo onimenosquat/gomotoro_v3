@@ -11,14 +11,18 @@ Template.login.events({
 		Meteor.loginWithPassword(email, password, function(err){
 			if (err) {
 				
-				Session.set('notify', {
+				Notify.insert({
+					active : true,
+					timestamp : Date.now(),
 					message : 'Incorrect <b>e-mail</b> or <b>password</b>',
 					status : 'error'
 				});
 
 			} else {
 
-				Session.set('notify', {
+				Notify.insert({
+					active : true,
+					timestamp : Date.now(),
 					message : 'Hi ' + Meteor.user().username + '! <br> How are you today ?' ,
 					status : 'success'
 				});
@@ -45,7 +49,9 @@ Template.register.events({
 
 		if ( !email || !name || !password){
 
-			Session.set('notify', {
+			Notify.insert({
+				active : true,
+				timestamp : Date.now(),
 				message : 'All fields are require.',
 				status : 'warning'
 			});
@@ -60,21 +66,26 @@ Template.register.events({
 			username : name,
 			profile : {
 				timer : app.setting.timer,
-				occuped : false,
+				is_working : false,
+				pomodoro_id : null
 			}
-
+			
 		}, function(err){
 		
 			if (err) {
 
-				Session.set('notify', {
+				Notify.insert({
+					active : true,
+					timestamp : Date.now(),
 					message : 'Error ! Please contact support. lol.',
 					status : 'error'
 				});
 
 			} else {
 
-				Session.set('notify', {
+				Notify.insert({
+					active : true,
+					timestamp : Date.now(),
 					message : 'Hi ' + Meteor.user().username + '! <br> Nice to meet you.' ,
 					status : 'success'
 				});

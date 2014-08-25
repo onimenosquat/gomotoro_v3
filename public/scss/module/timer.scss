@@ -1,0 +1,117 @@
+.circle_pmdr {
+    position: relative;
+    margin: auto;
+    z-index: 1;
+    width: 1em;
+    height: 1em;
+    font-size: 4em;
+    overflow: hidden;
+    border-radius: 100%;
+    background-color: $white;
+    color: $black;
+}
+
+.circle_pmdr-half {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0.5em;
+    overflow: hidden;
+}
+
+.circle_pmdr-half-container {
+    position: absolute;
+    z-index: 2; 
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    @include transformOrigin( 100% 50% );
+    @include transformRotate( 180deg );
+}
+
+.circle_pmdr-half-progress {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200%;
+    background: $orange;
+    border-radius: 100%;
+    @include transition( 0.3s ease );
+}
+
+.circle_pmdr-timer {
+    position: absolute;
+    z-index: 5;
+    background-color: white;
+    top: 0.25em;
+    left: 0.25em;
+    bottom: 0.25em;
+    right: 0.25em;
+    border-radius: 100%;
+    overflow: hidden;
+    font-size: 0.25em;
+    @include imgBg( "../images/john-doe.jpg" );
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: fade-out($black, 0.4);
+    }
+
+    .time {
+        position: absolute;
+        top: 50%;
+        display: block;
+        width: 100%;
+        line-height: 0;
+        font-size: 16px;
+        text-align: center;
+        color: $white;
+    }
+}
+
+.circle_pmdr-half:nth-child(2) {
+    right: 0;
+    left: auto;
+
+    .circle_pmdr-half-container {
+        right: 0;
+        left: auto;
+        @include transformOrigin( 0% 50% );
+        @include transformRotate( -180deg );
+    }
+
+    .circle_pmdr-half-progress {
+        right: 0;
+        left: auto;
+    }
+}
+
+.is-occuped {
+    .circle_pmdr-half-container {
+        @include transition( 1s linear );
+    }
+}
+
+.is-free {
+    .circle_pmdr-half-progress {
+        background-color: $green;
+    }
+
+    .circle_pmdr-timer {
+        &:before,
+        .timer {
+            opacity: 0;
+        }
+    }
+}

@@ -1,12 +1,24 @@
-Session.set('notify', null);
-
 Template.notify.notify = function () {
-	return Session.get('notify');
+	return Notify.find({
+		active : true,
+	}, {
+		sort : { timestamp : 1},
+	});
 };
 
 Template.notify.events({
 	'click .remove-notify' : function ( e ) {
 		e.preventDefault();
-		Session.set('notify', null);
+
+		var id = this._id,
+			n = Notify.findOne( id );
+
+		n.active = false;
+
+		$(e.target).parents('.app-notify').addClass( 'fadeOutRight' );
+
+		Meteor.setTimeout( function(){
+			Notify.update( id, n );
+		}, 1000);
 	},
 })

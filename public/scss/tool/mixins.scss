@@ -54,3 +54,19 @@
 	overflow-x: hidden;
 	-webkit-overflow-scrolling: touch;
 }
+
+@mixin transformOrigin ( $string ) {
+	-webkit-transform-origin: $string;
+	-moz-transform-origin: $string;
+	-ms-transform-origin: $string;
+	-o-transform-origin: $string;
+	transform-origin: $string;
+}
+
+@mixin transformRotate ( $deg: 0deg ) {
+	-webkit-transform: rotate( $deg );
+	-moz-transform: rotate( $deg );
+	-ms-transform: rotate( $deg );
+	-o-transform: rotate( $deg );
+	transform: rotate( $deg );
+}
