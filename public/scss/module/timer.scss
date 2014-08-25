@@ -4,7 +4,7 @@
     z-index: 1;
     width: 1em;
     height: 1em;
-    font-size: 4em;
+    font-size: 5em;
     overflow: hidden;
     border-radius: 100%;
     background-color: $white;
@@ -42,12 +42,12 @@
     width: 200%;
     background: $orange;
     border-radius: 100%;
-    @include transition( 0.3s ease );
+    @include transition( 0.6s ease );
 }
 
 .circle_pmdr-timer {
     position: absolute;
-    z-index: 5;
+    z-index: 3;
     background-color: white;
     top: 0.25em;
     left: 0.25em;
@@ -61,22 +61,26 @@
     &:before {
         content: "";
         position: absolute;
+        z-index: 4;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         background: fade-out($black, 0.4);
+        @include transition( 0.6s ease );
     }
 
     .time {
         position: absolute;
+        z-index: 5;
         top: 50%;
         display: block;
         width: 100%;
         line-height: 0;
-        font-size: 16px;
+        font-size: 1em;
         text-align: center;
         color: $white;
+        @include transition( 0.6s ease );
     }
 }
 
@@ -108,10 +112,15 @@
         background-color: $green;
     }
 
+    .circle_pmdr-half-container {
+        @include transition( none );
+    }
+
     .circle_pmdr-timer {
         &:before,
-        .timer {
+        .time {
             opacity: 0;
+            @include transformScale( 0.8 );
         }
     }
 }

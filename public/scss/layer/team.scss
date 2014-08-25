@@ -1,9 +1,13 @@
-.team-listing {
+.team-listing,
+.team-user {
 	float: left;
-	width: 33.34%;
 	height: 100%;
-	background-color: $whitesmoke;
 	@include vScroll;
+}
+
+.team-listing {
+	width: 33.33%;
+	background-color: $whitesmoke;
 
 	ul {
 		margin: 0;
@@ -16,13 +20,29 @@
 	}
 
 	ul > li > a {
-		display: inline-block;
+		display: block;
 		width: 100%;
 		padding: 2em 0;
+		color: $black;
 		@include transition (0.2s ease);
-
-		&:hover {
-			background-color: $gray;
-		}
 	}
+
+	ul > li.is-selected a,
+	ul > li a:hover {
+		background-color: $gray;
+	}
+
+	h4 {
+		margin: 1em 0 0 0;
+	}
+
+	strong {
+
+	}
+}
+
+.team-user {
+	width: 66.66%;
+	padding: 2em 3em;
+	@include boxSizing;
 }

@@ -92,7 +92,12 @@
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">{{user_name}}</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user_name}} <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+					<li><a href="#" class="app-logout">Log out</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -167,18 +172,18 @@
 				{{/each}}
 			</ul>
 		</div>
-		<div class="timeline-user">
-			<ul>
-				{{#each timeline_items}}
-					{{> timeline_item}}
-				{{/each}}
-			</ul>
+		<div class="team-user">
+			<div class="container-fluid">
+				{{#with user_selected}}
+					{{> user}}
+				{{/with}}
+			</div>
 		</div>
 	</div>
 </template>
 
 <template name="team_user">
-	<li class=" {{user_occuped}}">
+	<li class=" {{user_occuped}} {{user_selected}}">
 		<a href="#">
 			<div class="container-fluid">
 				<div class="row row-small">
@@ -201,6 +206,7 @@
 					</div>
 					<div class="col-xs-8">
 						<h4>{{username}} <small>{{status}}</small> </h4>
+						<strong>Developper front end</strong>
 					</div>
 				</div>
 			</div>
@@ -208,8 +214,32 @@
 	</li>
 </template>
 
-<template name="timeline_item">
-	{{username}}
+<template name="user">
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>{{username}}</h3>
+			<ul class="timeline_user">
+				{{#each timeline_item}}
+					{{>timeline_user}}
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</template>
+
+<template name="timeline_user">
+	<li class="{{type}}">
+		{{#if is_pomodoro}}
+		<div class="row">
+			<div class="col-xs-2">
+				<strong>{{date}}</strong>
+			</div>
+			<div class="col-xs-9">
+				<h4>{{title}}</h4>
+			</div>
+		</div>
+		{{/if}}
+	</li>
 </template>
 
 <template name="project">

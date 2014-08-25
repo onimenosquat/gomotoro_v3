@@ -3,8 +3,7 @@
 app = {
 
 	setting : {
-		// timer : 1500,
-		timer : 10,
+		timer : 1500,
 	},
 
 	router : {
@@ -26,7 +25,7 @@ app = {
 		firstUp : function ( str ) {
 			var words = str.split(' '),
 				texte = "";
-
+			
 			for (var i = 0; i < words.length; i++) {
 				texte += words[i].charAt(0).toUpperCase() + words[i].slice(1) + " "
 			};
@@ -41,6 +40,27 @@ app = {
 			seconds = s % 60;
 
 			return (hours > 0 ? (hours < 10 ? "0" + hours : hours) + ":" : "" ) + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+		},
+
+		date : function ( time ) {
+			var a = new Date( time );
+			var now = new Date();
+			var now_year = now.getFullYear();
+			var now_month = now.getMonth();
+			var now_date= now.getDate();
+			var months = ['an', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			var days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+			var year = a.getFullYear();
+			var monthInt = a.getMonth();
+			var month = months[a.getMonth() - 1];
+			var day = days[ a.getDay() - 1 ];
+			var date = a.getDate();
+			var hour = a.getHours();
+			var min = a.getMinutes();
+			var sec = a.getSeconds();
+			var time = (hour < 10 ? "0" + hour : hour ) + ':' + (min < 10 ? "0" + min : min ) + (date == now_date ? '' : ' - ' + day + ' ') + (date >= now_date - 7 ? '' : date + ' ') + ' ' + (now_month == monthInt ? '' : months + ' ') + (now_year == year ? '' : year + ' ');
+
+			return time;
 		}
 	},
 

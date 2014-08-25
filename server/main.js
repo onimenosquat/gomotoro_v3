@@ -15,20 +15,23 @@ app.helper = {
 	// Restart current pomodoro
 	restartPmdr : function () {
 		var u = Meteor.users.find({}).fetch();
-		for (var i in u) {
-			if ( !u[i].profile.is_working ) return false;
-			Pomodoro.findOne( u[i].profile.pomodoro_id ) ? Meteor.call('pomodoro_timer', u[i]._id) : false;
-		};
+
+		_.each(u, function ( item ) {
+			if ( !item.profile.is_working ) return false;
+			Pomodoro.findOne( item.profile.pomodoro_id ) ? Meteor.call('pomodoro_timer', item._id) : false;
+		});
 	},
 	
 	// timeout hide notif
 	timeoutNotif : function () {
 		Meteor.setInterval( function (){
 			var n = Notify.find({ active: true }).fetch();
-			for (var i in n) {
-				n[i].active = ((Date.now() - n[i].timestamp) >= app.setting.timerNotif) ? false : true;
-				Notify.update(n[i]._id, n[i]);
-			};
+			
+			_.each(n, function ( item ) {
+				item.active = ((Date.now() - item.timestamp) >= app.setting.timerNotif) ? false : true;
+				Notify.update(item._id, item);
+			});
+
 		}, 1000);
 	},
 
@@ -43,7 +46,7 @@ app.helper = {
 
 Meteor.startup(function () {
 	// reset all collection
-	app.helper.resetCollections();
+	// app.helper.resetCollections();
 
 	// timeout hide notif
 	app.helper.timeoutNotif();
@@ -119,18 +122,26 @@ Meteor.methods({
 
 		timers[ id ] = Meteor.setInterval( function() {
 
-			// render current time
-            pmdr.current = parseInt( ( pmdr.timestamp + ( pmdr.timer * 1000 ) - Date.now() ) / 1000 );
 
             // if pomodoro is finish, reset params user and pomodoro
-            if ( pmdr.current < 0 ) {
+            if ( pmdr.current <= 0 ) {
+            	
+            	//reset params
             	pmdr.current = 0;
             	pmdr.complete = true;
-            	Meteor.call('pomodoro_stop', pmdr.user_id);
-            }
+	            
+	            // update collection
+	            Pomodoro.update( pmdr._id, pmdr );
 
-            // update collection
-            Pomodoro.update( pmdr._id, pmdr );
+            	Meteor.call('pomodoro_stop', pmdr.user_id);
+            } else {
+				
+				// render current time
+	            pmdr.current = parseInt(( 1000 + pmdr.timestamp + ( pmdr.timer * 1000 ) - Date.now() ) / 1000);
+
+	            // update collection
+	            Pomodoro.update( pmdr._id, pmdr );
+	        }
 
         }, 1000);
     },

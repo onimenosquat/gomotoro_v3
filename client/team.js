@@ -1,12 +1,13 @@
 
-Session.set('team_user_selected', null);
+Session.set('team_user_selected', Meteor.userId());
 
 Template.team.users = function () {
 	return Meteor.users.find({});
 };
 
-Template.team.timeline_items = function () {
-	// return  Meteor.users.findOne( Session.get('team_user_selected') );
+
+Template.team.user_selected = function () {
+	return  Meteor.users.findOne( Session.get('team_user_selected') || Meteor.userId() );
 };
 
 Template.team_user.pomodoro_timer = function () {
@@ -68,8 +69,12 @@ Template.team_user.pomodoro_timer_progress_2 = function () {
 	return deg;
 }
 
+Template.team_user.user_selected = function () {
+	return (Session.get('team_user_selected') == this._id) ? "is-selected" : ""; 
+}
+
 Template.team_user.user_occuped = function () {
-	return ( Meteor.users.findOne( this._id ) && Meteor.users.findOne( this._id ).profile.occuped ) ? "is-occuped" : "is-free"
+	return ( Meteor.users.findOne( this._id ) && Meteor.users.findOne( this._id ).profile.is_working ) ? "is-occuped" : "is-free"
 }
 
 Template.team_user.events({
@@ -80,35 +85,47 @@ Template.team_user.events({
 
 	'click .circle_pmdr-timer' : function ( e ) {
 		e.preventDefault();
-		Meteor.call('pomodoro_start', this._id);
-	}
-})
-
-Template.home.pomodoro_timer = function () {
-
-	var pmdr = Pomodoro.find({
-		user_id : Meteor.userId()
-	}, {
-		sort : { timestamp : -1}
-	}).fetch()[0];
-
-	var timer = pmdr && !pmdr.complete && !pmdr.cancel ? pmdr.current : ( ( Meteor.user() ) ? Meteor.user().profile.timer : app.setting.timer ) ;
-
-	return app.helper.timer( timer );
-}
-
-Template.home.user_occuped = function () {
-	return ( Meteor.user() && Meteor.user().profile.occuped ) ? "OCCUPER" : "FREE";
-}
-
-Template.home.events({
-	'click .pomodoro_start' : function ( e ) {
-		e.preventDefault();
+		if ( this._id != Meteor.userId() ) return false;
 		Meteor.call('pomodoro_start', Meteor.userId());
-	},
-
-	'click .pomodoro_stop' : function ( e ) {
-		e.preventDefault();
-		Meteor.call('pomodoro_stop', Meteor.userId());
 	}
-})
+});
+
+Template.user.timeline_item = function () {
+	var id = Session.get('team_user_selected') || Meteor.userId(),
+		pmdrs = Pomodoro.find({user_id: id}).fetch(),
+		timeline = [];
+
+		_.each( pmdrs, function( item ) {
+			timeline.push({
+				is_pomodoro : true,
+				type : "event-warning",
+				timestamp : item.timestamp,
+				date : app.helper.date( item.timestamp ),
+				title : "Pomodoro start"
+			});
+
+			if ( item.cancel ) {
+				timeline.push({
+					is_pomodoro : true,
+					type : "event-error",
+					timestamp : item.timestamp + ( item.current * 1000 ),
+					date : app.helper.date( item.timestamp + ( item.current * 1000 ) ),
+					title : "Pomodoro stop"
+				});
+			};
+
+			if ( item.complete ) {
+				timeline.push({
+					is_pomodoro : true,
+					type : "event-success",
+					timestamp : item.timestamp + ( item.timer * 1000 ),
+					date : app.helper.date( item.timestamp + ( item.timer * 1000 ) ),
+					title : "Pomodoro complete"
+				});
+			};
+
+			item.timestamp
+		});
+
+	return _.sortBy(timeline, function( item ){ return -item.timestamp });  
+};
