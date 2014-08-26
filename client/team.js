@@ -21,7 +21,7 @@ Template.team_user.pomodoro_timer = function () {
 
 Template.team_user.status = function () {
 	var u = Meteor.users.findOne( this._id );
-	return u.profile.occuped ? "Work" : "Free";
+	return u.profile.is_working ? "Work" : "Free";
 };
 
 Template.team_user.pomodoro_timer_progress_1 = function () {

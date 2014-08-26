@@ -4,18 +4,17 @@ Template.login.events({
 	'submit #login-form' : function(e, t){
 		e.preventDefault();
 		
-		var email = t.find('#login-email').value,
+		var user = t.find('#login-user').value,
 			password = t.find('#login-password').value;
 
-		Meteor.loginWithPassword(email, password, function(err){
+		Meteor.loginWithPassword(user, password, function(err){
 			if (err) {
-
-				console.log( err );
 				
 				Notify.insert({
+					user_id : Meteor.userId() || Session.get('this'),
 					active : true,
 					timestamp : Date.now(),
-					message : 'Incorrect <b>e-mail</b> or <b>password</b>',
+					message : err.reason,
 					status : 'error'
 				});
 
@@ -24,6 +23,7 @@ Template.login.events({
 				Session.set('team_user_selected', Meteor.userId() || null);
 
 				Notify.insert({
+					user_id : Meteor.userId() || Session.get('this'),
 					active : true,
 					timestamp : Date.now(),
 					message : 'Hi ' + Meteor.user().username + '! <br> How are you today ?' ,
@@ -45,12 +45,13 @@ Template.register.events({
 		e.preventDefault();
 
 		var email = t.find('#account-email').value,
-			name = t.find('#account-name').value,
+			username = email ? email.split('@')[0].toLowerCase() : null,
 			password = t.find('#account-password').value;
 
-		if ( !email || !name || !password){
+		if ( !email || !username || !password){
 
 			Notify.insert({
+				user_id : Meteor.userId() || Session.get('this'),
 				active : true,
 				timestamp : Date.now(),
 				message : 'All fields are require.',
@@ -58,21 +59,31 @@ Template.register.events({
 			});
 
 			return false;
-		};
+		} else if ( email.indexOf('@') <= -1 ) {
 
-		name = app.helper.firstUp( name ) || name;
+			Notify.insert({
+				user_id : Meteor.userId() || Session.get('this'),
+				active : true,
+				timestamp : Date.now(),
+				message : 'Email is invalid',
+				status : 'warning'
+			});
+
+			return false;
+		}
 
 		Accounts.createUser({
 
 			email: email,
 			password : password,
-			username : name,
+			username : username,
 			profile : {
+				name : app.helper.firstUp( username ),
 				timer : app.setting.timer,
 				is_working : false,
 				pomodoro_id : null,
 				job : "New user",
-				image : "http://dummyimage.com/400x400/eeeeee/33cc99/&text=" + name[0]
+				image : "http://dummyimage.com/400x400/eeeeee/33cc99/&text=" + username[0].toUpperCase()
 			}
 			
 		}, function(err){
@@ -82,9 +93,10 @@ Template.register.events({
 				console.log( err );
 
 				Notify.insert({
+					user_id : Meteor.userId() || Session.get('this'),
 					active : true,
 					timestamp : Date.now(),
-					message : 'Error ! Please contact support. lol.',
+					message : err.reason,
 					status : 'error'
 				});
 
@@ -93,6 +105,7 @@ Template.register.events({
 				Session.set('team_user_selected', Meteor.userId() || null);
 
 				Notify.insert({
+					user_id : Meteor.userId() || Session.get('this'),
 					active : true,
 					timestamp : Date.now(),
 					message : 'Hi ' + Meteor.user().username + '! <br> Nice to meet you.' ,

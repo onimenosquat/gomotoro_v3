@@ -5,6 +5,8 @@
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/main.css">
 
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </head>
@@ -47,7 +49,7 @@
 <template name="login">
 	<form id="login-form" action="action">
 		<div class="form-group">
-			<input class="form-control form-control--success" type="email" id="login-email" placeholder="you@mail.com"/>
+			<input class="form-control form-control--success" type="text" id="login-user" placeholder="Username or email"/>
 		</div>
 		<div class="form-group">
 			<input class="form-control form-control--success" type="password" id="login-password" placeholder="••••"/>
@@ -62,10 +64,7 @@
 <template name="register">
 	<form id="register-form" action="action">
 		<div class="form-group">
-			<input class="form-control form-control--success" type="name" id="account-name" placeholder="Name"/>
-		</div>
-		<div class="form-group">
-			<input class="form-control form-control--success" type="email" id="account-email" placeholder="you@mail.com"/>
+			<input class="form-control form-control--success" type="email" id="account-email" placeholder="email"/>
 		</div>
 		<div class="form-group">
 			<input class="form-control form-control--success" type="password" id="account-password" placeholder="••••"/>
@@ -93,7 +92,7 @@
 			{{#with user}}
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="user-avatar" src="{{profile.image}}"> {{username}}</a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="user-avatar" src="{{profile.image}}"> {{profile.name}}</a>
 					<ul class="dropdown-menu" role="menu">
 					<li><a href="#/profile">Edit profile</a></li>
 					<li class="divider"></li>
@@ -221,7 +220,7 @@
 						</div>
 					</div>
 					<div class="col-xs-8">
-						<h4>{{username}} <small>{{status}}</small> </h4>
+						<h4>{{profile.name}} <small>{{status}}</small> </h4>
 						<strong>{{ profile.job }}</strong>
 					</div>
 				</div>
@@ -233,7 +232,7 @@
 <template name="user">
 	<div class="row">
 		<div class="col-xs-12">
-			<h2><img src="{{profile.image}}" alt="" class="user-avatar">{{username}}</h2>
+			<h2><img src="{{profile.image}}" alt="" class="user-avatar">{{profile.name}}</h2>
 			<ul class="timeline_user">
 				{{#each timeline_item}}
 					{{>timeline_user}}
@@ -280,16 +279,20 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-sm-offset-3">
-					<h1><img class="user-avatar" src="{{profile.image}}" alt=""> {{username}}</h1>
+					<h1><img class="user-avatar" src="{{profile.image}}" alt=""> {{profile.name}}</h1>
 					<div class="form-group">
-						<label>Full name</label>
-						<input type="text" class="form-control user_name" DISABLED value="{{username}}"><br>
+						<label>Username</label>
+						<input type="text" class="form-control user_username" DISABLED value="{{username}}"><br>
 					</div>
 					<div class="form-group">
 						<label>E-mail</label>
 						{{#each emails}}
 						<input type="text" class="form-control user_mail" DISABLED value="{{address}}"><br>
 						{{/each}}
+					</div>
+					<div class="form-group">
+						<label>Usual name</label>
+						<input type="text" class="form-control user_name" value="{{profile.name}}"><br>
 					</div>
 					<div class="form-group">
 						<label>Job</label>

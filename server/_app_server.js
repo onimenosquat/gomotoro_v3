@@ -131,7 +131,7 @@ Meteor.methods({
 
     		// create event new pmdr
     		Events.insert({
-    			user_id : Meteor.userId(),
+    			user_id : user._id,
 				is_pomodoro : true,
 				type : "event-warning",
 				timestamp : model.timestamp,
@@ -160,13 +160,13 @@ Meteor.methods({
     	user.profile.pomodoro_id = null;
 
     	// update collection
-    	Meteor.users.update( Meteor.userId(), { $set: { profile : user.profile} } );
+    	Meteor.users.update( user._id, { $set: { profile : user.profile} } );
     	Pomodoro.update( pmdr._id, pmdr );
 
     	// create event pmdr cancel
 		if( pmdr.cancel ) {
 			Events.insert({
-				user_id : Meteor.userId(),
+				user_id : user._id,
 				is_pomodoro : true,
 				type : "event-error",
 				timestamp : Date.now(),

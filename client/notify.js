@@ -1,5 +1,6 @@
 Template.notify.notify = function () {
 	return Notify.find({
+		user_id : Meteor.userId() || Session.get('this'),
 		active : true,
 	}, {
 		sort : { timestamp : 1},
