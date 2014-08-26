@@ -30,7 +30,7 @@ Template.login.events({
 					status : 'success'
 				});
 
-				app.router.goTo( 'home' );
+				app.router.goTo( 'profile' );
 
 			};
 		});
@@ -99,7 +99,7 @@ Template.register.events({
 					status : 'success'
 				});
 
-				app.router.goTo( 'home' );
+				app.router.goTo( 'profile' );
 
 				Events.insert({
 					user_id : Meteor.userId(),
