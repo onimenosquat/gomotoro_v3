@@ -9,6 +9,8 @@ Template.login.events({
 
 		Meteor.loginWithPassword(email, password, function(err){
 			if (err) {
+
+				console.log( err );
 				
 				Notify.insert({
 					active : true,
@@ -18,6 +20,8 @@ Template.login.events({
 				});
 
 			} else {
+
+				Session.set('team_user_selected', Meteor.userId() || null);
 
 				Notify.insert({
 					active : true,
@@ -44,8 +48,6 @@ Template.register.events({
 			name = t.find('#account-name').value,
 			password = t.find('#account-password').value;
 
-		name = app.helper.firstUp( name ) || name; 
-
 		if ( !email || !name || !password){
 
 			Notify.insert({
@@ -58,6 +60,8 @@ Template.register.events({
 			return false;
 		};
 
+		name = app.helper.firstUp( name ) || name;
+
 		Accounts.createUser({
 
 			email: email,
@@ -66,12 +70,16 @@ Template.register.events({
 			profile : {
 				timer : app.setting.timer,
 				is_working : false,
-				pomodoro_id : null
+				pomodoro_id : null,
+				job : "New user",
+				image : "http://dummyimage.com/400x400/eeeeee/33cc99/&text=" + name[0]
 			}
 			
 		}, function(err){
 		
 			if (err) {
+
+				console.log( err );
 
 				Notify.insert({
 					active : true,
@@ -82,6 +90,8 @@ Template.register.events({
 
 			} else {
 
+				Session.set('team_user_selected', Meteor.userId() || null);
+
 				Notify.insert({
 					active : true,
 					timestamp : Date.now(),
@@ -90,6 +100,15 @@ Template.register.events({
 				});
 
 				app.router.goTo( 'home' );
+
+				Events.insert({
+					user_id : Meteor.userId(),
+					is_user : true,
+					type : "event-primary",
+					timestamp : Date.now(),
+					date : app.helper.date( Date.now() ),
+					title : "Welcome to GoMoToro !"
+				});
 			}
 
 		});

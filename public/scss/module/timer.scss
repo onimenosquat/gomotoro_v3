@@ -7,7 +7,6 @@
     font-size: 5em;
     overflow: hidden;
     border-radius: 100%;
-    background-color: $white;
     color: $black;
 }
 
@@ -53,9 +52,11 @@
     left: 0.25em;
     bottom: 0.25em;
     right: 0.25em;
-    border-radius: 100%;
     overflow: hidden;
     font-size: 0.25em;
+    border: 2px solid $whitesmoke;
+    line-height: 3em;
+    @include borderRadius( 100% );
     @include imgBg( "../images/john-doe.jpg" );
 
     &:before {
@@ -67,20 +68,28 @@
         right: 0;
         bottom: 0;
         background: fade-out($black, 0.4);
+        @include borderRadius( 100% );
         @include transition( 0.6s ease );
     }
 
     .time {
-        position: absolute;
+        position: relative;
         z-index: 5;
-        top: 50%;
-        display: block;
+        display: inline-block;
+        margin-top: 0.1em;
+        vertical-align: middle;
         width: 100%;
-        line-height: 0;
+        line-height: 1.2em;
         font-size: 1em;
         text-align: center;
         color: $white;
-        @include transition( 0.6s ease );
+        font-weight: lighter;
+    }
+
+    .time small {
+        margin-top: 0.1em;
+        font-size: 1.4em;
+        display: block;
     }
 }
 
@@ -101,10 +110,10 @@
     }
 }
 
-.is-occuped {
-    .circle_pmdr-half-container {
-        @include transition( 1s linear );
-    }
+.is-working {
+    .circle_pmdr-timer .time small {
+        display: none;
+    }  
 }
 
 .is-free {
@@ -112,15 +121,51 @@
         background-color: $green;
     }
 
-    .circle_pmdr-half-container {
-        @include transition( none );
+    .circle_pmdr-timer:before,
+    .circle_pmdr-timer .time {
+        visibility: hidden;
+    }
+}
+
+.is-logged {
+
+    .circle_pmdr-half-progress {
+        background-color: $gray;
     }
 
-    .circle_pmdr-timer {
-        &:before,
-        .time {
-            opacity: 0;
-            @include transformScale( 0.8 );
+    .circle_pmdr-timer:before {
+        background: $black;
+    }
+}
+
+.is-logged.is-free {
+    
+    .circle_pmdr-timer:before,
+    .circle_pmdr-timer .time {
+        cursor: pointer;
+        visibility: visible
+    }
+
+    .circle_pmdr-timer .time {
+        font-size: 0.75em;
+    }
+
+    .circle_pmdr:hover {
+        .circle_pmdr-half-progress {
+            background-color: $green;
         }
+    }
+}
+
+.is-free:hover,
+.is-working:hover {
+    .circle_pmdr-timer {
+        border-color: lighten($whitesmoke, 4%)
+    }
+}
+
+.is-selected {
+    .circle_pmdr-timer {
+        border-color: $white;
     }
 }

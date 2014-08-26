@@ -1,5 +1,5 @@
-Template.topbar.user_name = function () {
-	return Meteor.user() ? Meteor.user().username : "";
+Template.topbar.user = function () {
+	return Meteor.user();
 };
 
 Template.topbar.events({

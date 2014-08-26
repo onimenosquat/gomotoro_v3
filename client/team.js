@@ -1,6 +1,3 @@
-
-Session.set('team_user_selected', Meteor.userId());
-
 Template.team.users = function () {
 	return Meteor.users.find({});
 };
@@ -20,12 +17,12 @@ Template.team_user.pomodoro_timer = function () {
 	var timer = pmdr && !pmdr.complete && !pmdr.cancel ? pmdr.current : ( ( Meteor.users.findOne( this._id ) ) ? Meteor.users.findOne( this._id ).profile.timer : app.setting.timer ) ;
 
 	return app.helper.timer( timer );
-}
+};
 
 Template.team_user.status = function () {
 	var u = Meteor.users.findOne( this._id );
 	return u.profile.occuped ? "Work" : "Free";
-}
+};
 
 Template.team_user.pomodoro_timer_progress_1 = function () {
 	var pmdr = Pomodoro.find({
@@ -46,7 +43,7 @@ Template.team_user.pomodoro_timer_progress_1 = function () {
 	}
 
 	return deg;
-}
+};
 
 Template.team_user.pomodoro_timer_progress_2 = function () {
 	var pmdr = Pomodoro.find({
@@ -67,15 +64,19 @@ Template.team_user.pomodoro_timer_progress_2 = function () {
 	}
 
 	return deg;
-}
+};
 
 Template.team_user.user_selected = function () {
 	return (Session.get('team_user_selected') == this._id) ? "is-selected" : ""; 
-}
+};
 
 Template.team_user.user_occuped = function () {
-	return ( Meteor.users.findOne( this._id ) && Meteor.users.findOne( this._id ).profile.is_working ) ? "is-occuped" : "is-free"
-}
+	return ( Meteor.users.findOne( this._id ) && Meteor.users.findOne( this._id ).profile.is_working ) ? "is-working" : "is-free";
+};
+
+Template.team_user.user_logged = function () {
+	return ( Meteor.userId() == this._id ) ? "is-logged" : false;
+};
 
 Template.team_user.events({
 	'click' : function ( e ) {
@@ -91,41 +92,6 @@ Template.team_user.events({
 });
 
 Template.user.timeline_item = function () {
-	var id = Session.get('team_user_selected') || Meteor.userId(),
-		pmdrs = Pomodoro.find({user_id: id}).fetch(),
-		timeline = [];
-
-		_.each( pmdrs, function( item ) {
-			timeline.push({
-				is_pomodoro : true,
-				type : "event-warning",
-				timestamp : item.timestamp,
-				date : app.helper.date( item.timestamp ),
-				title : "Pomodoro start"
-			});
-
-			if ( item.cancel ) {
-				timeline.push({
-					is_pomodoro : true,
-					type : "event-error",
-					timestamp : item.timestamp + ( item.current * 1000 ),
-					date : app.helper.date( item.timestamp + ( item.current * 1000 ) ),
-					title : "Pomodoro stop"
-				});
-			};
-
-			if ( item.complete ) {
-				timeline.push({
-					is_pomodoro : true,
-					type : "event-success",
-					timestamp : item.timestamp + ( item.timer * 1000 ),
-					date : app.helper.date( item.timestamp + ( item.timer * 1000 ) ),
-					title : "Pomodoro complete"
-				});
-			};
-
-			item.timestamp
-		});
-
-	return _.sortBy(timeline, function( item ){ return -item.timestamp });  
+	var id = Session.get('team_user_selected') || Meteor.userId();
+	return Events.find({user_id: id}, {sort : {timestamp : -1}}).fetch();  
 };

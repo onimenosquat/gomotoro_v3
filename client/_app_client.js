@@ -1,9 +1,17 @@
-// functions app
+Pomodoro = new Meteor.Collection("pomodoro");
+Project = new Meteor.Collection("project");
+Notify = new Meteor.Collection("notify");
+Events = new Meteor.Collection("events");
+
+// init router fn & obj
+Session.set('router', {});
+Session.set('team_user_selected', Meteor.userId() || null);
 
 app = {
 
 	setting : {
 		timer : 1500,
+		// timer : 30,
 	},
 
 	router : {
@@ -64,4 +72,40 @@ app = {
 		}
 	},
 
+};
+
+
+// hashchange
+Meteor.startup( function () {
+
+	Session.set('team_user_selected', Meteor.userId() || null);
+	
+	// JQUERY
+	$( window ).on( 'hashchange', function( event ) {
+		app.router.changePage();
+	});
+
+});
+
+Template.app.islogged = function () {
+	return Meteor.userId() ? true : false;
+};
+
+Template.app.getPage = function () {
+
+	app.router.changePage();
+
+    if ( Meteor.userId() && Template[ Session.get('router').name ] ){
+
+        return { template: Template[ Session.get('router').name ] };
+
+    } else if ( Meteor.userId() ){
+
+        return { template: Template[ 'home' ] };
+
+    } else {
+
+        return { template: Template[ 'index' ] };
+
+    }
 };

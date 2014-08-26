@@ -7,7 +7,6 @@
 
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
 </head>
 
 <body>
@@ -90,15 +89,19 @@
 				<li><a href="#/team">Team</a></li>
 				<li><a href="#/project">Project</a></li>
 			</ul>
-
+			
+			{{#with user}}
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user_name}} <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="user-avatar" src="{{profile.image}}"> {{username}}</a>
 					<ul class="dropdown-menu" role="menu">
+					<li><a href="#/profile">Edit profile</a></li>
+					<li class="divider"></li>
 					<li><a href="#" class="app-logout">Log out</a></li>
 					</ul>
 				</li>
 			</ul>
+			{{/with}}
 		</div>
 	</nav>
 </template>
@@ -165,25 +168,33 @@
 
 <template name="team">
 	<div class="page">
-		<div class="team-listing">
-			<ul>
-				{{#each users}}
-					{{> team_user}}
-				{{/each}}
-			</ul>
-		</div>
-		<div class="team-user">
-			<div class="container-fluid">
-				{{#with user_selected}}
-					{{> user}}
-				{{/with}}
+		<div class="container-fluid container-height">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-no-padding">
+					<div class="team-listing">
+						<ul>
+							{{#each users}}
+							{{> team_user}}
+							{{/each}}
+						</ul>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-8 col-lg-9 col-no-padding">
+					<div class="team-user">
+						<div class="container-fluid">
+							{{#with user_selected}}
+							{{> user}}
+							{{/with}}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <template name="team_user">
-	<li class=" {{user_occuped}} {{user_selected}}">
+	<li class=" {{user_occuped}} {{user_selected}} {{user_logged}}">
 		<a href="#">
 			<div class="container-fluid">
 				<div class="row row-small">
@@ -199,14 +210,19 @@
 									<div class="circle_pmdr-half-progress"></div>
 								</div>
 							</div>
-							<div class="circle_pmdr-timer">
-								<span class="time">{{pomodoro_timer}}</span>
+							<div class="circle_pmdr-timer" style="background-image: url( {{profile.image}} );">
+								<span class="time">
+									{{#if user_logged}}
+										<small>Start</small>
+									{{/if}}
+									{{pomodoro_timer}}
+								</span>
 							</div>
 						</div>
 					</div>
 					<div class="col-xs-8">
 						<h4>{{username}} <small>{{status}}</small> </h4>
-						<strong>Developper front end</strong>
+						<strong>{{ profile.job }}</strong>
 					</div>
 				</div>
 			</div>
@@ -217,7 +233,7 @@
 <template name="user">
 	<div class="row">
 		<div class="col-xs-12">
-			<h3>{{username}}</h3>
+			<h2><img src="{{profile.image}}" alt="" class="user-avatar">{{username}}</h2>
 			<ul class="timeline_user">
 				{{#each timeline_item}}
 					{{>timeline_user}}
@@ -230,16 +246,64 @@
 <template name="timeline_user">
 	<li class="{{type}}">
 		{{#if is_pomodoro}}
+		<span class="dot">
+			<i class="glyphicon glyphicon-time"></i>
+		</span>
 		<div class="row">
-			<div class="col-xs-2">
+			<div class="col-xs-12 col-sm-4 col-md-3">
 				<strong>{{date}}</strong>
 			</div>
-			<div class="col-xs-9">
-				<h4>{{title}}</h4>
+			<div class="col-xs-12 col-sm-8 col-md-9">
+				<h4>{{{title}}}</h4>
+			</div>
+		</div>
+		{{/if}}
+		{{#if is_user}}
+		<span class="dot">
+			<i class="glyphicon glyphicon-user"></i>
+		</span>
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				<strong>{{date}}</strong>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-9">
+				<h4>{{{title}}}</h4>
 			</div>
 		</div>
 		{{/if}}
 	</li>
+</template>
+
+<template name="profile">
+	<div class="page-profile">
+		{{#with user}}
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+					<h1><img class="user-avatar" src="{{profile.image}}" alt=""> {{username}}</h1>
+					<div class="form-group">
+						<label>Full name</label>
+						<input type="text" class="form-control user_name" DISABLED value="{{username}}"><br>
+					</div>
+					<div class="form-group">
+						<label>E-mail</label>
+						{{#each emails}}
+						<input type="text" class="form-control user_mail" DISABLED value="{{address}}"><br>
+						{{/each}}
+					</div>
+					<div class="form-group">
+						<label>Job</label>
+						<input type="text" class="form-control user_job" value="{{profile.job}}"><br>
+					</div>
+					<div class="form-group">
+						<label>Avatar</label>
+						<input type="text" class="form-control user_image" value="{{profile.image}}"><br>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{/with}}
+	</div>
 </template>
 
 <template name="project">
