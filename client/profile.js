@@ -12,7 +12,7 @@ Template.profile.events({
 			user_id : Meteor.userId() || Session.get('this'),
 			active : true,
 			timestamp : Date.now(),
-			message : "Avatar has been updated" ,
+			message : "<img src='" + u.profile.image + "' class='user-avatar'> Avatar has been updated" ,
 			status : 'success'
 		});
 
@@ -22,7 +22,9 @@ Template.profile.events({
 			type : "event-primary",
 			timestamp : Date.now(),
 			date : app.helper.date( Date.now() ),
-			title : "Update <small>Avatar was changed</small>"
+			title : "Update",
+			message : "Avatar was changed",
+			media : u.profile.image,
 		});
 	},
 
@@ -45,7 +47,8 @@ Template.profile.events({
 			type : "event-primary",
 			timestamp : Date.now(),
 			date : app.helper.date( Date.now() ),
-			title : "Update <small>Job was changed</small>"
+			title : "Update",
+			message : "New job : <strong>" + u.profile.job + "</strong>",
 		});
 	},
 
@@ -68,7 +71,8 @@ Template.profile.events({
 			type : "event-primary",
 			timestamp : Date.now(),
 			date : app.helper.date( Date.now() ),
-			title : "Update <small>Name was changed</small>"
+			title : "Update",
+			message : "New name : <strong>" + u.profile.name + "</strong>",
 		});
 	}
 });

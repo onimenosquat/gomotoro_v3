@@ -133,17 +133,18 @@ Meteor.methods({
     		Events.insert({
     			user_id : user._id,
 				is_pomodoro : true,
-				type : "event-warning",
+				type : "event-default",
 				timestamp : model.timestamp,
 				date : app.helper.date( model.timestamp ),
-				title : "Pomodoro start <small>working up " + app.helper.date( model.timestamp + model.timer * 1000 ) + "</small>"
+				title : "Pomodoro",
+				message : "work up " + app.helper.date( model.timestamp + model.timer * 1000 )
 			});
 
 			Notify.insert({
 				user_id : user._id,
 				active : true,
 				timestamp : Date.now(),
-				message : "Pomodoro start <small>working up " + app.helper.date( model.timestamp + model.timer * 1000 ) + "</small>",
+				message : "Pomodoro start <small>work up " + app.helper.date( model.timestamp + model.timer * 1000 ) + "</small>",
 				status : 'default'
 			});
     	});
@@ -179,7 +180,8 @@ Meteor.methods({
 				type : "event-error",
 				timestamp : Date.now(),
 				date : app.helper.date( Date.now() ),
-				title : "Pomodoro stop <small>at " + app.helper.timer( pmdr.current ) + "</small>"
+				title : "Pomodoro",
+				message : "Stopped at " + app.helper.timer( pmdr.current )
 			});
 
 			Notify.insert({
@@ -219,7 +221,8 @@ Meteor.methods({
             		type : "event-success",
             		timestamp : Date.now(),
             		date : app.helper.date( Date.now() ),
-            		title : "Pomodoro complete"
+            		title : "Pomodoro",
+            		message : "Complete"
             	});
 
             	Notify.insert({

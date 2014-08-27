@@ -120,7 +120,8 @@ Template.register.events({
 					type : "event-primary",
 					timestamp : Date.now(),
 					date : app.helper.date( Date.now() ),
-					title : "Welcome to GoMoToro !"
+					title : "Welcome to GoMoToro !",
+					message : "You can do : <ul><li><a href='#'>Make a visit</a></li><li><a href='#/profile'>Edit your profile</a></li><li><a href='#' class='user-pomodoro-start'>Start pomodoro</a></li><li><a href='#/invite'>Invite friends</a></li></ul>"
 				});
 			}
 

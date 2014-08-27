@@ -1,5 +1,10 @@
 .user-avatar {
-	height: 1.4em;
+	height: 1.2em;
 	margin: -0.2em 0.4em 0 0;
 	@include borderRadius( 100% );
+}
+
+.user-avatar-edit {
+	max-height: 2.7em;
+	width: auto;
 }

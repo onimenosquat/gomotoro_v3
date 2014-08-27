@@ -95,3 +95,10 @@ Template.user.timeline_item = function () {
 	var id = Session.get('team_user_selected') || Meteor.userId();
 	return Events.find({user_id: id}, {sort : {timestamp : -1}}).fetch();  
 };
+
+Template.timeline_user.events({
+	'click .user-pomodoro-start' : function (e) {
+		e.preventDefault();
+		Meteor.call('pomodoro_start', Meteor.userId());
+	}
+})

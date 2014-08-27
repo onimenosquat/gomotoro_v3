@@ -36,7 +36,7 @@
 <!-- NOTIFY -->
 <template name="notify">
 	{{#each notify}}
-		<div class="app-notify app-notify--{{status}} animated fadeInRight">
+		<div class="app-notify app-notify--{{status}} animated fadeInUp">
 			<a href="#" class="remove-notify">
 				<i class="glyphicon glyphicon-remove"></i>
 			</a>
@@ -49,10 +49,10 @@
 <template name="login">
 	<form id="login-form" action="action">
 		<div class="form-group">
-			<input class="form-control form-control--success" type="text" id="login-user" placeholder="Username or email"/>
+			<input class="form-control form-control--success" name="login" type="text" id="login-user" placeholder="Username or email"/>
 		</div>
 		<div class="form-group">
-			<input class="form-control form-control--success" type="password" id="login-password" placeholder="••••"/>
+			<input class="form-control form-control--success" name="password" type="password" id="login-password" placeholder="••••"/>
 		</div>
 		<div class="text-right">
 			<input class="btn btn-success" type="submit" id="login-button" value="Sign in" />
@@ -64,10 +64,10 @@
 <template name="register">
 	<form id="register-form" action="action">
 		<div class="form-group">
-			<input class="form-control form-control--success" type="email" id="account-email" placeholder="email"/>
+			<input class="form-control form-control--success" name="email" type="email" id="account-email" placeholder="Email"/>
 		</div>
 		<div class="form-group">
-			<input class="form-control form-control--success" type="password" id="account-password" placeholder="••••"/>
+			<input class="form-control form-control--success" name="password" type="password" id="account-password" placeholder="••••"/>
 		</div>
 		<div class="text-right">
 			<input class="btn btn-success" type="submit" id="create-account" value="Create an Account" />
@@ -95,6 +95,7 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="user-avatar" src="{{profile.image}}"> {{profile.name}}</a>
 					<ul class="dropdown-menu" role="menu">
 					<li><a href="#/profile">Edit profile</a></li>
+					<li><a href="#/invite">Invite friends</a></li>
 					<li class="divider"></li>
 					<li><a href="#" class="app-logout">Log out</a></li>
 					</ul>
@@ -169,7 +170,7 @@
 	<div class="page">
 		<div class="container-fluid container-height">
 			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-no-padding">
+				<div class="col-xs-12 col-sm-4 col-md-3 col-no-padding">
 					<div class="team-listing">
 						<ul>
 							{{#each users}}
@@ -178,7 +179,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-6 col-md-8 col-lg-9 col-no-padding">
+				<div class="col-xs-12 col-sm-8 col-md-9 col-no-padding">
 					<div class="team-user">
 						<div class="container-fluid">
 							{{#with user_selected}}
@@ -245,30 +246,37 @@
 <template name="timeline_user">
 	<li class="{{type}}">
 		{{#if is_pomodoro}}
-		<span class="dot">
-			<i class="glyphicon glyphicon-time"></i>
-		</span>
-		<div class="row">
-			<div class="col-xs-12 col-sm-4 col-md-3">
-				<strong>{{date}}</strong>
+			<span class="dot">
+				<i class="glyphicon glyphicon-time"></i>
+			</span>
+			<div class="row">
+				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+					<strong class="date">{{date}}</strong>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+					<h4>{{{title}}}</h4>
+					<p>
+						{{{message}}}
+					</p>
+				</div>
 			</div>
-			<div class="col-xs-12 col-sm-8 col-md-9">
-				<h4>{{{title}}}</h4>
-			</div>
-		</div>
 		{{/if}}
 		{{#if is_user}}
-		<span class="dot">
-			<i class="glyphicon glyphicon-user"></i>
-		</span>
-		<div class="row">
-			<div class="col-xs-12 col-sm-4 col-md-3">
-				<strong>{{date}}</strong>
+			<span class="dot">
+				<i class="glyphicon glyphicon-user"></i>
+			</span>
+			<div class="row">
+				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+					<strong class="date">{{date}}</strong>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+					<h4>{{{title}}}</h4>
+					<p>
+						{{#if media}} <img src="{{media}}" class="user-avatar"> {{/if}}	
+						{{{message}}}
+					</p>
+				</div>
 			</div>
-			<div class="col-xs-12 col-sm-8 col-md-9">
-				<h4>{{{title}}}</h4>
-			</div>
-		</div>
 		{{/if}}
 	</li>
 </template>
@@ -282,25 +290,32 @@
 					<h1><img class="user-avatar" src="{{profile.image}}" alt=""> {{profile.name}}</h1>
 					<div class="form-group">
 						<label>Username</label>
-						<input type="text" class="form-control user_username" DISABLED value="{{username}}"><br>
+						<input type="text" class="form-control user_username" DISABLED value="{{username}}">
 					</div>
 					<div class="form-group">
 						<label>E-mail</label>
 						{{#each emails}}
-						<input type="text" class="form-control user_mail" DISABLED value="{{address}}"><br>
+						<input type="text" class="form-control user_mail" DISABLED value="{{address}}">
 						{{/each}}
 					</div>
 					<div class="form-group">
 						<label>Usual name</label>
-						<input type="text" class="form-control user_name" value="{{profile.name}}"><br>
+						<input type="text" class="form-control user_name" value="{{profile.name}}">
 					</div>
 					<div class="form-group">
 						<label>Job</label>
-						<input type="text" class="form-control user_job" value="{{profile.job}}"><br>
+						<input type="text" class="form-control user_job" value="{{profile.job}}">
 					</div>
 					<div class="form-group">
 						<label>Avatar</label>
-						<input type="text" class="form-control user_image" value="{{profile.image}}"><br>
+						<div class="row">
+							<div class="col-xs-12 col-sm-9 col-md-10">
+								<input type="text" class="form-control user_image" value="{{profile.image}}">
+							</div>
+							<div class="col-xs-12 col-sm-3 col-md-2">
+								<img src="{{profile.image}}" alt="" class="user-avatar-edit">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

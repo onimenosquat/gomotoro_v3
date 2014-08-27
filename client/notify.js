@@ -16,7 +16,7 @@ Template.notify.events({
 
 		n.active = false;
 
-		$(e.target).parents('.app-notify').addClass( 'fadeOutRight' );
+		$(e.target).parents('.app-notify').addClass( 'fadeOutDown' );
 
 		Meteor.setTimeout( function(){
 			Notify.update( id, n );

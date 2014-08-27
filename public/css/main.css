@@ -83,6 +83,8 @@ a {
   -webkit-overflow-scrolling: touch; }
   .page-profile h1 {
     margin-bottom: 2em; }
+  .page-profile .form-control {
+    margin-bottom: 2em; }
 
 .app {
   position: relative;
@@ -144,11 +146,12 @@ a {
 .app-notify--default {
   position: fixed;
   z-index: 2000;
-  bottom: 1em;
-  right: 1em;
+  bottom: 0;
+  right: 0;
   width: 33.34%;
+  max-width: 100%;
   color: #222222;
-  padding: 1em 3em 1em 1em;
+  padding: 0.6em 3em 0.6em 1em;
   background-color: #eeeeee;
   border-width: 0;
   border-style: solid;
@@ -192,11 +195,12 @@ a {
 .app-notify--success {
   position: fixed;
   z-index: 2000;
-  bottom: 1em;
-  right: 1em;
+  bottom: 0;
+  right: 0;
   width: 33.34%;
+  max-width: 100%;
   color: #222222;
-  padding: 1em 3em 1em 1em;
+  padding: 0.6em 3em 0.6em 1em;
   background-color: #eeeeee;
   border-width: 0;
   border-style: solid;
@@ -240,11 +244,12 @@ a {
 .app-notify--warning {
   position: fixed;
   z-index: 2000;
-  bottom: 1em;
-  right: 1em;
+  bottom: 0;
+  right: 0;
   width: 33.34%;
+  max-width: 100%;
   color: #222222;
-  padding: 1em 3em 1em 1em;
+  padding: 0.6em 3em 0.6em 1em;
   background-color: #eeeeee;
   border-width: 0;
   border-style: solid;
@@ -288,11 +293,12 @@ a {
 .app-notify--error {
   position: fixed;
   z-index: 2000;
-  bottom: 1em;
-  right: 1em;
+  bottom: 0;
+  right: 0;
   width: 33.34%;
+  max-width: 100%;
   color: #222222;
-  padding: 1em 3em 1em 1em;
+  padding: 0.6em 3em 0.6em 1em;
   background-color: #eeeeee;
   border-width: 0;
   border-style: solid;
@@ -868,22 +874,32 @@ a {
   padding: 1em 0 3em 0;
   list-style: none;
   border-left: 1px solid #cccccc; }
-  .timeline_user li {
+  .timeline_user > li {
     display: block;
-    margin: 3em 0;
-    position: relative; }
-    .timeline_user li .dot {
+    margin: -1px 0 0 0;
+    padding: 1.4em 0;
+    position: relative;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+    -webkit-transition: border 0.3s ease;
+    -moz-transition: border 0.3s ease;
+    -ms-transition: border 0.3s ease;
+    -o-transition: border 0.3s ease;
+    transition: border 0.3s ease; }
+    .timeline_user > li .dot {
       content: '';
       position: absolute;
       height: 2em;
       width: 2em;
       line-height: 2em;
-      top: 0.4em;
+      top: 2em;
       left: -1px;
       margin: 0 0 0 -1em;
       background-color: white;
       font-size: 0.8em;
-      border: 2px solid #cccccc;
+      border: 1px solid #cccccc;
       color: #cccccc;
       text-align: center;
       -webkit-border-radius: 0.6em;
@@ -896,45 +912,73 @@ a {
       -ms-box-sizing: border-box;
       -o-box-sizing: border-box;
       box-sizing: border-box; }
-      .timeline_user li .dot i {
-        vertical-align: 0.05em; }
-    .timeline_user li.event-success .dot {
+      .timeline_user > li .dot i {
+        vertical-align: 0; }
+    .timeline_user > li:hover {
+      border-color: #eeeeee; }
+      .timeline_user > li:hover .date {
+        color: #222222; }
+    .timeline_user > li.event-success .dot {
       border-color: #33cc99;
       color: #33cc99; }
-    .timeline_user li.event-warning .dot {
+    .timeline_user > li.event-warning .dot {
       border-color: #ff6600;
       color: #ff6600; }
-    .timeline_user li.event-error .dot {
+    .timeline_user > li.event-error .dot {
       border-color: #ff6666;
       color: #ff6666; }
-    .timeline_user li.event-primary .dot {
+    .timeline_user > li.event-primary .dot {
       border-color: #6699cc;
       color: #6699cc; }
-    .timeline_user li:first-child {
-      margin-top: -1.4em; }
+    .timeline_user > li:first-child {
+      margin-top: -2.6em;
+      border-top: none; }
   .timeline_user li > .row {
     margin: 0; }
-  .timeline_user strong, .timeline_user h4 {
-    margin: 0;
-    line-height: 1.4em;
-    font-weight: normal; }
-  .timeline_user strong {
+  .timeline_user .date {
     color: #cccccc;
     display: block;
     margin: 0.5em 1em;
-    font-size: 0.9em; }
+    line-height: 1.4em;
+    font-size: 0.9em;
+    font-weight: normal;
+    -webkit-transition: color 0.3s ease;
+    -moz-transition: color 0.3s ease;
+    -ms-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease; }
   .timeline_user h4 {
-    font-size: 1.6em;
-    font-weight: lighter; }
-    .timeline_user h4 small {
-      display: block;
-      font-size: 0.6em; }
+    color: #cccccc;
+    font-size: 1.4em;
+    font-weight: lighter;
+    margin: 0.2em 0 0.4em 0; }
+  .timeline_user p {
+    font-size: 0.9em;
+    line-height: 1.4em;
+    margin: 0; }
+    .timeline_user p ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #cccccc;
+      font-size: 1em; }
+      .timeline_user p ul li {
+        margin: 0.4em 0;
+        color: #222222; }
+      .timeline_user p ul a {
+        color: #33cc99; }
+      .timeline_user p ul a:hover {
+        color: #222222; }
 
 .user-avatar {
-  height: 1.4em;
+  height: 1.2em;
   margin: -0.2em 0.4em 0 0;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   -ms-border-radius: 100%;
   -o-border-radius: 100%;
   border-radius: 100%; }
+
+.user-avatar-edit {
+  max-height: 2.7em;
+  width: auto; }
