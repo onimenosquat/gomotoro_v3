@@ -138,6 +138,14 @@ Meteor.methods({
 				date : app.helper.date( model.timestamp ),
 				title : "Pomodoro start <small>working up " + app.helper.date( model.timestamp + model.timer * 1000 ) + "</small>"
 			});
+
+			Notify.insert({
+				user_id : user._id,
+				active : true,
+				timestamp : Date.now(),
+				message : "Pomodoro start <small>working up " + app.helper.date( model.timestamp + model.timer * 1000 ) + "</small>",
+				status : 'default'
+			});
     	});
     },
 
@@ -173,6 +181,14 @@ Meteor.methods({
 				date : app.helper.date( Date.now() ),
 				title : "Pomodoro stop <small>at " + app.helper.timer( pmdr.current ) + "</small>"
 			});
+
+			Notify.insert({
+				user_id : user._id,
+				active : true,
+				timestamp : Date.now(),
+				message : "Pomodoro stop <small>at " + app.helper.timer( pmdr.current ) + "</small>",
+				status : 'error'
+			});
 		}
     },
 
@@ -204,6 +220,14 @@ Meteor.methods({
             		timestamp : Date.now(),
             		date : app.helper.date( Date.now() ),
             		title : "Pomodoro complete"
+            	});
+
+            	Notify.insert({
+            		user_id : user._id,
+            		active : true,
+            		timestamp : Date.now(),
+            		message : "Pomodoro complete",
+            		status : 'error'
             	});
             } else {
 				

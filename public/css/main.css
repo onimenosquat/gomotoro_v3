@@ -77,7 +77,10 @@ a {
   -webkit-overflow-scrolling: touch; }
 
 .page-profile {
-  padding: 6em 0; }
+  padding: 6em 0;
+  overflow: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; }
   .page-profile h1 {
     margin-bottom: 2em; }
 
