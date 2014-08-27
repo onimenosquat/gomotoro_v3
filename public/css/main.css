@@ -86,6 +86,51 @@ a {
   .page-profile .form-control {
     margin-bottom: 2em; }
 
+.page-listing,
+.page-detail {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; }
+
+.page-listing {
+  background-color: #eeeeee; }
+  .page-listing header {
+    padding: 1em;
+    border-bottom: 1px solid white; }
+  .page-listing > ul {
+    margin: 0;
+    padding: 0; }
+  .page-listing > ul > li {
+    display: block;
+    list-style: none; }
+  .page-listing > ul > li > a {
+    display: block;
+    width: 100%;
+    padding: 2em 0;
+    color: #222222;
+    -webkit-transition: 0.2s ease;
+    -moz-transition: 0.2s ease;
+    -ms-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    transition: 0.2s ease; }
+  .page-listing > ul > li a:hover {
+    background-color: #f8f8f8; }
+  .page-listing > ul > li.is-selected a, .page-listing > ul > li.is-selected a:hover {
+    background-color: white; }
+  .page-listing h4 {
+    margin: 1em 0 0 0; }
+  .page-listing strong {
+    font-weight: lighter; }
+
+.page-detail {
+  padding: 2em 3em 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box; }
+
 .app {
   position: relative;
   z-index: 1;
@@ -99,49 +144,6 @@ a {
 .app-title b {
   font-weight: normal;
   color: #33cc99; }
-
-.team-listing,
-.team-user {
-  height: 100%;
-  overflow: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch; }
-
-.team-listing {
-  background-color: #eeeeee; }
-  .team-listing ul {
-    margin: 0;
-    padding: 0; }
-  .team-listing ul > li {
-    display: block;
-    list-style: none; }
-  .team-listing ul > li > a {
-    display: block;
-    width: 100%;
-    padding: 2em 0;
-    color: #222222;
-    -webkit-transition: 0.2s ease;
-    -moz-transition: 0.2s ease;
-    -ms-transition: 0.2s ease;
-    -o-transition: 0.2s ease;
-    transition: 0.2s ease; }
-  .team-listing ul > li a:hover {
-    background-color: #f8f8f8; }
-  .team-listing ul > li.is-selected a,
-  .team-listing ul > li.is-selected a:hover {
-    background-color: white; }
-  .team-listing h4 {
-    margin: 1em 0 0 0; }
-  .team-listing strong {
-    font-weight: lighter; }
-
-.team-user {
-  padding: 2em 3em 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  box-sizing: border-box; }
 
 .app-notify--default {
   position: fixed;
@@ -390,6 +392,12 @@ a {
     -o-box-shadow: none;
     box-shadow: none; }
 
+select.form-control {
+  border: 1px solid #cccccc; }
+
+.form-control-big {
+  font-size: 1.6em; }
+
 .form-control--success {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -529,6 +537,9 @@ a {
     -o-box-shadow: none;
     box-shadow: none; }
 
+.btn-right {
+  float: right; }
+
 .btn-default {
   background-color: #cccccc;
   border-color: #b3b3b3;
@@ -649,6 +660,23 @@ a {
     -o-box-shadow: none;
     box-shadow: none; }
 
+.dropdown-menu {
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0; }
+
+.dropdown-menu--right {
+  left: auto;
+  right: 0; }
+
 .panel {
   position: absolute; }
 
@@ -662,6 +690,7 @@ a {
   margin: 0;
   height: 4em;
   line-height: 4em;
+  border: none;
   border-bottom: 1px solid #eeeeee;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -670,10 +699,17 @@ a {
   border-radius: 0; }
   .navbar > div {
     display: inline-block;
-    vertical-align: -1.1em;
     width: 100%; }
+  .navbar .navbar-header {
+    display: inline-block;
+    float: none; }
   .navbar .navbar-brand {
-    height: auto; }
+    height: auto;
+    display: inline-block;
+    float: none;
+    padding: 0 1em;
+    vertical-align: -0.1em;
+    margin-right: 2em; }
   .navbar .navbar-brand h2 {
     margin: 0;
     font-size: 1.4em;
@@ -681,28 +717,48 @@ a {
     color: #222222;
     font-weight: normal;
     display: inline-block; }
+  .navbar .nav {
+    height: 4em;
+    float: none;
+    display: inline-block; }
+  .navbar .navbar-right {
+    margin: 0 !important; }
+  .navbar .nav > li {
+    height: 4em;
+    float: none;
+    display: inline-block;
+    vertical-align: 0; }
   .navbar .nav > li > a {
     color: #222222;
-    padding: 1.4em; }
-    .navbar .nav > li > a:hover, .navbar .nav > li > a:focus, .navbar .nav > li > a:active {
+    padding: 0.2em 0.8em 0.3em;
+    display: inline-block;
+    border: 1px solid transparent;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px; }
+    .navbar .nav > li > a:hover, .navbar .nav > li > a:focus, .navbar .nav > li > a:active, .navbar .nav > li > a.active {
       background: none;
       color: #33cc99; }
-  .navbar .nav > li.active a {
-    color: #33cc99; }
+    .navbar .nav > li > a.active {
+      border: 1px solid #33cc99; }
+  .navbar .nav > li.dropdown > a {
+    border: none;
+    background: none !important; }
+  .navbar .nav > li.open > a {
+    color: #33cc99;
+    border: none;
+    background: none !important; }
   .navbar .nav > li > .dropdown-menu {
-    margin-top: -2px;
+    margin-top: -1px;
     border: 1px solid #eeeeee;
     border-top: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     -ms-box-shadow: none;
     -o-box-shadow: none;
-    box-shadow: none;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
-    border-radius: 0; }
+    box-shadow: none; }
 
 .circle_pmdr {
   position: relative;
@@ -870,7 +926,7 @@ a {
   border-color: white; }
 
 .timeline_user {
-  margin: 3em 0 0 1.2em;
+  margin: 3em 0 0 1em;
   padding: 1em 0 3em 0;
   list-style: none;
   border-left: 1px solid #cccccc; }
@@ -879,10 +935,10 @@ a {
     margin: -1px 0 0 0;
     padding: 1.4em 0;
     position: relative;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    border-color: white;
+    border: 1px solid white;
     border-color: rgba(255, 255, 255, 0);
+    border-left: 0;
+    border-right: 0;
     -webkit-transition: border 0.3s ease;
     -moz-transition: border 0.3s ease;
     -ms-transition: border 0.3s ease;

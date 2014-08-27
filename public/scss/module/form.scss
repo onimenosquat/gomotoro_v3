@@ -34,6 +34,14 @@ $input: (
 	);
 }
 
+select.form-control {
+	border: 1px solid $gray;
+}
+
+.form-control-big {
+	font-size: 1.6em;
+}
+
 @each $thm in $input {
 	$_name: nth($thm, 1);
 	$_values: nth($thm, 2);

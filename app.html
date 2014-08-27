@@ -84,9 +84,9 @@
 			</div>
 
 			<ul class="nav navbar-nav">
-				<li><a href="#/home" class="">Dashboard</a></li>
-				<li><a href="#/team" class="">Team</a></li>
-				<li><a href="#/project" class="">Project</a></li>
+				<li><a href="#/home" class="{{#with currentPage "home"}}active{{/with}}">Dashboard</a></li>
+				<li><a href="#/team" class="{{#with currentPage "team"}}active{{/with}}">Team</a></li>
+				<li><a href="#/projects" class="{{#with currentPage "projects"}}active{{/with}}">Projects</a></li>
 			</ul>
 			
 			{{#with user}}
@@ -171,7 +171,7 @@
 		<div class="container-fluid container-height">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4 col-md-3 col-no-padding">
-					<div class="team-listing">
+					<div class="page-listing">
 						<ul>
 							{{#each users}}
 							{{> team_user}}
@@ -180,7 +180,7 @@
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-8 col-md-9 col-no-padding">
-					<div class="team-user">
+					<div class="page-detail">
 						<div class="container-fluid">
 							{{#with user_selected}}
 							{{> user}}
@@ -324,8 +324,90 @@
 	</div>
 </template>
 
-<template name="project">
+<template name="projects">
 	<div class="page">
-		<h1>Project</h1>
+		<div class="container-fluid container-height">
+			<div class="row">
+				<div class="col-xs-12 col-sm-4 col-md-3 col-no-padding">
+					<div class="page-listing">
+						<header>
+
+							<div class="btn-group">
+								<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+									Filter <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#" class="filtre-project-listing" data-type="">All Type</a></li>
+									<li class="divider"></li>
+									<li><a href="#" class="filtre-project-listing" data-type="multimedia">Multimedia</a></li>
+									<li><a href="#" class="filtre-project-listing" data-type="app">App</a></li>
+									<li><a href="#" class="filtre-project-listing" data-type="web">Web</a></li>
+									<li><a href="#" class="filtre-project-listing" data-type="webapp">Web app</a></li>
+								</ul>
+							</div>
+
+							<div class="btn-group btn-right">
+								<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+									New project <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu--right" role="menu">
+									<li><a href="#" class="create-new-project" data-type="multimedia">Multimedia</a></li>
+									<li><a href="#" class="create-new-project" data-type="app">App</a></li>
+									<li><a href="#" class="create-new-project" data-type="web">Web</a></li>
+									<li><a href="#" class="create-new-project" data-type="webapp">Web app</a></li>
+								</ul>
+							</div>
+
+						</header>
+						<ul>
+							{{#each projects}}
+								{{> project_listing}}
+							{{/each}}
+						</ul>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-9 col-no-padding">
+					<div class="page-detail">
+						<div class="container-fluid">
+							{{#with project_selected}}
+								{{> project_detail}}
+							{{/with}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="project_listing">
+	<li class="{{project_selected}}">
+		<a href="#">
+			<div class="container-fluid">
+				<div class="row row-small">
+					<div class="col-xs-12">
+						<h4><small>{{type}}</small> {{name}}</h4>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+</template>
+
+<template name="project_detail">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="form-group">
+				<input type="text" class="form-control form-control-big project_name" value="{{name}}">
+			</div>
+			<div class="form-group">
+				<select class="form-control project_type">
+					<option selected="{{#with current_type "multimedia"}} true {{/with}}" value="multimedia">Multimedia</option>
+					<option selected="{{#with current_type "app"}} true {{/with}}" value="app">App</option>
+					<option selected="{{#with current_type "web"}} true {{/with}}" value="web">Web</option>
+					<option selected="{{#with current_type "webapp"}} true {{/with}}" value="webapp">Web app</option>
+				</select>
+			</div>
+		</div>
 	</div>
 </template>

@@ -44,6 +44,10 @@ $btn: (
 	);
 }
 
+.btn-right {
+	float: right;
+}
+
 @each $thm in $btn {
 	$_name: nth($thm, 1);
 	$_values: nth($thm, 2);
@@ -53,4 +57,15 @@ $btn: (
 			$bg: map-get($_values, bg)
 		);
 	}
+}
+
+.dropdown-menu {
+	border: 1px solid $gray;
+	@include boxShadow( none );
+	@include borderRadius( 0 );
+}
+
+.dropdown-menu--right {
+	left: auto;
+	right: 0;
 }

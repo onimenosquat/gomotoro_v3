@@ -30,7 +30,7 @@ Template.login.events({
 					status : 'success'
 				});
 
-				app.router.goTo( 'profile' );
+				app.router.goTo( 'team' );
 
 			};
 		});
@@ -112,7 +112,7 @@ Template.register.events({
 					status : 'success'
 				});
 
-				app.router.goTo( 'profile' );
+				app.router.goTo( 'team' );
 
 				Events.insert({
 					user_id : Meteor.userId(),

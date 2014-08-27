@@ -8,17 +8,27 @@
 	margin: 0;
 	height: 4em;
 	line-height: 4em;
+	border: none;
 	border-bottom: 1px solid $whitesmoke;
 	@include borderRadius(0);
 
 	& > div {
 		display: inline-block;
-		vertical-align: -1.1em;
 		width: 100%;
+	}
+
+	.navbar-header {
+		display: inline-block;
+		float: none;
 	}
 	
 	.navbar-brand {
 		height: auto;
+		display: inline-block;
+		float: none;
+		padding: 0 1em;
+		vertical-align: -0.1em;
+		margin-right: 2em;
 	}
 
 	.navbar-brand h2 {
@@ -30,27 +40,58 @@
 		display: inline-block;
 	}
 
+	.nav {
+		height: 4em;
+		float: none;
+		display: inline-block;
+	}
+
+	.navbar-right {
+		margin: 0 !important;
+	}
+
+	.nav > li {
+		height: 4em;
+		float: none;
+		display: inline-block;
+		vertical-align: 0;
+	}
+
 	.nav > li > a {
 		color: $black;
-		padding: 1.4em;
+		padding: 0.2em 0.8em 0.3em;
+		display: inline-block;
+		border: 1px solid transparent;
+		@include borderRadius;
 
 		&:hover,
 		&:focus,
-		&:active {
+		&:active,
+		&.active {
 			background: none;
 			color: $green;
 		}
+
+		&.active {
+			border: 1px solid $green;
+		}
 	}
 
-	.nav > li.active a {
+	.nav > li.dropdown > a {
+		border: none;
+		background: none !important;
+	}
+
+	.nav > li.open > a {
 		color: $green;
+		border: none;
+		background: none !important;
 	}
 
 	.nav > li > .dropdown-menu {
-		margin-top: -2px;
+		margin-top: -1px;
 		border: 1px solid $whitesmoke;
 		border-top: none;
 		@include boxShadow( none );
-		@include borderRadius( 0 );
 	}
 }

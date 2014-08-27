@@ -1,5 +1,5 @@
 .timeline_user {
-	margin: 3em 0 0 1.2em;
+	margin: 3em 0 0 1em;
 	padding: 1em 0 3em 0;
 	list-style: none;
 	border-left: 1px solid $gray;
@@ -9,10 +9,10 @@
 		margin: -1px 0 0 0;
 		padding: 1.4em 0;
 		position: relative;
-		border-top: 1px solid;
-		border-bottom: 1px solid;
-		border-color: $white;
+		border: 1px solid $white;
 		border-color: fade-out($white, 1);
+		border-left: 0;
+		border-right: 0;
 		@include transition(border 0.3s ease);
 
 		.dot {
