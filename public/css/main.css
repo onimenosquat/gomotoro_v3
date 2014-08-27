@@ -881,7 +881,7 @@ a {
     position: relative;
     border-top: 1px solid;
     border-bottom: 1px solid;
-    border-color: transparent;
+    border-color: white;
     border-color: rgba(255, 255, 255, 0);
     -webkit-transition: border 0.3s ease;
     -moz-transition: border 0.3s ease;
