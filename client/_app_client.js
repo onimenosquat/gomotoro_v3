@@ -5,7 +5,7 @@ Events = new Meteor.Collection("events");
 
 // init router fn & obj
 Session.set('router', {});
-Session.set('team_user_selected', Meteor.userId() || null);
+Session.set('user_selected', Meteor.userId() || null);
 Session.set('project_selected', null);
 Session.set('this', Date.now());
 

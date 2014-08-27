@@ -51,7 +51,7 @@ a {
 .col-no-padding {
   padding: 0; }
 
-.page, .page-login, .page-profile {
+.page, .page--login, .page--profile, .page--home {
   position: relative;
   padding-top: 4em;
   height: 100%;
@@ -62,7 +62,7 @@ a {
   -o-box-sizing: border-box;
   box-sizing: border-box; }
 
-.page-login {
+.page--login {
   padding: 4em 0;
   background-image: url("../images/bg-nature-blur.jpg");
   background-repeat: no-repeat;
@@ -76,15 +76,18 @@ a {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch; }
 
-.page-profile {
+.page--profile {
   padding: 6em 0;
   overflow: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch; }
-  .page-profile h1 {
+  .page--profile h1 {
     margin-bottom: 2em; }
-  .page-profile .form-control {
+  .page--profile .form-control {
     margin-bottom: 2em; }
+
+.page--home .title-detail {
+  margin: 0 0 1em 0; }
 
 .page-listing,
 .page-detail {
@@ -95,16 +98,13 @@ a {
 
 .page-listing {
   background-color: #eeeeee; }
-  .page-listing header {
-    padding: 1em;
-    border-bottom: 1px solid white; }
-  .page-listing > ul {
+  .page-listing ul {
     margin: 0;
     padding: 0; }
-  .page-listing > ul > li {
+  .page-listing ul > li {
     display: block;
     list-style: none; }
-  .page-listing > ul > li > a {
+  .page-listing ul > li > a {
     display: block;
     width: 100%;
     padding: 2em 0;
@@ -114,9 +114,10 @@ a {
     -ms-transition: 0.2s ease;
     -o-transition: 0.2s ease;
     transition: 0.2s ease; }
-  .page-listing > ul > li a:hover {
+  .page-listing ul > li a:hover {
     background-color: #f8f8f8; }
-  .page-listing > ul > li.is-selected a, .page-listing > ul > li.is-selected a:hover {
+  .page-listing ul > li.is-selected a,
+  .page-listing ul > li.is-selected a:hover {
     background-color: white; }
   .page-listing h4 {
     margin: 1em 0 0 0; }
@@ -124,7 +125,7 @@ a {
     font-weight: lighter; }
 
 .page-detail {
-  padding: 2em 3em 0;
+  padding: 3em 3em 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
@@ -709,7 +710,7 @@ select.form-control {
     float: none;
     padding: 0 1em;
     vertical-align: -0.1em;
-    margin-right: 2em; }
+    margin: 0 2em; }
   .navbar .navbar-brand h2 {
     margin: 0;
     font-size: 1.4em;

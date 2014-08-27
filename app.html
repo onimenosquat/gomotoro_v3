@@ -84,8 +84,7 @@
 			</div>
 
 			<ul class="nav navbar-nav">
-				<li><a href="#/home" class="{{#with currentPage "home"}}active{{/with}}">Dashboard</a></li>
-				<li><a href="#/team" class="{{#with currentPage "team"}}active{{/with}}">Team</a></li>
+				<li><a href="#/home" class="{{#with currentPage "Dashboard"}}active{{/with}}">Dashboard</a></li>
 				<li><a href="#/projects" class="{{#with currentPage "projects"}}active{{/with}}">Projects</a></li>
 			</ul>
 			
@@ -113,7 +112,7 @@
 
 <!-- INDEX -->
 <template name="index">
-	<div class="page-login">
+	<div class="page--login">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-center">
@@ -149,32 +148,14 @@
 </template>
 
 <template name="home">
-	<div class="page">
-		<div class="container-fluid">
-			<div class="row">
-			<div class="col-xs-12">
-					<h4>Pomodoro</h4>
-					<h6>{{user_occuped}}</h6>
-					<div class="pomodoro">
-						<p class="timer">{{pomodoro_timer}}</p>
-						<button class="btn pomodoro_start">start</button>
-						<button class="btn pomodoro_stop">stop</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</template>
-
-<template name="team">
-	<div class="page">
+	<div class="page--home">
 		<div class="container-fluid container-height">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4 col-md-3 col-no-padding">
 					<div class="page-listing">
 						<ul>
 							{{#each users}}
-							{{> team_user}}
+							{{> user_listing}}
 							{{/each}}
 						</ul>
 					</div>
@@ -193,8 +174,8 @@
 	</div>
 </template>
 
-<template name="team_user">
-	<li class=" {{user_occuped}} {{user_selected}} {{user_logged}}">
+<template name="user_listing">
+	<li class=" {{user_occuped}} {{user_selected}} {{isLogged}}">
 		<a href="#">
 			<div class="container-fluid">
 				<div class="row row-small">
@@ -212,7 +193,7 @@
 							</div>
 							<div class="circle_pmdr-timer" style="background-image: url( {{profile.image}} );">
 								<span class="time">
-									{{#if user_logged}}
+									{{#if isLogged}}
 										<small>Start</small>
 									{{/if}}
 									{{pomodoro_timer}}
@@ -233,7 +214,17 @@
 <template name="user">
 	<div class="row">
 		<div class="col-xs-12">
-			<h2><img src="{{profile.image}}" alt="" class="user-avatar">{{profile.name}}</h2>
+			<h2 class="title-detail"><img src="{{profile.image}}" alt="" class="user-avatar">{{profile.name}}</h2>
+			{{#if isLogged}}
+			<div class="pomodoro">
+				<div class="btn-group">
+					<button class="btn pomodoro_less"><small><i class="glyphicon glyphicon-minus"></i></small></button>
+					<button class="btn pomodoro_start">{{pomodoro_timer}}</button>
+					<button class="btn pomodoro_more"><small><i class="glyphicon glyphicon-plus"></i></small></button>
+					<button class="btn btn-success pomodoro_start">start</button>
+				</div>
+			</div>
+			{{/if}}
 			<ul class="timeline_user">
 				{{#each timeline_item}}
 					{{>timeline_user}}
@@ -250,10 +241,10 @@
 				<i class="glyphicon glyphicon-time"></i>
 			</span>
 			<div class="row">
-				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
 					<strong class="date">{{date}}</strong>
 				</div>
-				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
 					<h4>{{{title}}}</h4>
 					<p>
 						{{{message}}}
@@ -266,10 +257,10 @@
 				<i class="glyphicon glyphicon-user"></i>
 			</span>
 			<div class="row">
-				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
 					<strong class="date">{{date}}</strong>
 				</div>
-				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
 					<h4>{{{title}}}</h4>
 					<p>
 						{{#if media}} <img src="{{media}}" class="user-avatar"> {{/if}}	
@@ -282,7 +273,7 @@
 </template>
 
 <template name="profile">
-	<div class="page-profile">
+	<div class="page--profile">
 		{{#with user}}
 		<div class="container-fluid">
 			<div class="row">
@@ -385,8 +376,11 @@
 		<a href="#">
 			<div class="container-fluid">
 				<div class="row row-small">
-					<div class="col-xs-12">
-						<h4><small>{{type}}</small> {{name}}</h4>
+					<div class="col-xs-4">
+						<small>{{type}}</small>
+					</div>
+					<div class="col-xs-8">
+						<h4>{{name}}</h4>
 					</div>
 				</div>
 			</div>
