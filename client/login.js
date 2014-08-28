@@ -20,7 +20,7 @@ Template.login.events({
 
 			} else {
 
-				Session.set('team_user_selected', Meteor.userId() || null);
+				Session.set('user_selected', Meteor.userId() || null);
 
 				Notify.insert({
 					user_id : Meteor.userId() || Session.get('this'),
@@ -30,7 +30,7 @@ Template.login.events({
 					status : 'success'
 				});
 
-				app.router.goTo( 'team' );
+				app.router.goTo( 'home' );
 
 			};
 		});
@@ -86,7 +86,9 @@ Template.register.events({
 				image : "http://dummyimage.com/400x400/eeeeee/33cc99/&text=" + username[0].toUpperCase()
 			}
 			
-		}, function(err){
+		}, function( err, id ){
+
+			Session.set('user_selected', Meteor.userId() || null);
 		
 			if (err) {
 
@@ -102,8 +104,6 @@ Template.register.events({
 
 			} else {
 
-				Session.set('team_user_selected', Meteor.userId() || null);
-
 				Notify.insert({
 					user_id : Meteor.userId() || Session.get('this'),
 					active : true,
@@ -112,11 +112,11 @@ Template.register.events({
 					status : 'success'
 				});
 
-				app.router.goTo( 'team' );
+				app.router.goTo( 'home' );
 
 				Events.insert({
 					user_id : Meteor.userId(),
-					is_user : true,
+					notif : "user",
 					type : "event-primary",
 					timestamp : Date.now(),
 					date : app.helper.date( Date.now() ),

@@ -11,9 +11,17 @@ Template.home.pomodoro_timer = function () {
 	return app.helper.timer( timer );
 }
 
-Template.home.user_occuped = function () {
-	return ( Meteor.user() && Meteor.user().profile.occuped ) ? "OCCUPER" : "FREE";
-}
+
+Template.home.users = function () {
+	return Meteor.users.find({});
+};
+
+
+Template.home.user_selected = function () {
+	//RENAME
+	return  Meteor.users.findOne( Session.get('user_selected') || Meteor.userId() );
+};
+
 
 Template.home.events({
 	'click .pomodoro_start' : function ( e ) {
@@ -24,5 +32,19 @@ Template.home.events({
 	'click .pomodoro_stop' : function ( e ) {
 		e.preventDefault();
 		Meteor.call('pomodoro_stop', Meteor.userId());
+	},
+
+	'click .pomodoro_less' : function ( e ) {
+		e.preventDefault();
+		var u = Meteor.users.findOne( this._id );
+		u.profile.timer -= ( u.profile.timer - 300 >= 1500 ) ? 300 : 0 ;
+		Meteor.users.update( this._id, { $set : { profile : u.profile }});
+	},
+
+	'click .pomodoro_more' : function ( e ) {
+		e.preventDefault();
+		var u = Meteor.users.findOne( this._id );
+		u.profile.timer += ( u.profile.timer + 300 <= 2700 ) ? 300 : 0 ;
+		Meteor.users.update( this._id, { $set : { profile : u.profile }});
 	}
-})
+});

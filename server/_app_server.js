@@ -114,7 +114,7 @@ Meteor.methods({
 	    	};
 
 	    // Creat new pomodoro
-    	Pomodoro.insert( model, function( error, id) {
+    	Pomodoro.insert( model, function( error, id ) {
     		if ( error ) return false;
 
     		// user is working
@@ -132,7 +132,7 @@ Meteor.methods({
     		// create event new pmdr
     		Events.insert({
     			user_id : user._id,
-				is_pomodoro : true,
+				notif : "pomodoro",
 				type : "event-default",
 				timestamp : model.timestamp,
 				date : app.helper.date( model.timestamp ),
@@ -140,6 +140,7 @@ Meteor.methods({
 				message : "work up " + app.helper.date( model.timestamp + model.timer * 1000 )
 			});
 
+    		// Show notif
 			Notify.insert({
 				user_id : user._id,
 				active : true,
@@ -176,7 +177,7 @@ Meteor.methods({
 		if( pmdr.cancel ) {
 			Events.insert({
 				user_id : user._id,
-				is_pomodoro : true,
+				notif : "pomodoro",
 				type : "event-error",
 				timestamp : Date.now(),
 				date : app.helper.date( Date.now() ),
@@ -184,6 +185,7 @@ Meteor.methods({
 				message : "Stopped at " + app.helper.timer( pmdr.current )
 			});
 
+			// Show notif
 			Notify.insert({
 				user_id : user._id,
 				active : true,
@@ -217,7 +219,7 @@ Meteor.methods({
 	            // create event pmdr complete
             	Events.insert({
             		user_id : user._id,
-            		is_pomodoro : true,
+            		notif : "pomodoro",
             		type : "event-success",
             		timestamp : Date.now(),
             		date : app.helper.date( Date.now() ),
@@ -225,12 +227,13 @@ Meteor.methods({
             		message : "Complete"
             	});
 
+            	// Show notif
             	Notify.insert({
             		user_id : user._id,
             		active : true,
             		timestamp : Date.now(),
             		message : "Pomodoro complete",
-            		status : 'error'
+            		status : 'success'
             	});
             } else {
 				
