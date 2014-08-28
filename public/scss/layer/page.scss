@@ -1,0 +1,84 @@
+.page {
+	position: relative;
+	padding-top: 4em;
+	height: 100%;
+	background-color: $white;
+	@include boxSizing;
+}
+
+.page-login {
+	@extend .page;
+	padding: 4em 0;
+	@include imgBg( "../images/bg-nature-blur.jpg" );
+	@include vScroll;
+}
+
+.page-profile {
+	@extend .page;
+	padding: 6em 0;
+	@include vScroll;
+
+	h1 {
+		margin-bottom: 2em;
+	}
+
+	.form-control {
+		margin-bottom: 2em;
+	}
+}
+
+.page-listing,
+.page-detail {
+	height: 100%;
+	@include vScroll;
+}
+
+.page-listing {
+	background-color: $whitesmoke;
+
+	header {
+		padding: 1em;
+		border-bottom: 1px solid $white;
+	}
+
+	& > ul {
+		margin: 0;
+		padding: 0;
+	}
+
+	& > ul > li {
+		display: block;
+		list-style: none;
+	}
+
+	& > ul > li > a {
+		display: block;
+		width: 100%;
+		padding: 2em 0;
+		color: $black;
+		@include transition (0.2s ease);
+	}
+	
+	& > ul > li a:hover {
+		background-color: lighten($whitesmoke, 4%);
+	}
+
+	& > ul > li.is-selected a,
+	& > ul > li.is-selected a:hover{
+		background-color: $white;
+	}
+
+	h4 {
+		margin: 1em 0 0 0;
+	}
+
+	strong {
+
+		font-weight: lighter;
+	}
+}
+
+.page-detail {
+	padding: 2em 3em 0;
+	@include boxSizing;
+}
