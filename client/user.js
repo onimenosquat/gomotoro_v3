@@ -85,7 +85,10 @@ Template.user_listing.events({
 Template.user.timeline_item = function () {
 	console.log( Session.get('user_selected') );
 	var id = Session.get('user_selected') || Meteor.userId();
-	return Events.find({user_id: id}, {sort : {timestamp : -1}}).fetch();  
+	var filter = Session.get('filter_timeline_user') || {};
+	filter.user_id = id;
+	console.log( filter );
+	return Events.find( filter , {sort : {timestamp : -1}}).fetch();  
 };
 
 Template.user.isLogged = function () {
@@ -103,6 +106,16 @@ Template.user.pomodoro_timer = function () {
 
 	return app.helper.timer( timer );
 };
+
+Template.timeline_user.events({
+	'click .filter-timeline-user' : function ( e ) {
+		e.preventDefault();
+		var $el = $(e.currentTarget),
+			type = $el.data('type');
+		
+		Session.set('filter_timeline_user', { notif : type });
+	},
+});
 
 Template.timeline_user.events({
 	'click .user-pomodoro-start' : function (e) {

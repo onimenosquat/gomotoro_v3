@@ -132,7 +132,7 @@ Meteor.methods({
     		// create event new pmdr
     		Events.insert({
     			user_id : user._id,
-				is_pomodoro : true,
+				notif : "pomodoro",
 				type : "event-default",
 				timestamp : model.timestamp,
 				date : app.helper.date( model.timestamp ),
@@ -177,7 +177,7 @@ Meteor.methods({
 		if( pmdr.cancel ) {
 			Events.insert({
 				user_id : user._id,
-				is_pomodoro : true,
+				notif : "pomodoro",
 				type : "event-error",
 				timestamp : Date.now(),
 				date : app.helper.date( Date.now() ),
@@ -219,7 +219,7 @@ Meteor.methods({
 	            // create event pmdr complete
             	Events.insert({
             		user_id : user._id,
-            		is_pomodoro : true,
+            		notif : "pomodoro",
             		type : "event-success",
             		timestamp : Date.now(),
             		date : app.helper.date( Date.now() ),

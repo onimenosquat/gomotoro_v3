@@ -116,7 +116,7 @@ Template.register.events({
 
 				Events.insert({
 					user_id : Meteor.userId(),
-					is_user : true,
+					notif : "user",
 					type : "event-primary",
 					timestamp : Date.now(),
 					date : app.helper.date( Date.now() ),

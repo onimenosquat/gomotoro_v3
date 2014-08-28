@@ -49,7 +49,7 @@
 <template name="login">
 	<form id="login-form" action="action">
 		<div class="form-group">
-			<input class="form-control form-control--success" name="login" type="text" id="login-user" placeholder="Username or email"/>
+			<input class="form-control form-control--success" name="login" type="text" id="login-user" placeholder="Name or email"/>
 		</div>
 		<div class="form-group">
 			<input class="form-control form-control--success" name="password" type="password" id="login-password" placeholder="••••"/>
@@ -223,6 +223,17 @@
 					<button class="btn pomodoro_more"><small><i class="glyphicon glyphicon-plus"></i></small></button>
 					<button class="btn btn-success pomodoro_start">start</button>
 				</div>
+				<div class="btn-group btn-right">
+					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+						Filter <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu--right" role="menu">
+						<li><a href="#" class="filter-timeline-user" data-type="pomodoro">Pomodoro</a></li>
+						<li><a href="#" class="filter-timeline-user" data-type="project">Project</a></li>
+						<li><a href="#" class="filter-timeline-user" data-type="message">Message</a></li>
+						<li><a href="#" class="filter-timeline-user" data-type="user">User</a></li>
+					</ul>
+				</div>
 			</div>
 			{{/if}}
 			<ul class="timeline_user">
@@ -234,6 +245,7 @@
 	</div>
 </template>
 
+<!-- DEBUG -->
 <template name="timeline_user">
 	<li class="{{type}}">
 		{{#if is_pomodoro}}
