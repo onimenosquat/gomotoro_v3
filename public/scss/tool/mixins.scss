@@ -63,12 +63,12 @@
 	transform-origin: $string;
 }
 
-@mixin transformRotate ( $deg: 0deg ) {
-	-webkit-transform: rotate( $deg );
-	-moz-transform: rotate( $deg );
-	-ms-transform: rotate( $deg );
-	-o-transform: rotate( $deg );
-	transform: rotate( $deg );
+@mixin transformRotate ($deg: 0deg, $plus: "") {
+	-webkit-transform: rotate( $deg ) $plus;
+	-moz-transform: rotate( $deg ) $plus;
+	-ms-transform: rotate( $deg ) $plus;
+	-o-transform: rotate( $deg ) $plus;
+	transform: rotate( $deg ) $plus;
 }
 
 @mixin transformScale ( $ratio: 1 ) {
@@ -77,4 +77,20 @@
 	-ms-transform: scale( $ratio );
 	-o-transform: scale( $ratio );
 	transform: scale( $ratio );
+}
+
+@mixin transformTranslate3d ( $x: 0, $y: 0, $z: 0 ) {
+	-webkit-transform: translate3d( $x, $y, $z );
+	-moz-transform: translate3d( $x, $y, $z );
+	-ms-transform: translate3d( $x, $y, $z );
+	-o-transform: translate3d( $x, $y, $z );
+	transform: translate3d( $x, $y, $z );
+}
+
+@mixin blur ( $blur: 1px ) {
+	-webkit-filter: blur( $blur );
+	-moz-filter: blur( $blur );
+	-ms-filter: blur( $blur );
+	-o-filter: blur( $blur );
+	filter: blur( $blur );
 }

@@ -90,8 +90,8 @@ Meteor.startup( function () {
 
 });
 
-Template.app.islogged = function () {
-	return Meteor.userId() ? true : false;
+Template.app.user_logged = function () {
+	return Meteor.userId();
 };
 
 Template.app.getPage = function () {

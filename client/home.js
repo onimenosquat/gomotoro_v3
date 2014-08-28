@@ -1,29 +1,33 @@
-Template.home.pomodoro_timer = function () {
+Template.home.helpers({
 
-	var pmdr = Pomodoro.find({
-		user_id : Meteor.userId()
-	}, {
-		sort : { timestamp : -1}
-	}).fetch()[0];
+	pomodoro_timer : function () {
 
-	var timer = pmdr && !pmdr.complete && !pmdr.cancel ? pmdr.current : ( ( Meteor.user() ) ? Meteor.user().profile.timer : app.setting.timer ) ;
+		var pmdr = Pomodoro.find({
+			user_id : Meteor.userId()
+		}, {
+			sort : { timestamp : -1}
+		}).fetch()[0];
 
-	return app.helper.timer( timer );
-}
+		var timer = pmdr && !pmdr.complete && !pmdr.cancel ? pmdr.current : ( ( Meteor.user() ) ? Meteor.user().profile.timer : app.setting.timer ) ;
+
+		return app.helper.timer( timer );
+	},
+
+	users : function () {
+		return Meteor.users.find({});
+	},
 
 
-Template.home.users = function () {
-	return Meteor.users.find({});
-};
+	user_selected : function () {
+		//RENAME
+		return  Meteor.users.findOne( Session.get('user_selected') || Meteor.userId() );
+	},
 
-
-Template.home.user_selected = function () {
-	//RENAME
-	return  Meteor.users.findOne( Session.get('user_selected') || Meteor.userId() );
-};
+});
 
 
 Template.home.events({
+
 	'click .pomodoro_start' : function ( e ) {
 		e.preventDefault();
 		Meteor.call('pomodoro_start', Meteor.userId());
@@ -46,5 +50,23 @@ Template.home.events({
 		var u = Meteor.users.findOne( this._id );
 		u.profile.timer += ( u.profile.timer + 300 <= 2700 ) ? 300 : 0 ;
 		Meteor.users.update( this._id, { $set : { profile : u.profile }});
+	},
+
+	'click .filter-timeline_user' : function ( e ) {
+		e.preventDefault();
+		var $el = $(e.currentTarget),
+			type = $el.data('type');
+		
+		Session.set('filter_timeline_user', { notif : type });
+	},
+
+	'click .reset-timeline_user' : function ( e ) {
+		e.preventDefault();
+		Session.set('filter_timeline_user', null);
+	},
+
+	'click .user_listing > a' : function ( e ) {
+		e.preventDefault();
+		Session.set('user_selected', this._id);
 	}
 });

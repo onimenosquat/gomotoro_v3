@@ -1,10 +1,47 @@
 .user-avatar {
+	display: inline-block;
+	vertical-align: -0.2em;
 	height: 1.2em;
+	width: 1.2em;
 	margin: -0.2em 0.4em 0 0;
 	@include borderRadius( 100% );
+	@include imgBg();
 }
 
-.user-avatar-edit {
-	max-height: 2.7em;
-	width: auto;
+.user-avatar--small {
+	@extend .user-avatar;
+	font-size: 0.6em;
+}
+
+.user-avatar--big {
+	@extend .user-avatar;
+	font-size: 3em;
+}
+
+.user-status {
+	color: $gray;
+	margin-left: 1em;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+
+.is-working {
+	.user-status {
+		color: $red;
+	}
+}
+
+.is-free {
+	.user-status {
+		color: $green;
+	}
+}
+
+.is-selected {
+
+}
+
+.is-logged {
+
 }

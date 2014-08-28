@@ -30,9 +30,17 @@
 .page--home {
 	@extend .page;
 
+	.header-detail {
+		padding: 3em 3em 1em;
+		background-color: $darkgray;
+		color: $white;
+	}
+
 	.title-detail {
 		margin: 0 0 1em 0;
+		color: $white;
 	}
+
 }
 
 .page-listing,
@@ -64,11 +72,10 @@
 		width: 100%;
 		padding: 2em 0;
 		color: $black;
-		@include transition (0.2s ease);
 	}
 	
 	& > ul > li a:hover {
-		background-color: lighten($whitesmoke, 4%);
+		background-color: $whitegray;
 	}
 
 	& > ul > li.is-selected a,
@@ -86,7 +93,7 @@
 	}
 }
 
-.page-detail {
-	padding: 3em 3em 0;
+.page-content {
+	padding: 1em 3em 0;
 	@include boxSizing;
 }

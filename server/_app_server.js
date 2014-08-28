@@ -112,7 +112,7 @@ Meteor.methods({
 	    		complete : false,
 	    		cancel : false
 	    	};
-
+	    
 	    // Creat new pomodoro
     	Pomodoro.insert( model, function( error, id ) {
     		if ( error ) return false;

@@ -39,58 +39,7 @@
     left: 0;
     bottom: 0;
     width: 200%;
-    background: $orange;
     border-radius: 100%;
-    @include transition( 0.6s ease );
-}
-
-.circle_pmdr-timer {
-    position: absolute;
-    z-index: 3;
-    background-color: white;
-    top: 0.25em;
-    left: 0.25em;
-    bottom: 0.25em;
-    right: 0.25em;
-    overflow: hidden;
-    font-size: 0.25em;
-    border: 2px solid $whitesmoke;
-    line-height: 3em;
-    @include borderRadius( 100% );
-    @include imgBg( "../images/john-doe.jpg" );
-
-    &:before {
-        content: "";
-        position: absolute;
-        z-index: 4;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: fade-out($black, 0.4);
-        @include borderRadius( 100% );
-        @include transition( 0.6s ease );
-    }
-
-    .time {
-        position: relative;
-        z-index: 5;
-        display: inline-block;
-        margin-top: 0.1em;
-        vertical-align: middle;
-        width: 100%;
-        line-height: 1.2em;
-        font-size: 1em;
-        text-align: center;
-        color: $white;
-        font-weight: lighter;
-    }
-
-    .time small {
-        margin-top: 0.1em;
-        font-size: 1.4em;
-        display: block;
-    }
 }
 
 .circle_pmdr-half:nth-child(2) {
@@ -110,62 +59,96 @@
     }
 }
 
-.is-working {
-    .circle_pmdr-timer .time small {
-        display: none;
-    }  
-}
 
-.is-free {
-    .circle_pmdr-half-progress {
-        background-color: $green;
+
+.circle_pmdr-timer {
+    position: absolute;
+    z-index: 3;
+    background-color: white;
+    top: 0.1em;
+    left: 0.1em;
+    bottom: 0.1em;
+    right: 0.1em;
+    font-size: 0.4em;
+    line-height: 2.15em;
+    color: $black;
+    @include borderRadius( 100% );
+    @include imgBg();
+
+    .time {
+        position: relative;
+        z-index: 5;
+        display: inline-block;
+        vertical-align: middle;
+        width: 100%;
+        line-height: 1em;
+        font-size: 0.6em;
+        text-align: center;
+        color: inherit;
+        visibility: hidden;
     }
 
-    .circle_pmdr-timer:before,
-    .circle_pmdr-timer .time {
-        visibility: hidden;
+    .time small {
+        font-size: 0.8em;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
     }
 }
 
 .is-logged {
 
-    .circle_pmdr-half-progress {
-        background-color: $gray;
-    }
-
-    .circle_pmdr-timer:before {
-        background: $black;
-    }
-}
-
-.is-logged.is-free {
-    
-    .circle_pmdr-timer:before,
-    .circle_pmdr-timer .time {
+    .circle_pmdr-timer {
         cursor: pointer;
-        visibility: visible
+        background: $white;
+        background-image: none !important;
     }
+    
+    &.is-free {
 
-    .circle_pmdr-timer .time {
-        font-size: 0.75em;
-    }
+        .circle_pmdr .circle_pmdr-timer .time {
+            visibility: visible;
+        } 
 
-    .circle_pmdr:hover {
-        .circle_pmdr-half-progress {
+        .circle_pmdr:hover .circle_pmdr-timer {
             background-color: $green;
+            color: $white;
+        }
+    }
+
+    &.is-working {
+        .circle_pmdr:hover .circle_pmdr-half-progress {
+            background-color: $red;
         }
     }
 }
 
-.is-free:hover,
-.is-working:hover {
+.is-working {
     .circle_pmdr-timer {
-        border-color: lighten($whitesmoke, 4%)
-    }
-}
+        background: $white;
+        background-image: none !important;
 
-.is-selected {
-    .circle_pmdr-timer {
-        border-color: $white;
+        .time {
+            visibility: visible;
+        }
+
+        .time small {
+            display: none;
+        }
+
+        &:hover {
+            color: $red;
+        }
+    }
+
+    .circle_pmdr-half-progress {
+        background-color: $orange;
+    }
+
+    &.is-selected {
+
+        .circle_pmdr {
+            background-color: $whitegray;
+        }
     }
 }

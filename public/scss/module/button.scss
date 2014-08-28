@@ -12,12 +12,30 @@
 		@include outLine( none );
 		@include boxShadow( none );
 	}
+
+	.caret {
+		margin-left: 0.4em;
+		vertical-align: 0.1em;
+	}
+}
+
+@mixin _link ( $c ){
+	color: $c !important;
+
+	&:hover,
+	&:focus {
+		color: darken($c, 10%) !important;
+	}
 }
 
 $btn: (
 	default: (
 		color: $white,
 		bg: $gray
+	),
+	clear: (
+		color: $black,
+		bg: $white
 	),
 	primary: (
 		color: $white,
@@ -48,6 +66,10 @@ $btn: (
 	float: right;
 }
 
+.btn-right + .btn-right {
+	margin-left: 1em;
+}
+
 @each $thm in $btn {
 	$_name: nth($thm, 1);
 	$_values: nth($thm, 2);
@@ -57,15 +79,49 @@ $btn: (
 			$bg: map-get($_values, bg)
 		);
 	}
+
+	.open > .dropdown-toggle.btn-#{$_name} {
+		@include _btn(
+			$c: map-get($_values, color),
+			$bg: map-get($_values, bg)
+		);
+	}
+}
+
+@each $thm in $btn {
+	$_name: nth($thm, 1);
+	$_values: nth($thm, 2);
+	.link-#{$_name} {
+		@include _link(
+			$c: map-get($_values, bg)
+		);
+	}
 }
 
 .dropdown-menu {
+	margin-top: 0.4em;
+	padding: 0.4em;
 	border: 1px solid $gray;
 	@include boxShadow( none );
 	@include borderRadius( 0 );
 }
 
+.dropdown-menu > li > a {
+	padding: 0.4em 0.8em;
+}
+
+.dropdown-menu .divider {
+	margin: 0;
+	height: 0;
+	background: none !important;
+	border-bottom: 1px dotted $whitesmoke;
+}
+
 .dropdown-menu--right {
 	left: auto;
 	right: 0;
+}
+
+.open > .dropdown-toggle {
+	@include boxShadow( none );
 }

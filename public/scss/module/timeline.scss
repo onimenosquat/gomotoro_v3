@@ -29,7 +29,7 @@
 			border: 1px solid $gray;
 			color: $gray;
 			text-align: center;
-			@include borderRadius( 0.6em );
+			@include borderRadius;
 			@include boxSizing;
 
 			i {
