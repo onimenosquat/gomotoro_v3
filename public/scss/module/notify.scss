@@ -1,9 +1,4 @@
 @mixin _app-notify ( $c: $black ){
-	position: fixed;
-	z-index: 2000;
-	bottom: 0;
-	right: 0;
-	width: 33.34%;
 	max-width: 100%;
 	color: $black;
 	padding: 0.6em 3em 0.6em 1em;
@@ -45,6 +40,9 @@
 
 $notify: (
 	default: (
+		color: $gray,
+		),
+	primary: (
 		color: $blue,
 		),
 	success: (
@@ -64,4 +62,13 @@ $notify: (
 	.app-notify--#{$_status} {
 		@include _app-notify($c: map-get($_values, color));
 	}
+}
+
+
+.app-notifies {
+	position: fixed;
+	z-index: 2000;
+	bottom: 0;
+	right: 0;
+	width: 33.34%;
 }

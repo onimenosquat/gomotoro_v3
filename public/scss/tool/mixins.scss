@@ -6,7 +6,7 @@
 	border-radius: $r;
 }
 
-@mixin boxShadow ( $string: 0px 0px 1px rgba(0, 0, 0, 0.1) ) {
+@mixin boxShadow ( $string: 0 0 1px fade-out($black, 0.8) ) {
 	-webkit-box-shadow: $string;
 	-moz-box-shadow: $string;
 	-ms-box-shadow: $string;
@@ -93,4 +93,16 @@
 	-ms-filter: blur( $blur );
 	-o-filter: blur( $blur );
 	filter: blur( $blur );
+}
+
+@mixin respond-to ( $breakpoint ) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+            @content;
+        }
+    }
+
+    @else{
+        @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. Please make sure it is defined in `$breakpoints` map.";
+    }
 }

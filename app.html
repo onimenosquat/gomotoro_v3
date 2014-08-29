@@ -21,7 +21,7 @@
 
 		{{> notify}}
 
-		{{#if user_logged}}
+		{{#if user_is_connected}}
 			{{> panel_control}}
 			{{> topbar}}
 		{{/if}}
@@ -35,27 +35,29 @@
 
 <!-- NOTIFY -->
 <template name="notify">
+	<div class="app-notifies">
 	{{#each notify}}
-		<div class="app-notify app-notify--{{status}} animated fadeInUp">
+		<div class="app-notify app-notify--{{type}} animated fadeInRight">
+			<span>{{{message}}}</span>
 			<a href="#" class="remove-notify">
 				<i class="glyphicon glyphicon-remove"></i>
 			</a>
-			<span>{{{message}}}</span>
 		</div>
 	{{/each}}
+	</div>
 </template>
 
 <!-- LOGIN -->
 <template name="login">
 	<form id="login-form" action="action">
 		<div class="form-group">
-			<input class="form-control form-control--success" name="login" type="text" id="login-user" placeholder="Name or email"/>
+			<input class="form-control form-control--success" name="login" type="text" id="login-email" placeholder="Email"/>
 		</div>
 		<div class="form-group">
 			<input class="form-control form-control--success" name="password" type="password" id="login-password" placeholder="••••"/>
 		</div>
 		<div class="text-right">
-			<input class="btn btn-success" type="submit" id="login-button" value="Sign in" />
+			<input class="btn btn-success" type="submit" value="Sign in" />
 		</div>
 	</form> 
 </template>
@@ -64,13 +66,13 @@
 <template name="register">
 	<form id="register-form" action="action">
 		<div class="form-group">
-			<input class="form-control form-control--success" name="email" type="email" id="account-email" placeholder="Email"/>
+			<input class="form-control form-control--success" name="email" type="email" id="register-email" placeholder="Email"/>
 		</div>
 		<div class="form-group">
-			<input class="form-control form-control--success" name="password" type="password" id="account-password" placeholder="••••"/>
+			<input class="form-control form-control--success" name="password" type="password" id="register-password" placeholder="••••"/>
 		</div>
 		<div class="text-right">
-			<input class="btn btn-success" type="submit" id="create-account" value="Create an Account" />
+			<input class="btn btn-success" type="submit" value="Create an Account" />
 		</div>
 	</form>
 </template>
@@ -80,11 +82,11 @@
 	<nav class="navbar" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#/home"><h2 class="app-title"><b>G</b>o<b>M</b>o<b>T</b>oro</h2></a>
+				<a class="navbar-brand" href="#/users"><h2 class="app-title"><b>G</b>o<b>M</b>o<b>T</b>oro</h2></a>
 			</div>
 
 			<ul class="nav navbar-nav">
-				<li><a href="#/home" class="{{#with currentPage "home"}}active{{/with}}">Dashboard</a></li>
+				<li><a href="#/home" class="{{#with currentPage "home"}}active{{/with}}">Users</a></li>
 				<li><a href="#/projects" class="{{#with currentPage "projects"}}active{{/with}}">Projects</a></li>
 			</ul>
 			
@@ -94,9 +96,8 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><div class="user-avatar" style="background-image: url( {{profile.image}} );"></div> {{profile.name}}</a>
 					<ul class="dropdown-menu" role="menu">
 					<li><a href="#/home" class="select_user">Profile</a></li>
-					<li><a href="#/projects" class="select_user">Projects</a></li>
+					<li><a href="#/projects">Projects</a></li>
 					<li class="divider"></li>
-					<li><a href="#/profile" class="link-primary select_user">Edit profile</a></li>
 					<li><a href="#/invite" class="link-primary">Invite friends</a></li>
 					<li><a href="#/credit" class="link-primary">About GoMoToro</a></li>
 					<li class="divider"></li>
@@ -111,7 +112,64 @@
 
 <!-- PANEL CONTROL -->
 <template name="panel_control">
-	<aside class="panel"></aside>
+	<aside class="panel">
+		
+	</aside>
+</template>
+
+<!-- TIMELINE -->
+<template name="timeline">
+	<li class="event-{{type}}">
+		{{#if typeOf "pomodoro"}}
+			<span class="dot">
+				<i class="glyphicon glyphicon-time"></i>
+			</span>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<strong class="date">{{date}}</strong>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
+					<h4>{{{title}}}</h4>
+					<p>
+						{{{message}}}
+					</p>
+				</div>
+			</div>
+		{{/if}}
+		{{#if typeOf "user"}}
+			<span class="dot">
+				<i class="glyphicon glyphicon-user"></i>
+			</span>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<strong class="date">{{date}}</strong>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
+					<h4>{{{title}}}</h4>
+					<p>
+						{{#if media}} <div class="user-avatar" style="background-image: url( {{media}} );"></div> {{/if}}	
+						{{{message}}}
+					</p>
+				</div>
+			</div>
+		{{/if}}
+		{{#if typeOf "message"}}
+			<span class="dot">
+				<i class="glyphicon glyphicon-comment"></i>
+			</span>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<strong class="date">{{date}}</strong>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
+					<h4>{{{title}}}</h4>
+					<p>
+						{{{message}}}
+					</p>
+				</div>
+			</div>
+		{{/if}}
+	</li>
 </template>
 
 <!-- INDEX -->
@@ -151,21 +209,22 @@
 	</div>
 </template>
 
-<template name="home">
-	<div class="page--home">
+<!-- USERS -->
+<template name="users">
+	<div class="page--users">
 		<div class="container-fluid container-height">
 			<div class="row">
-				<div class="col-xs-12 col-sm-4 col-md-3 col-no-padding">
+				<div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 col-no-padding">
 					<div class="page-listing">
-						<ul>
+						<ul class="users_listing">
 							{{#each users}}
 								{{> user_listing}}
 							{{/each}}
 						</ul>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-8 col-md-9 col-no-padding">
-					<div class="page-detail">
+				<div class="col-xs-12 col-sm-7 col-md-8 col-lg-9 col-no-padding">
+					<div class="page-detail user_detail">
 						{{#with user_selected}}
 							{{> user_detail}}
 						{{/with}}
@@ -176,13 +235,14 @@
 	</div>
 </template>
 
+<!-- USER LISTING -->
 <template name="user_listing">
-	<li class="user_listing {{#if user_working}} is-working {{/if}} {{#if user_free}} is-free {{/if}} {{#if user_selected}} is-selected {{/if}} {{#if user_logged}} is-logged {{/if}}">
+	<li class="user_listing {{#if user_is_working}} is-working {{/if}} {{#if user_is_free}} is-free {{/if}} {{#if user_is_selected}} is-selected {{/if}} {{#if user_is_logged}} is-logged {{/if}}">
 		<a href="#">
 			<div class="container-fluid">
 				<div class="row row-small">
 					<div class="col-xs-4">
-						<div class="circle_pmdr {{#if user_logged}} pomodoro_start {{/if}}">
+						<div class="circle_pmdr {{#if user_is_logged}} pomodoro_start {{/if}}">
 							<div class="circle_pmdr-half">
 								<div class="circle_pmdr-half-container" style="transform: rotate( {{pomodoro_timer_progress_2}}deg ); -webkit-transform: rotate( {{pomodoro_timer_progress_2}}deg ); -moz-transform: rotate( {{pomodoro_timer_progress_2}}deg ); -ms-transform: rotate( {{pomodoro_timer_progress_2}}deg ); -o-transform: rotate( {{pomodoro_timer_progress_2}}deg )">
 									<div class="circle_pmdr-half-progress"></div>
@@ -195,7 +255,7 @@
 							</div>
 							<div class="circle_pmdr-timer" style="background-image: url( {{profile.image}} );">
 								<span class="time">
-									{{#if user_logged}}
+									{{#if user_is_logged}}
 										<small>Start</small>
 									{{/if}}
 									{{pomodoro_timer}}
@@ -204,7 +264,7 @@
 						</div>
 					</div>
 					<div class="col-xs-8">
-						<h4>{{profile.name}} <small class="user-status">{{#if user_free}}Free{{/if}} {{#if user_working}}Work{{/if}}</small> </h4>
+						<h4>{{profile.name}} <small class="user-status">{{#if user_is_free}}Free{{/if}} {{#if user_is_working}}Work{{/if}}</small> </h4>
 						<strong>{{ profile.job }}</strong>
 					</div>
 				</div>
@@ -213,40 +273,44 @@
 	</li>
 </template>
 
+<!-- USER DETAIL -->
 <template name="user_detail">
 	<header class="header-detail">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12 col-no-padding">
-					<h2 class="title-detail"><div class="user-avatar" style="background-image: url( {{profile.image}} );"></div> {{profile.name}} <small>{{status}}</small></h2>
+					<div class="user-avatar--big" style="background-image: url( {{profile.image}} );">
+						{{#if user_is_logged}}
+							<input class="form-control user_image" type="text" value="{{profile.image}}" placeholder="Name">
+						{{/if}}
+					</div>
+					<div class="title-detail">
+						<h2>
+							{{#if user_is_logged}}
+									<input class="form-control user_name" type="text" value="{{profile.name}}" placeholder="Name">
+							{{/if}}
+							{{#if user_is_no_logged}}
+									{{profile.name}}
+							{{/if}}
+						</h2>
+						<h4>
+							{{#if user_is_logged}}
+									<input class="form-control user_job" type="text" value="{{profile.job}}" placeholder="Name">
+							{{/if}}
+							{{#if user_is_no_logged}}
+									{{profile.job}}
+							{{/if}}
+						</h4>
+					</div>
 				</div>
-				{{#if user_logged}}
-				<div class="col-xs-6 col-no-padding">
-					<div class="pomodoro">
-						<div class="btn-group">
-							<button class="btn btn-clear pomodoro_less"><small><i class="glyphicon glyphicon-minus"></i></small></button>
-							<button class="btn btn-clear pomodoro_start">{{pomodoro_timer}}</button>
-							<button class="btn btn-clear pomodoro_more"><small><i class="glyphicon glyphicon-plus"></i></small></button>
-							<button class="btn btn-clear pomodoro_start">Start/Stop</button>
+				{{#if user_is_logged}}
+				<div class="col-xs-12 col-no-padding text-center">
+					<div class="pmdr">
+						<div class="btn-group btn-group-lg">
+							<button class="btn btn-dark pomodoro_less"><small><i class="glyphicon glyphicon-minus"></i></small></button>
+							<button class="btn btn-dark pomodoro_start" data-toggle="tooltip" data-placement="bottom" title="Start / Stop">{{pomodoro_timer}}</button>
+							<button class="btn btn-dark pomodoro_more"><small><i class="glyphicon glyphicon-plus"></i></small></button>
 						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-no-padding text-right">
-					<div class="btn-group">
-					<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-							Timeline<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu dropdown-menu--right" role="menu">
-							<li><a href="#" class="filter-timeline_user" data-type="pomodoro">Pomodoro</a></li>
-							<li><a href="#" class="filter-timeline_user" data-type="project">Project</a></li>
-							<li><a href="#" class="filter-timeline_user" data-type="message">Message</a></li>
-							<li><a href="#" class="filter-timeline_user" data-type="user">User</a></li>
-							<li class="divider"></li>
-							<li><a href="#" class="link-success reset-timeline_user">All Events</a></li>
-						</ul>
-					</div>
-					<div class="btn-group">
-						<a href="#/profile" class="btn btn-primary">Edit profile</a>
 					</div>
 				</div>
 				{{/if}}
@@ -254,111 +318,28 @@
 		</div>
 	</header>
 	<div class="page-content">
-		<ul class="timeline_user">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+				Show <strong>{{timeline_filter}}</strong> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" class="filter-timeline" data-type="pomodoro">Pomodoro</a></li>
+				<li><a href="#" class="filter-timeline" data-type="project">Project</a></li>
+				<li><a href="#" class="filter-timeline" data-type="message">Message</a></li>
+				<li><a href="#" class="filter-timeline" data-type="user">User</a></li>
+				<li class="divider"></li>
+				<li><a href="#" class="link-success reset-timeline">All Events</a></li>
+			</ul>
+		</div>
+		<ul class="timeline">
 			{{#each timeline_item}}
-			{{>timeline_user}}
+				{{>timeline}}
 			{{/each}}
 		</ul>
 	</div>
 </template>
 
-<template name="timeline_user">
-	<li class="{{type}}">
-		{{#if notif "pomodoro"}}
-			<span class="dot">
-				<i class="glyphicon glyphicon-time"></i>
-			</span>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<strong class="date">{{date}}</strong>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
-					<h4>{{{title}}}</h4>
-					<p>
-						{{{message}}}
-					</p>
-				</div>
-			</div>
-		{{/if}}
-		{{#if notif "user"}}
-			<span class="dot">
-				<i class="glyphicon glyphicon-user"></i>
-			</span>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<strong class="date">{{date}}</strong>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
-					<h4>{{{title}}}</h4>
-					<p>
-						{{#if media}} <div class="user-avatar" style="background-image: url( {{media}} );"></div> {{/if}}	
-						{{{message}}}
-					</p>
-				</div>
-			</div>
-		{{/if}}
-		{{#if notif "message"}}
-			<span class="dot">
-				<i class="glyphicon glyphicon-comment"></i>
-			</span>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<strong class="date">{{date}}</strong>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
-					<h4>{{{title}}}</h4>
-					<p>
-						{{{message}}}
-					</p>
-				</div>
-			</div>
-		{{/if}}
-	</li>
-</template>
-
-<template name="profile">
-	<div class="page--profile">
-		{{#with user}}
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-sm-offset-3">
-					<h1><div class="user-avatar" style="background-image: url( {{profile.image}} );"></div> {{profile.name}}</h1>
-					<div class="form-group">
-						<label>Username</label>
-						<input type="text" class="form-control user_username" DISABLED value="{{username}}">
-					</div>
-					<div class="form-group">
-						<label>E-mail</label>
-						{{#each emails}}
-						<input type="text" class="form-control user_mail" DISABLED value="{{address}}">
-						{{/each}}
-					</div>
-					<div class="form-group">
-						<label>Usual name</label>
-						<input type="text" class="form-control user_name" value="{{profile.name}}">
-					</div>
-					<div class="form-group">
-						<label>Job</label>
-						<input type="text" class="form-control user_job" value="{{profile.job}}">
-					</div>
-					<div class="form-group">
-						<label>Avatar</label>
-						<div class="row">
-							<div class="col-xs-12 col-sm-9 col-md-10">
-								<input type="text" class="form-control user_image" value="{{profile.image}}">
-							</div>
-							<div class="col-xs-12 col-sm-3 col-md-2">
-								<div class="user-avatar--big" style="background-image: url( {{profile.image}} );"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		{{/with}}
-	</div>
-</template>
-
+<!-- PROJECTS -->
 <template name="projects">
 	<div class="page">
 		<div class="container-fluid container-height">
@@ -386,10 +367,11 @@
 									New project <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu--right" role="menu">
-									<li><a href="#" class="create-new-project" data-type="multimedia">Multimedia</a></li>
-									<li><a href="#" class="create-new-project" data-type="app">App</a></li>
-									<li><a href="#" class="create-new-project" data-type="web">Web</a></li>
-									<li><a href="#" class="create-new-project" data-type="webapp">Web app</a></li>
+									{{#each project_type}}
+										<li><a href="#" class="create-new-project" data-type="{{name}}">{{name}}</a></li>
+									{{/each}}
+									<li class="divider"></li>
+									<li><form class="add-projet-type"><input type="text" class="form-control form-control--clear" placeholder="New type"></form></li>
 								</ul>
 							</div>
 
@@ -403,11 +385,9 @@
 				</div>
 				<div class="col-xs-12 col-sm-8 col-md-9 col-no-padding">
 					<div class="page-detail">
-						<div class="container-fluid">
-							{{#with project_selected}}
-								{{> project_detail}}
-							{{/with}}
-						</div>
+						{{#with project_selected}}
+							{{> project_detail}}
+						{{/with}}
 					</div>
 				</div>
 			</div>
@@ -416,7 +396,7 @@
 </template>
 
 <template name="project_listing">
-	<li class="{{project_selected}}">
+	<li class="project_listing {{project_is_selected}}">
 		<a href="#">
 			<div class="container-fluid">
 				<div class="row row-small">
@@ -433,19 +413,42 @@
 </template>
 
 <template name="project_detail">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="form-group">
-				<input type="text" class="form-control form-control-big project_name" value="{{name}}">
-			</div>
-			<div class="form-group">
-				<select class="form-control project_type">
-					<option selected="{{#with current_type "multimedia"}} true {{/with}}" value="multimedia">Multimedia</option>
-					<option selected="{{#with current_type "app"}} true {{/with}}" value="app">App</option>
-					<option selected="{{#with current_type "web"}} true {{/with}}" value="web">Web</option>
-					<option selected="{{#with current_type "webapp"}} true {{/with}}" value="webapp">Web app</option>
-				</select>
+	<header class="header-detail">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<input type="text" class="form-control form-control-big project_name" value="{{name}}">
+					</div>
+					<div class="form-group">
+						<select class="form-control project_type">
+							{{#each project_type}}
+							<option selected="{{#with typeOf name}} true {{/with}}" value="{{name}}">{{name}}</option>
+							{{/each}}
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
+	</header>
+	<div class="page-content">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+				Show <strong>{{timeline_filter}}</strong> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" class="filter-timeline" data-type="pomodoro">Pomodoro</a></li>
+				<li><a href="#" class="filter-timeline" data-type="project">Project</a></li>
+				<li><a href="#" class="filter-timeline" data-type="message">Message</a></li>
+				<li><a href="#" class="filter-timeline" data-type="user">User</a></li>
+				<li class="divider"></li>
+				<li><a href="#" class="link-success reset-timeline">All Events</a></li>
+			</ul>
+		</div>
+		<ul class="timeline">
+			{{#each timeline_item}}
+				{{>timeline}}
+			{{/each}}
+		</ul>
 	</div>
 </template>

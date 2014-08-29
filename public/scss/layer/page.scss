@@ -13,40 +13,17 @@
 	@include vScroll;
 }
 
-.page--profile {
+.page--users {
 	@extend .page;
-	padding: 6em 0;
-	@include vScroll;
-
-	h1 {
-		margin-bottom: 2em;
-	}
-
-	.form-control {
-		margin-bottom: 2em;
-	}
-}
-
-.page--home {
-	@extend .page;
-
-	.header-detail {
-		padding: 3em 3em 1em;
-		background-color: $darkgray;
-		color: $white;
-	}
-
-	.title-detail {
-		margin: 0 0 1em 0;
-		color: $white;
-	}
-
 }
 
 .page-listing,
 .page-detail {
+	position: relative;
 	height: 100%;
+	z-index: 2;
 	@include vScroll;
+	@include boxSizing;
 }
 
 .page-listing {
@@ -67,33 +44,11 @@
 		list-style: none;
 	}
 
-	& > ul > li > a {
-		display: block;
-		width: 100%;
-		padding: 2em 0;
-		color: $black;
-	}
-	
-	& > ul > li a:hover {
-		background-color: $whitegray;
-	}
-
-	& > ul > li.is-selected a,
-	& > ul > li.is-selected a:hover{
-		background-color: $white;
-	}
-
-	h4 {
-		margin: 1em 0 0 0;
-	}
-
-	strong {
-
-		font-weight: lighter;
-	}
 }
 
+.page-detail {}
+
 .page-content {
-	padding: 1em 3em 0;
+	padding: 2em 3em 0;
 	@include boxSizing;
 }

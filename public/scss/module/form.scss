@@ -18,13 +18,24 @@
 
 $input: (
 	success: (
-		color: $green
+		bg: $green,
+		color: $white,
 	),
 	warning: (
-		color: $orange
+		bg: $orange,
+		color: $white,
 	),
 	error: (
-		color: $red
+		bg: $red,
+		color: $white,
+	),
+	dark: (
+		bg: $darkgray,
+		color: $white,
+	),
+	clear: (
+		bg: $whitegray,
+		color: $black,
 	),
 );
 
@@ -32,6 +43,18 @@ $input: (
 	@include _input(
 		$c: $blue
 	);
+}
+
+.dropdown-menu .form-control {
+	@extend .form-control;
+	border: none;
+
+	&.active,
+	&:hover,
+	&:focus {
+		background-color: $blue;
+		color: $white;
+	}
 }
 
 select.form-control {
@@ -46,6 +69,18 @@ select.form-control {
 	$_name: nth($thm, 1);
 	$_values: nth($thm, 2);
 	.form-control--#{$_name} {
-		@include _input( $c: map-get($_values, color) );
+		@include _input( $c: map-get($_values, bg) );
+	}
+
+	.dropdown-menu .form-control--#{$_name} {
+		@extend .form-control--#{$_name};
+		border: none;
+
+		&.active,
+		&:hover,
+		&:focus {
+			background-color: map-get($_values, bg);
+			color: map-get($_values, color);
+		}
 	}
 }

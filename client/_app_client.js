@@ -1,6 +1,6 @@
 Pomodoro = new Meteor.Collection("pomodoro");
 Project = new Meteor.Collection("project");
-Notify = new Meteor.Collection("notify");
+Project_type = new Meteor.Collection("project_type");
 Events = new Meteor.Collection("events");
 
 // init router fn & obj
@@ -9,6 +9,7 @@ Session.set('user_selected', Meteor.userId() || null);
 Session.set('project_selected', null);
 Session.set('this', Date.now());
 Session.set('filter_timeline_user', {})
+Session.set('filter_timeline_project', {})
 
 app = {
 
@@ -18,6 +19,13 @@ app = {
 	},
 
 	router : {
+
+		route : {
+			index : 'index',
+			home : 'users',
+			projects : 'projects',
+		},
+
 		changePage : function() {
 			var dataUrl = window.location.hash.toLowerCase().split('/');
 			Session.set('router', {
@@ -38,7 +46,7 @@ app = {
 				texte = "";
 			
 			for (var i = 0; i < words.length; i++) {
-				texte += words[i].charAt(0).toUpperCase() + words[i].slice(1) + " "
+				texte += words[i].charAt(0).toUpperCase() + words[i].slice(1) + ( words[i+1] ? " " : "");
 			};
 
 			return texte;
@@ -90,25 +98,30 @@ Meteor.startup( function () {
 
 });
 
-Template.app.user_logged = function () {
-	return Meteor.userId();
-};
 
-Template.app.getPage = function () {
 
-	app.router.changePage();
+// helper
 
-    if ( Meteor.userId() && Template[ Session.get('router').name ] ){
+Handlebars.registerHelper('user_is_working', function () {
+    return Meteor.users.findOne( this._id ).profile.is_working;
+});
 
-        return { template: Template[ Session.get('router').name ] };
+Handlebars.registerHelper('user_is_free', function () {
+    return !Meteor.users.findOne( this._id ).profile.is_working;
+});
 
-    } else if ( Meteor.userId() ){
+Handlebars.registerHelper('user_is_selected', function () {
+    return Session.get('user_selected') == this._id;
+});
 
-        return { template: Template[ 'home' ] };
+Handlebars.registerHelper('user_is_logged', function () {
+    return Meteor.userId() == this._id;
+});
 
-    } else {
+Handlebars.registerHelper('user_is_connected', function () {
+    return Meteor.userId();
+});
 
-        return { template: Template[ 'index' ] };
-
-    }
-};
+Handlebars.registerHelper('project_is_selected', function () {
+	return (Session.get('project_selected') == this._id) ? "is-selected" : false; 
+});

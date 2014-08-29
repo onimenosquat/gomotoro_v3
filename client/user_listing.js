@@ -54,20 +54,4 @@ Template.user_listing.helpers({
 		return deg;
 	},
 
-	user_selected : function () {
-		return Session.get('user_selected') == this._id; 
-	},
-
-	user_working : function () {
-		return Meteor.users.findOne( this._id ) && Meteor.users.findOne( this._id ).profile.is_working;
-	},
-
-	user_free : function () {
-		return Meteor.users.findOne( this._id ) && !Meteor.users.findOne( this._id ).profile.is_working;
-	},
-
-	user_logged : function () {
-		return Meteor.userId() == this._id;
-	},
-
 });

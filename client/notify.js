@@ -1,5 +1,5 @@
 Template.notify.notify = function () {
-	return Notify.find({
+	return Events.find({
 		user_id : Meteor.userId() || Session.get('this'),
 		active : true,
 	}, {
@@ -12,14 +12,14 @@ Template.notify.events({
 		e.preventDefault();
 
 		var id = this._id,
-			n = Notify.findOne( id );
+			n = Events.findOne( id );
 
 		n.active = false;
 
-		$(e.target).parents('.app-notify').addClass( 'fadeOutDown' );
+		$(e.target).parents('.app-notify').addClass( 'fadeOutRight' );
 
 		Meteor.setTimeout( function(){
-			Notify.update( id, n );
+			Events.update( id, n );
 		}, 1000);
 	},
 })

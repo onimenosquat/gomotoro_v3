@@ -12,6 +12,10 @@ Template.user_detail.helpers({
 		return ( Meteor.userId() == this._id ) ? "is-logged" : false; 
 	},
 
+	user_no_logged : function () {
+		return ( Meteor.userId() != this._id ) ? "is-no-logged" : false; 
+	},
+
 	pomodoro_timer : function () {
 		var pmdr = Pomodoro.find({
 			user_id : Meteor.userId()
@@ -22,6 +26,10 @@ Template.user_detail.helpers({
 		var timer = pmdr && !pmdr.complete && !pmdr.cancel ? pmdr.current : ( ( Meteor.user() ) ? Meteor.user().profile.timer : app.setting.timer ) ;
 
 		return app.helper.timer( timer );
+	},
+
+	timeline_filter : function () {
+		return Session.get('filter_timeline_user') ? Session.get('filter_timeline_user').notif : false;
 	},
 
 });

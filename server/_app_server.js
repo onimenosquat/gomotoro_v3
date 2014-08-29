@@ -1,6 +1,6 @@
 Pomodoro = new Meteor.Collection("pomodoro");
 Project = new Meteor.Collection("project");
-Notify = new Meteor.Collection("notify");
+Project_type = new Meteor.Collection("project_type");
 Events = new Meteor.Collection("events");
 
 var timers = {},
@@ -26,22 +26,41 @@ app.helper = {
 	// timeout hide notif
 	timeoutNotif : function () {
 		Meteor.setInterval( function (){
-			var n = Notify.find({ active: true }).fetch();
+			var n = Events.find({ active: true }).fetch();
 			
 			_.each(n, function ( item ) {
 				item.active = ((Date.now() - item.timestamp) >= app.setting.timerNotif) ? false : true;
-				Notify.update(item._id, item);
+				Events.update(item._id, item);
 			});
 
 		}, 1000);
 	},
 
-	resetCollections : function () {
-		Meteor.users.remove({});
-		Pomodoro.remove({});
-		Project.remove({});
-		Notify.remove({});
-		Events.remove({});
+	resetCollections : function ( name ) {
+		switch(name) {
+			case "users":
+				Meteor.users.remove({});
+			break;
+			case "pomodoro":
+				modoro.remove({});
+			break;
+			case "project":
+				Project.remove({});
+			break;
+			case "project_type":
+				Project_type.remove({});
+			break;
+			case "events":
+				Events.remove({});
+			break;
+			default:
+				Meteor.users.remove({});
+				Pomodoro.remove({});
+				Project.remove({});
+				Project_type.remove({});
+				Events.remove({});
+			break;
+		}
 	},
 
 	timer : function ( s ) {
@@ -89,9 +108,8 @@ Meteor.startup(function () {
 
 Meteor.methods({
 
-	reset: function( pwd ) {
-		if ( pwd != "spip" ) return false;
-		app.helper.resetCollections();
+	reset: function( name ) {
+		app.helper.resetCollections( name );
 	},
 
 	// create and start a new pomodoro
@@ -131,22 +149,14 @@ Meteor.methods({
 
     		// create event new pmdr
     		Events.insert({
+    			active : true,
     			user_id : user._id,
 				notif : "pomodoro",
-				type : "event-default",
+				type : "default",
 				timestamp : model.timestamp,
 				date : app.helper.date( model.timestamp ),
 				title : "Pomodoro",
 				message : "work up " + app.helper.date( model.timestamp + model.timer * 1000 )
-			});
-
-    		// Show notif
-			Notify.insert({
-				user_id : user._id,
-				active : true,
-				timestamp : Date.now(),
-				message : "Pomodoro start <small>work up " + app.helper.date( model.timestamp + model.timer * 1000 ) + "</small>",
-				status : 'default'
 			});
     	});
     },
@@ -176,22 +186,14 @@ Meteor.methods({
     	// create event pmdr cancel
 		if( pmdr.cancel ) {
 			Events.insert({
+    			active : true,
 				user_id : user._id,
 				notif : "pomodoro",
-				type : "event-error",
+				type : "default",
 				timestamp : Date.now(),
 				date : app.helper.date( Date.now() ),
 				title : "Pomodoro",
 				message : "Stopped at " + app.helper.timer( pmdr.current )
-			});
-
-			// Show notif
-			Notify.insert({
-				user_id : user._id,
-				active : true,
-				timestamp : Date.now(),
-				message : "Pomodoro stop <small>at " + app.helper.timer( pmdr.current ) + "</small>",
-				status : 'error'
 			});
 		}
     },
@@ -218,23 +220,16 @@ Meteor.methods({
 
 	            // create event pmdr complete
             	Events.insert({
+            		active : true,
             		user_id : user._id,
             		notif : "pomodoro",
-            		type : "event-success",
+            		type : "success",
             		timestamp : Date.now(),
             		date : app.helper.date( Date.now() ),
             		title : "Pomodoro",
             		message : "Complete"
             	});
 
-            	// Show notif
-            	Notify.insert({
-            		user_id : user._id,
-            		active : true,
-            		timestamp : Date.now(),
-            		message : "Pomodoro complete",
-            		status : 'success'
-            	});
             } else {
 				
 				// render current time

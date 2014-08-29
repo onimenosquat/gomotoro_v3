@@ -1,0 +1,81 @@
+.user_detail {
+	.header-detail {
+		padding: 4em 3em 1em;
+		background-color: $darkgray;
+		color: $white;
+		text-align: center;
+
+		.form-control {
+			text-align: center;
+			background: none;
+			border: none;
+			color: inherit;
+			height: auto;
+			padding: 0 1em;
+			margin: 0;
+			line-height: 1.4em;
+			font-size: 1em;
+			@include borderRadius;
+
+			&:hover,
+			&:focus {
+				background-color: fade-out($black, 0.33);
+			} 
+		}
+
+		.user-avatar {
+			margin: 0;
+
+			.form-control {
+				font-size: 0.4em;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				line-height: 2em;
+				margin: -0.9em 0 0 -10em;
+				width: 20em;
+				opacity: 0;
+				visibility: hidden;
+				background-color: fade-out($black, 0.33);
+				@include transition(0.3s ease 0.9s);
+			}
+
+			&:hover {
+				.form-control {
+					opacity: 1;
+					visibility: visible;
+					@include transition(0.3s ease);
+				}
+			}
+		}		
+
+		.title-detail {
+			margin: 1em 0 2em 0;
+			color: $white;
+			line-height: 1.4em;
+			
+			h2, h4 {
+				margin: 0
+			}
+
+			h4 {
+				color: $gray;
+			}
+
+			.form-control {
+				margin-left: auto;
+				margin-right: auto;
+				width: 100%;
+				@include transition(0.3s ease);
+
+				@include respond-to ( small ){
+					width: 50%
+				}
+
+				@include respond-to ( large ){
+					width: 33%
+				}
+			}
+		}
+	}
+}

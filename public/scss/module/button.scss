@@ -5,12 +5,17 @@
 	@include borderRadius(0);
 
 	&:hover,
+	&:active,
 	&:focus {
 		background-color: darken($bg, 10%);
 		border-color: darken($bg, 10%);
 		color: $c;
 		@include outLine( none );
 		@include boxShadow( none );
+	}
+
+	&:active {
+		background-color: darken($bg, 4%);
 	}
 
 	.caret {
@@ -52,6 +57,10 @@ $btn: (
 	error: (
 		color: $white,
 		bg: $red
+	),
+	dark: (
+		color: $white,
+		bg: $darkgray
 	),
 );
 
@@ -111,10 +120,10 @@ $btn: (
 }
 
 .dropdown-menu .divider {
-	margin: 0;
+	margin: 0.4em 0;
 	height: 0;
 	background: none !important;
-	border-bottom: 1px dotted $whitesmoke;
+	border-bottom: 1px dashed $whitesmoke;
 }
 
 .dropdown-menu--right {
