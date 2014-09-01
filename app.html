@@ -77,14 +77,36 @@
 	</form>
 </template>
 
-<!-- TOPBAR -->
+<!-- TOPBAR V3.1 current -->
 <template name="topbar">
 	<nav class="navbar" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#/users"><h2 class="app-title"><b>G</b>o<b>M</b>o<b>T</b>oro</h2></a>
 			</div>
+			
+			{{#with user}}
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><div class="user-avatar" style="background-image: url( {{profile.image}} );"></div> {{profile.name}}</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#" class="link-error app-logout">Log out</a></li>
+					</ul>
+				</li>
+			</ul>
+			{{/with}}
+		</div>
+	</nav>
+</template>
 
+<!-- TOPBAR V3.2 -->
+<template name="topbar_3-2">
+	<nav class="navbar" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#/users"><h2 class="app-title"><b>G</b>o<b>M</b>o<b>T</b>oro</h2></a>
+			</div>
+			
 			<ul class="nav navbar-nav">
 				<li><a href="#/home" class="{{#with currentPage "home"}}active{{/with}}">Users</a></li>
 				<li><a href="#/projects" class="{{#with currentPage "projects"}}active{{/with}}">Projects</a></li>
@@ -95,13 +117,13 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><div class="user-avatar" style="background-image: url( {{profile.image}} );"></div> {{profile.name}}</a>
 					<ul class="dropdown-menu" role="menu">
-					<li><a href="#/home" class="select_user">Profile</a></li>
-					<li><a href="#/projects">Projects</a></li>
-					<li class="divider"></li>
-					<li><a href="#/invite" class="link-primary">Invite friends</a></li>
-					<li><a href="#/credit" class="link-primary">About GoMoToro</a></li>
-					<li class="divider"></li>
-					<li><a href="#" class="link-error app-logout">Log out</a></li>
+						<li><a href="#/home" class="select_user">Profile</a></li>
+						<li><a href="#/projects">Projects</a></li>
+						<li class="divider"></li>
+						<li><a href="#/invite" class="link-primary">Invite friends</a></li>
+						<li><a href="#/credit" class="link-primary">About GoMoToro</a></li>
+						<li class="divider"></li>
+						<li><a href="#" class="link-error app-logout">Log out</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -324,8 +346,8 @@
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="#" class="filter-timeline" data-type="pomodoro">Pomodoro</a></li>
-				<li><a href="#" class="filter-timeline" data-type="project">Project</a></li>
-				<li><a href="#" class="filter-timeline" data-type="message">Message</a></li>
+				<!-- <li><a href="#" class="filter-timeline" data-type="project">Project</a></li> -->
+				<!-- <li><a href="#" class="filter-timeline" data-type="message">Message</a></li> -->
 				<li><a href="#" class="filter-timeline" data-type="user">User</a></li>
 				<li class="divider"></li>
 				<li><a href="#" class="link-success reset-timeline">All Events</a></li>
@@ -395,6 +417,7 @@
 	</div>
 </template>
 
+<!-- PROJECTS LISTING -->
 <template name="project_listing">
 	<li class="project_listing {{project_is_selected}}">
 		<a href="#">
@@ -412,6 +435,7 @@
 	</li>
 </template>
 
+<!-- PROJECTS DETAIL -->
 <template name="project_detail">
 	<header class="header-detail">
 		<div class="container-fluid">

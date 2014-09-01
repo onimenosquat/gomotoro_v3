@@ -9,7 +9,7 @@ Template.register.events({
 
 			value = {
 				mail : form.mail.value,
-				password : form.mail.value,
+				password : form.password.value,
 				username : form.mail.value ? form.mail.value.split('@')[0].toLowerCase() : null,
 			};
 
@@ -43,11 +43,18 @@ Template.register.events({
 		
 			if (err) {
 
-				alert( err.reason );
+				Events.insert({
+					active : true,
+					user_id : Meteor.userId() || Session.get('this'),
+					notif : "login",
+					type : "error",
+					timestamp : Date.now(),
+					date : app.helper.date( Date.now() ),
+					title : "User register error",
+					message : err.reason
+				});
 
 			} else {
-
-				alert( "success" );
 
 				Session.set('user_selected', Meteor.userId() || null);
 
@@ -58,8 +65,8 @@ Template.register.events({
 					type : "primary",
 					timestamp : Date.now(),
 					date : app.helper.date( Date.now() ),
-					title : "Welcome to GoMoToro !",
-					message : "You can do : <ul><li><a href='#'>Make a visit</a></li><li><a href='#/profile'>Edit your profile</a></li><li><a href='#' class='user-pomodoro-start'>Start pomodoro</a></li><li><a href='#/invite'>Invite friends</a></li></ul>"
+					title : "Hi !",
+					message : "Welcome to GoMoToro. <b>What's next ?</b> <ul><li><a href='#'>Make a visit</a></li><li><a href='#' class='user-pomodoro-start'>Start pomodoro</a></li><li><a href='#/invite'>Invite friends</a></li></ul>"
 				});
 
 				app.router.goTo( 'home' );

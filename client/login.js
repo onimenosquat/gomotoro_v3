@@ -17,13 +17,31 @@ Template.login.events({
 		Meteor.loginWithPassword(value.mail, value.password, function(err){
 			if (err) {
 				
-				alert( err.reason );
+				Events.insert({
+					active : true,
+					user_id : Meteor.userId() || Session.get('this'),
+					notif : "login",
+					type : "error",
+					timestamp : Date.now(),
+					date : app.helper.date( Date.now() ),
+					title : "User login error",
+					message : err.reason
+				});
 
 			} else {
 
 				Session.set('user_selected', Meteor.userId() );
 
-				alert( "success" );
+				Events.insert({
+					active : true,
+					user_id : Meteor.userId() || Session.get('this'),
+					notif : "login",
+					type : "primary",
+					timestamp : Date.now(),
+					date : app.helper.date( Date.now() ),
+					title : "User login success",
+					message : "Hi! How are ou today ?"
+				});
 
 				app.router.goTo( 'home' );
 
