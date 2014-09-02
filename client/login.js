@@ -8,7 +8,6 @@ Template.login.events({
 				mail : t.find('#login-email'),
 				password : t.find('#login-password')
 			},
-
 			value = {
 				mail : form.mail.value,
 				password : form.password.value,
@@ -16,35 +15,10 @@ Template.login.events({
 
 		Meteor.loginWithPassword(value.mail, value.password, function(err){
 			if (err) {
-				
-				Events.insert({
-					active : true,
-					user_id : Meteor.userId() || Session.get('this'),
-					notif : "login",
-					type : "error",
-					timestamp : Date.now(),
-					date : app.helper.date( Date.now() ),
-					title : "User login error",
-					message : err.reason
-				});
-
+				console.log( err );
 			} else {
-
 				Session.set('user_selected', Meteor.userId() );
-
-				Events.insert({
-					active : true,
-					user_id : Meteor.userId() || Session.get('this'),
-					notif : "login",
-					type : "primary",
-					timestamp : Date.now(),
-					date : app.helper.date( Date.now() ),
-					title : "User login success",
-					message : "Hi! How are ou today ?"
-				});
-
 				app.router.goTo( 'home' );
-
 			};
 		});
 

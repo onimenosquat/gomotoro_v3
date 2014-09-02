@@ -1,35 +1,15 @@
 Template.user_detail.helpers({
 
-	timeline_item : function () {
-		var id = Session.get('user_selected') || Meteor.userId(),
-		filter = ( Session.get('user_selected') == Meteor.userId() ) ? Session.get('filter_timeline_user') || {} : { notif : { $in: ['project', 'message'] }};
+	pmdr : function () {
 
-		filter.user_id = id;
-		return Events.find( filter , {sort : {timestamp : -1}}).fetch();  
-	},
+		var pmdr = {};
+		pmdr.length = Pomodoro.find({ user_id : this._id }).fetch().length;
+		pmdr.complete = Pomodoro.find({ user_id : this._id, complete : true }).fetch().length;
+		pmdr.uncomplete = Pomodoro.find({ user_id : this._id, cancel : true }).fetch().length;
+		pmdr.percent_complete = pmdr.complete * 100 / pmdr.length;
+		pmdr.percent_uncomplete = pmdr.uncomplete * 100 / pmdr.length;
 
-	user_logged : function () {
-		return ( Meteor.userId() == this._id ) ? "is-logged" : false; 
-	},
-
-	user_no_logged : function () {
-		return ( Meteor.userId() != this._id ) ? "is-no-logged" : false; 
-	},
-
-	pomodoro_timer : function () {
-		var pmdr = Pomodoro.find({
-			user_id : Meteor.userId()
-		}, {
-			sort : { timestamp : -1}
-		}).fetch()[0];
-
-		var timer = pmdr && !pmdr.complete && !pmdr.cancel ? pmdr.current : ( ( Meteor.user() ) ? Meteor.user().profile.timer : app.setting.timer ) ;
-
-		return app.helper.timer( timer );
-	},
-
-	timeline_filter : function () {
-		return Session.get('filter_timeline_user') ? Session.get('filter_timeline_user').notif : false;
+		return pmdr;
 	},
 
 });

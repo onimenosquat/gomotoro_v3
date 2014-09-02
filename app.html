@@ -1,5 +1,9 @@
 <head>
 	<title>GoMoToro</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/animate.css">
@@ -17,12 +21,9 @@
 
 <!-- APP -->
 <template name="app">
-	<div class="app">
-
-		{{> notify}}
+	<div class="app" id="fullscreen">
 
 		{{#if user_is_connected}}
-			{{> panel_control}}
 			{{> topbar}}
 		{{/if}}
 
@@ -31,167 +32,6 @@
 		{{/with}}
 
 	</div>
-</template>
-
-<!-- NOTIFY -->
-<template name="notify">
-	<div class="app-notifies">
-	{{#each notify}}
-		<div class="app-notify app-notify--{{type}} animated fadeInRight">
-			<span>{{{message}}}</span>
-			<a href="#" class="remove-notify">
-				<i class="glyphicon glyphicon-remove"></i>
-			</a>
-		</div>
-	{{/each}}
-	</div>
-</template>
-
-<!-- LOGIN -->
-<template name="login">
-	<form id="login-form" action="action">
-		<div class="form-group">
-			<input class="form-control form-control--success" name="login" type="text" id="login-email" placeholder="Email"/>
-		</div>
-		<div class="form-group">
-			<input class="form-control form-control--success" name="password" type="password" id="login-password" placeholder="••••"/>
-		</div>
-		<div class="text-right">
-			<input class="btn btn-success" type="submit" value="Sign in" />
-		</div>
-	</form> 
-</template>
-
-<!-- REGISTER -->
-<template name="register">
-	<form id="register-form" action="action">
-		<div class="form-group">
-			<input class="form-control form-control--success" name="email" type="email" id="register-email" placeholder="Email"/>
-		</div>
-		<div class="form-group">
-			<input class="form-control form-control--success" name="password" type="password" id="register-password" placeholder="••••"/>
-		</div>
-		<div class="text-right">
-			<input class="btn btn-success" type="submit" value="Create an Account" />
-		</div>
-	</form>
-</template>
-
-<!-- TOPBAR V3.1 current -->
-<template name="topbar">
-	<nav class="navbar" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#/users"><h2 class="app-title"><b>G</b>o<b>M</b>o<b>T</b>oro</h2></a>
-			</div>
-			
-			{{#with user}}
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><div class="user-avatar" style="background-image: url( {{profile.image}} );"></div> {{profile.name}}</a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" class="link-error app-logout">Log out</a></li>
-					</ul>
-				</li>
-			</ul>
-			{{/with}}
-		</div>
-	</nav>
-</template>
-
-<!-- TOPBAR V3.2 -->
-<template name="topbar_3-2">
-	<nav class="navbar" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#/users"><h2 class="app-title"><b>G</b>o<b>M</b>o<b>T</b>oro</h2></a>
-			</div>
-			
-			<ul class="nav navbar-nav">
-				<li><a href="#/home" class="{{#with currentPage "home"}}active{{/with}}">Users</a></li>
-				<li><a href="#/projects" class="{{#with currentPage "projects"}}active{{/with}}">Projects</a></li>
-			</ul>
-			
-			{{#with user}}
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><div class="user-avatar" style="background-image: url( {{profile.image}} );"></div> {{profile.name}}</a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#/home" class="select_user">Profile</a></li>
-						<li><a href="#/projects">Projects</a></li>
-						<li class="divider"></li>
-						<li><a href="#/invite" class="link-primary">Invite friends</a></li>
-						<li><a href="#/credit" class="link-primary">About GoMoToro</a></li>
-						<li class="divider"></li>
-						<li><a href="#" class="link-error app-logout">Log out</a></li>
-					</ul>
-				</li>
-			</ul>
-			{{/with}}
-		</div>
-	</nav>
-</template>
-
-<!-- PANEL CONTROL -->
-<template name="panel_control">
-	<aside class="panel">
-		
-	</aside>
-</template>
-
-<!-- TIMELINE -->
-<template name="timeline">
-	<li class="event-{{type}}">
-		{{#if typeOf "pomodoro"}}
-			<span class="dot">
-				<i class="glyphicon glyphicon-time"></i>
-			</span>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<strong class="date">{{date}}</strong>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
-					<h4>{{{title}}}</h4>
-					<p>
-						{{{message}}}
-					</p>
-				</div>
-			</div>
-		{{/if}}
-		{{#if typeOf "user"}}
-			<span class="dot">
-				<i class="glyphicon glyphicon-user"></i>
-			</span>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<strong class="date">{{date}}</strong>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
-					<h4>{{{title}}}</h4>
-					<p>
-						{{#if media}} <div class="user-avatar" style="background-image: url( {{media}} );"></div> {{/if}}	
-						{{{message}}}
-					</p>
-				</div>
-			</div>
-		{{/if}}
-		{{#if typeOf "message"}}
-			<span class="dot">
-				<i class="glyphicon glyphicon-comment"></i>
-			</span>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<strong class="date">{{date}}</strong>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
-					<h4>{{{title}}}</h4>
-					<p>
-						{{{message}}}
-					</p>
-				</div>
-			</div>
-		{{/if}}
-	</li>
 </template>
 
 <!-- INDEX -->
@@ -231,6 +71,69 @@
 	</div>
 </template>
 
+<!-- LOGIN -->
+<template name="login">
+	<form id="login-form" action="action">
+		<div class="form-group">
+			<input class="form-control form-control--success" name="login" type="text" id="login-email" placeholder="Email"/>
+		</div>
+		<div class="form-group">
+			<input class="form-control form-control--success" name="password" type="password" id="login-password" placeholder="••••"/>
+		</div>
+		<div class="text-right">
+			<input class="btn btn-success" type="submit" value="Sign in" />
+		</div>
+	</form> 
+</template>
+
+<!-- REGISTER -->
+<template name="register">
+	<form id="register-form" action="action">
+		<div class="form-group">
+			<input class="form-control form-control--success" name="email" type="email" id="register-email" placeholder="Email"/>
+		</div>
+		<div class="form-group">
+			<input class="form-control form-control--success" name="password" type="password" id="register-password" placeholder="••••"/>
+		</div>
+		<div class="text-right">
+			<input class="btn btn-success" type="submit" value="Create an Account" />
+		</div>
+	</form>
+</template>
+
+<!-- TOPBAR -->
+<template name="topbar">
+	<nav class="navbar" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#/users"><h2 class="app-title"><b>G</b>o<b>M</b>o<b>T</b>oro</h2></a>
+			</div>
+			
+			<ul class="nav navbar-nav">
+				<li><a href="#/users" class="{{#with currentPage "users"}}active{{/with}}">Users</a></li>
+				<li><a href="#/projects" class="{{#with currentPage "projects"}}active{{/with}}">Projects</a></li>
+			</ul>
+			
+			{{#with user}}
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><div class="user-avatar" style="background-image: url( {{profile.image}} );"></div> {{profile.name}}</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#/users/{{ _id }}" class="select_user">Profile</a></li>
+						<li><a href="#/projects">Projects</a></li>
+						<li class="divider"></li>
+						<li><a href="#/invite" class="link-primary">Invite friends</a></li>
+						<li><a href="#/credit" class="link-primary">About GoMoToro</a></li>
+						<li class="divider"></li>
+						<li><a href="#" class="link-error app-logout">Log out</a></li>
+					</ul>
+				</li>
+			</ul>
+			{{/with}}
+		</div>
+	</nav>
+</template>
+
 <!-- USERS -->
 <template name="users">
 	<div class="page--users">
@@ -260,7 +163,7 @@
 <!-- USER LISTING -->
 <template name="user_listing">
 	<li class="user_listing {{#if user_is_working}} is-working {{/if}} {{#if user_is_free}} is-free {{/if}} {{#if user_is_selected}} is-selected {{/if}} {{#if user_is_logged}} is-logged {{/if}}">
-		<a href="#">
+		<a href="#/users/{{ _id }}">
 			<div class="container-fluid">
 				<div class="row row-small">
 					<div class="col-xs-4">
@@ -309,7 +212,7 @@
 					<div class="title-detail">
 						<h2>
 							{{#if user_is_logged}}
-									<input class="form-control user_name" type="text" value="{{profile.name}}" placeholder="Name">
+								<input class="form-control user_name" type="text" value="{{profile.name}}" placeholder="Name">
 							{{/if}}
 							{{#if user_is_no_logged}}
 									{{profile.name}}
@@ -317,7 +220,7 @@
 						</h2>
 						<h4>
 							{{#if user_is_logged}}
-									<input class="form-control user_job" type="text" value="{{profile.job}}" placeholder="Name">
+								<input class="form-control user_job" type="text" value="{{profile.job}}" placeholder="Name">
 							{{/if}}
 							{{#if user_is_no_logged}}
 									{{profile.job}}
@@ -327,12 +230,13 @@
 				</div>
 				{{#if user_is_logged}}
 				<div class="col-xs-12 col-no-padding text-center">
-					<div class="pmdr">
-						<div class="btn-group btn-group-lg">
-							<button class="btn btn-dark pomodoro_less"><small><i class="glyphicon glyphicon-minus"></i></small></button>
-							<button class="btn btn-dark pomodoro_start" data-toggle="tooltip" data-placement="bottom" title="Start / Stop">{{pomodoro_timer}}</button>
-							<button class="btn btn-dark pomodoro_more"><small><i class="glyphicon glyphicon-plus"></i></small></button>
-						</div>
+					<div class="btn-group btn-group-lg">
+						<button class="btn btn-dark pomodoro_less"><small><i class="glyphicon glyphicon-minus"></i></small></button>
+						<button class="btn btn-dark pomodoro_start">{{pomodoro_timer}}</button>
+						<button class="btn btn-dark pomodoro_more"><small><i class="glyphicon glyphicon-plus"></i></small></button>
+					</div>
+					<div class="btn-group btn-group-lg">
+						<button class="btn btn-dark pomodoro_start"> Start </button>
 					</div>
 				</div>
 				{{/if}}
@@ -340,24 +244,27 @@
 		</div>
 	</header>
 	<div class="page-content">
-		<div class="btn-group">
-			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-				Show <strong>{{timeline_filter}}</strong> <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" class="filter-timeline" data-type="pomodoro">Pomodoro</a></li>
-				<!-- <li><a href="#" class="filter-timeline" data-type="project">Project</a></li> -->
-				<!-- <li><a href="#" class="filter-timeline" data-type="message">Message</a></li> -->
-				<li><a href="#" class="filter-timeline" data-type="user">User</a></li>
-				<li class="divider"></li>
-				<li><a href="#" class="link-success reset-timeline">All Events</a></li>
-			</ul>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Pomodoro <span class="label label-default">{{ pmdr.length }}</span></h3>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ pmdr.percent_complete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pmdr.percent_complete }}%;">
+						Complete
+					</div>
+					<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ pmdr.percent_uncomplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pmdr.percent_uncomplete }}%;">
+						Uncomplete
+					</div>
+				</div>
+			</div>
 		</div>
-		<ul class="timeline">
-			{{#each timeline_item}}
-				{{>timeline}}
-			{{/each}}
-		</ul>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Project</h3>
+			</div>
+		</div>
+
 	</div>
 </template>
 
@@ -366,7 +273,7 @@
 	<div class="page">
 		<div class="container-fluid container-height">
 			<div class="row">
-				<div class="col-xs-12 col-sm-4 col-md-3 col-no-padding">
+				<div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 col-no-padding">
 					<div class="page-listing">
 						<header>
 
@@ -405,7 +312,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-8 col-md-9 col-no-padding">
+				<div class="col-xs-12 col-sm-7 col-md-8 col-lg-9 col-no-padding">
 					<div class="page-detail">
 						{{#with project_selected}}
 							{{> project_detail}}
@@ -442,7 +349,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="form-group">
-						<input type="text" class="form-control form-control-big project_name" value="{{name}}">
+						<input type="text" class="form-control form-control--big project_name" value="{{name}}">
 					</div>
 					<div class="form-group">
 						<select class="form-control project_type">

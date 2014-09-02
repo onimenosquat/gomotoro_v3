@@ -19,8 +19,7 @@ Template.users.helpers({
 	},
 
 	user_selected : function () {
-		//RENAME
-		return  Meteor.users.findOne( Session.get('user_selected') || Meteor.userId() );
+		return  Meteor.users.findOne( Session.get('router').id || Meteor.userId() );
 	},
 
 });
@@ -30,16 +29,6 @@ Template.users.events({
 
 	// TIMER
 	// -------
-	'click .pomodoro_start' : function ( e ) {
-		e.preventDefault();
-		Meteor.call('pomodoro_start', Meteor.userId());
-	},
-
-	'mouseenter .pomodoro_start' : function ( e ) {
-		e.preventDefault();
-		$(e.currentTarget).tooltip();
-	},
-
 	'click .pomodoro_less' : function ( e ) {
 		e.preventDefault();
 		if ( Meteor.users.findOne( this._id ).profile.is_working ) return false;
@@ -54,13 +43,6 @@ Template.users.events({
 		var u = Meteor.users.findOne( this._id );
 		u.profile.timer += ( u.profile.timer + 300 <= 2700 ) ? 300 : 0 ;
 		Meteor.users.update( this._id, { $set : { profile : u.profile }});
-	},
-
-	// LISTING USER
-	// -------
-	'click .user_listing > a' : function ( e ) {
-		e.preventDefault();
-		Session.set('user_selected', this._id);
 	},
 
 	// TIMELINE
@@ -131,4 +113,5 @@ Template.users.events({
 			message : "New name : <strong>" + u.profile.name + "</strong>",
 		});
 	}
+
 });

@@ -7,7 +7,7 @@ var timers = {},
 	app = {};
 
 app.setting = {
-	// timeout hide notif (ms)
+	// timeout notif (ms)
 	timerNotif : 9000
 };
 
@@ -37,7 +37,7 @@ app.helper = {
 	},
 
 	resetCollections : function ( name ) {
-		switch(name) {
+		switch (name) {
 			case "users":
 				Meteor.users.remove({});
 			break;

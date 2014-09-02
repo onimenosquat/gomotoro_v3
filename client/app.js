@@ -15,3 +15,10 @@ Template.app.helpers({
 	},
 	
 });
+
+Template.app.events({
+	'click .pomodoro_start' : function ( e ) {
+		e.preventDefault();
+		Meteor.call('pomodoro_start', Meteor.userId());
+	},
+})

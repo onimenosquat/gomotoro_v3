@@ -6,7 +6,6 @@ Template.register.events({
 				mail : t.find('#register-email'),
 				password : t.find('#register-password')
 			},
-
 			value = {
 				mail : form.mail.value,
 				password : form.password.value,
@@ -14,19 +13,14 @@ Template.register.events({
 			};
 
 		if ( !value.mail || !value.username || !value.password ){
-
 			alert('All fields are require.');
 			return false;
-
 		} else if ( value.mail.indexOf('@') <= -1 ) {
-
 			alert('Email is invalid');
 			return false;
-
 		}
 
 		Accounts.createUser({
-
 			email: value.mail,
 			password : value.password,
 			username : value.username,
@@ -38,40 +32,13 @@ Template.register.events({
 				job : "New user",
 				image : "http://dummyimage.com/400x400/fff/888/&text=" + value.username[0].toUpperCase()
 			}
-			
 		}, function( err, id ){
-		
 			if (err) {
-
-				Events.insert({
-					active : true,
-					user_id : Meteor.userId() || Session.get('this'),
-					notif : "login",
-					type : "error",
-					timestamp : Date.now(),
-					date : app.helper.date( Date.now() ),
-					title : "User register error",
-					message : err.reason
-				});
-
+				console.log( err );
 			} else {
-
 				Session.set('user_selected', Meteor.userId() || null);
-
-				Events.insert({
-					active : true,
-					user_id : Meteor.userId(),
-					notif : "user",
-					type : "primary",
-					timestamp : Date.now(),
-					date : app.helper.date( Date.now() ),
-					title : "Hi !",
-					message : "Welcome to GoMoToro. <b>What's next ?</b> <ul><li><a href='#'>Make a visit</a></li><li><a href='#' class='user-pomodoro-start'>Start pomodoro</a></li><li><a href='#/invite'>Invite friends</a></li></ul>"
-				});
-
 				app.router.goTo( 'home' );
 			}
-
 		});
 
 		return false;

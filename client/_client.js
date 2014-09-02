@@ -5,17 +5,16 @@ Events = new Meteor.Collection("events");
 
 // init router fn & obj
 Session.set('router', {});
-Session.set('user_selected', Meteor.userId() || null);
 Session.set('project_selected', null);
 Session.set('this', Date.now());
 Session.set('filter_timeline_user', {})
 Session.set('filter_timeline_project', {})
 
+// my app
 app = {
 
 	setting : {
 		timer : 1500,
-		// timer : 30,
 	},
 
 	router : {
@@ -23,11 +22,12 @@ app = {
 		route : {
 			index : 'index',
 			home : 'users',
+			users : 'users',
 			projects : 'projects',
 		},
 
 		changePage : function() {
-			var dataUrl = window.location.hash.toLowerCase().split('/');
+			var dataUrl = window.location.hash.split('/');
 			Session.set('router', {
 				name : dataUrl[1] || null,
 				id : dataUrl[2] || null,
@@ -96,6 +96,17 @@ Meteor.startup( function () {
 		app.router.changePage();
 	});
 
+	var elem = document.getElementById("fullscreen");
+	if (elem && elem.requestFullscreen) {
+		elem.requestFullscreen();
+	} else if (elem && elem.msRequestFullscreen) {
+		elem.msRequestFullscreen();
+	} else if (elem && elem.mozRequestFullScreen) {
+		elem.mozRequestFullScreen();
+	} else if (elem && elem.webkitRequestFullscreen) {
+		elem.webkitRequestFullscreen();
+	}
+
 });
 
 
@@ -111,11 +122,15 @@ Handlebars.registerHelper('user_is_free', function () {
 });
 
 Handlebars.registerHelper('user_is_selected', function () {
-    return Session.get('user_selected') == this._id;
+    return Session.get('router').id == this._id;
 });
 
 Handlebars.registerHelper('user_is_logged', function () {
     return Meteor.userId() == this._id;
+});
+
+Handlebars.registerHelper('user_is_no_logged', function () {
+    return Meteor.userId() != this._id;
 });
 
 Handlebars.registerHelper('user_is_connected', function () {
@@ -124,4 +139,23 @@ Handlebars.registerHelper('user_is_connected', function () {
 
 Handlebars.registerHelper('project_is_selected', function () {
 	return (Session.get('project_selected') == this._id) ? "is-selected" : false; 
+});
+
+Handlebars.registerHelper('pomodoro_timer', function () {
+	var pmdr,
+		timer,
+		user,
+		id = id || Meteor.userId();
+
+	user = Meteor.users.findOne( id );
+
+	pmdr = Pomodoro.find({
+		user_id : id
+	}, {
+		sort : { timestamp : -1}
+	}).fetch()[0];
+
+	timer = pmdr && !pmdr.complete && !pmdr.cancel ? pmdr.current : ( ( user ) ? user.profile.timer : 0 ) ;
+
+	return app.helper.timer( timer );
 });
