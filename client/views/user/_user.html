@@ -54,24 +54,24 @@
 					<tbody>
 						<tr>
 							<td><strong>All</strong></td>
-							<td><label class="label label-dark">{{pmdr.total}}</label></td>
+							<td class="text-right"><label class="label label-dark">{{pmdr.total}}</label></td>
 						</tr>
 						<tr>
 							<td><strong>Complete</strong></td>
-							<td><label class="label label-success">{{pmdr.complete}}</label></td>
+							<td class="text-right"><label class="label label-success">{{pmdr.complete}}</label></td>
 						</tr>
 						<tr>
 							<td><strong>Uncomplete</strong></td>
-							<td><label class="label label-warning">{{pmdr.uncomplete}}</label></td>
+							<td class="text-right"><label class="label label-warning">{{pmdr.uncomplete}}</label></td>
 						</tr>
 					</tbody>
 				</table>
 				<div class="progress">
 					<div class="progress-bar progress-bar-success" aria-valuenow="{{ pmdr.percent_complete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pmdr.percent_complete }}%;">
-						Complete
+						{{ pmdr.percent_complete }}% Complete
 					</div>
 					<div class="progress-bar progress-bar-default" aria-valuenow="{{ pmdr.percent_uncomplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pmdr.percent_uncomplete }}%;">
-						Uncomplete
+						{{ pmdr.percent_uncomplete }}% Uncomplete
 					</div>
 				</div>
 			</div>
@@ -86,19 +86,19 @@
 							<td><small>WEB</small></td>
 							<td><strong>PNPC</strong></td>
 							<td><span>OT Pays des collines</span></td>
-							<td><label class="label label-dark">43%</label></td>
+							<td class="text-right"><label class="label label-dark">43%</label></td>
 						</tr>
 						<tr>
 							<td><small>WEB</small></td>
 							<td><strong>PNPC</strong></td>
 							<td><span>OT Pays des collines</span></td>
-							<td><label class="label label-dark">43%</label></td>
+							<td class="text-right"><label class="label label-dark">43%</label></td>
 						</tr>
 						<tr>
 							<td><small>WEB</small></td>
 							<td><strong>PNPC</strong></td>
 							<td><span>OT Pays des collines</span></td>
-							<td><label class="label label-dark">43%</label></td>
+							<td class="text-right"><label class="label label-dark">43%</label></td>
 						</tr>
 					</tbody>
 				</table>
