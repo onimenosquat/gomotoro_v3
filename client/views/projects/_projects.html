@@ -1,0 +1,55 @@
+<!-- PROJECTS -->
+<template name="_projects">
+	<div class="page">
+		<div class="container-fluid container-height">
+			<div class="row">
+				<div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 col-no-padding">
+					<div class="page-listing">
+						<header>
+
+							<div class="btn-group">
+								<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+									Filter <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#" class="filtre-project-listing" data-type="multimedia">Multimedia</a></li>
+									<li><a href="#" class="filtre-project-listing" data-type="app">App</a></li>
+									<li><a href="#" class="filtre-project-listing" data-type="web">Web</a></li>
+									<li><a href="#" class="filtre-project-listing" data-type="webapp">Web app</a></li>
+									<li class="divider"></li>
+									<li><a href="#" class="link-success filtre-project-listing" data-type="">All Type</a></li>
+								</ul>
+							</div>
+
+							<div class="btn-group btn-right">
+								<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+									New project <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu--right" role="menu">
+									{{#each project_type}}
+										<li><a href="#" class="create-new-project" data-type="{{name}}">{{name}}</a></li>
+									{{/each}}
+									<li class="divider"></li>
+									<li><form class="add-projet-type"><input type="text" class="form-control form-control--clear" placeholder="New type"></form></li>
+								</ul>
+							</div>
+
+						</header>
+						<ul>
+							{{#each projects}}
+								{{> _project_listing}}
+							{{/each}}
+						</ul>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-7 col-md-8 col-lg-9 col-no-padding">
+					<div class="page-detail">
+						{{#with project_selected}}
+							{{> _project_detail}}
+						{{/with}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

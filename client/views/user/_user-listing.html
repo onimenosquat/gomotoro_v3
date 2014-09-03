@@ -1,0 +1,38 @@
+
+<!-- USER LISTING -->
+<template name="_user_listing">
+	<li class="user_listing {{#if user_is_working}} is-working {{/if}} {{#if user_is_free}} is-free {{/if}} {{#if user_is_selected}} is-selected {{/if}} {{#if user_is_logged}} is-logged {{/if}}">
+		<a href="#/users/{{ _id }}">
+			<div class="container-fluid">
+				<div class="row row-small">
+					<div class="col-xs-4">
+						<div class="circle_pmdr {{#if user_is_logged}} pomodoro_start {{/if}}">
+							<div class="circle_pmdr-half">
+								<div class="circle_pmdr-half-container" style="transform: rotate( {{pomodoro_timer_progress_2}}deg ); -webkit-transform: rotate( {{pomodoro_timer_progress_2}}deg ); -moz-transform: rotate( {{pomodoro_timer_progress_2}}deg ); -ms-transform: rotate( {{pomodoro_timer_progress_2}}deg ); -o-transform: rotate( {{pomodoro_timer_progress_2}}deg )">
+									<div class="circle_pmdr-half-progress"></div>
+								</div>
+							</div>
+							<div class="circle_pmdr-half">
+								<div class="circle_pmdr-half-container" style="transform: rotate( {{pomodoro_timer_progress_1}}deg ); -webkit-transform: rotate( {{pomodoro_timer_progress_1}}deg ); -moz-transform: rotate( {{pomodoro_timer_progress_1}}deg ); -ms-transform: rotate( {{pomodoro_timer_progress_1}}deg ); -o-transform: rotate( {{pomodoro_timer_progress_1}}deg )">
+									<div class="circle_pmdr-half-progress"></div>
+								</div>
+							</div>
+							<div class="circle_pmdr-timer" style="background-image: url( {{profile.image}} );">
+								<span class="time">
+									{{#if user_is_logged}}
+										<small>Start</small>
+									{{/if}}
+									{{pomodoro_timer}}
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-8">
+						<h4>{{profile.name}} <small class="user-status">{{#if user_is_free}}Free{{/if}} {{#if user_is_working}}Work{{/if}}</small> </h4>
+						<strong>{{ profile.job }}</strong>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+</template>

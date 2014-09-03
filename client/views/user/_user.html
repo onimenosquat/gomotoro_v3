@@ -1,0 +1,88 @@
+
+<!-- USER DETAIL -->
+<template name="_user_detail">
+	<header class="header-detail">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-no-padding">
+					<div class="user-avatar--big" style="background-image: url( {{profile.image}} );">
+						{{#if user_is_logged}}
+							<input class="form-control user_image" type="text" value="{{profile.image}}" placeholder="Name">
+						{{/if}}
+					</div>
+					<div class="title-detail">
+						<h2>
+							{{#if user_is_logged}}
+								<input class="form-control user_name" type="text" value="{{profile.name}}" placeholder="Name">
+							{{/if}}
+							{{#if user_is_no_logged}}
+									{{profile.name}}
+							{{/if}}
+						</h2>
+						<h4>
+							{{#if user_is_logged}}
+								<input class="form-control user_job" type="text" value="{{profile.job}}" placeholder="Name">
+							{{/if}}
+							{{#if user_is_no_logged}}
+									{{profile.job}}
+							{{/if}}
+						</h4>
+					</div>
+				</div>
+				{{#if user_is_logged}}
+				<div class="col-xs-12 col-no-padding text-center">
+					<div class="btn-group btn-group-lg">
+						<button class="btn btn-dark pomodoro_less"><small><i class="glyphicon glyphicon-minus"></i></small></button>
+						<button class="btn btn-dark pomodoro_start">{{pomodoro_timer}}</button>
+						<button class="btn btn-dark pomodoro_more"><small><i class="glyphicon glyphicon-plus"></i></small></button>
+					</div>
+					<div class="btn-group btn-group-lg">
+						<button class="btn btn-dark pomodoro_start"> Start </button>
+					</div>
+				</div>
+				{{/if}}
+			</div>
+		</div>
+	</header>
+	<div class="page-content">
+		
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="btn-group">
+					<a href="#" class="btn btn-primary">Pomodoro</a>
+					<a href="#" class="btn btn-primary">Production</a>
+				</div>
+			</div>
+			<div class="col-xs-6 text-right">
+				<div class="btn-group">
+					<a href="#" class="change-view-cal btn btn-dark" data-view="basicDay">Day</a>
+					<a href="#" class="change-view-cal btn btn-dark" data-view="basicWeek">Week</a>
+					<a href="#" class="change-view-cal btn btn-dark" data-view="month">Month</a>
+					</div>
+			</div>
+		</div>
+					
+		<div class="user-calendar">{{cal}}</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Pomodoro <span class="label label-primary">{{ pmdr.total }}</span></h3>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ pmdr.percent_complete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pmdr.percent_complete }}%;">
+						Complete
+					</div>
+					<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ pmdr.percent_uncomplete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pmdr.percent_uncomplete }}%;">
+						Uncomplete
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Project</h3>
+			</div>
+		</div>
+
+	</div>
+</template>

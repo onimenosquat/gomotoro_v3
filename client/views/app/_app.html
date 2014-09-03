@@ -1,0 +1,14 @@
+<!-- APP -->
+<template name="_app">
+	<div class="app" id="fullscreen">
+
+		{{#if user_is_connected}}
+			{{> _topbar}}
+		{{/if}}
+
+		{{#with getPage}}
+			{{> template}}
+		{{/with}}
+
+	</div>
+</template>
