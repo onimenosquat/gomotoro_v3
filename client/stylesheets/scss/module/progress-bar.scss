@@ -1,4 +1,63 @@
-.progress-bar {
+.progress {
+	height: 2em;
+	line-height: 2em;
+	border: none;
+	@include borderRadius( 0 );
+	@include boxShadow( none );
+}
+
+@mixin _progress-bar ($bg, $c) {
+	background-color: $bg;
+	color: $c;
 	overflow: hidden;
 	min-width: 0 !important;
+	line-height: inherit;
+	font-size: 0.6em;
+	font-weight: bold;
+	text-transform: uppercase;
+	border: none;
+	@include boxSizing;
+	@include boxShadow( none );
+}
+
+$btn: (
+	default: (
+		color: $white,
+		bg: $gray
+	),
+	clear: (
+		color: $black,
+		bg: $white
+	),
+	primary: (
+		color: $white,
+		bg: $blue
+	),
+	success: (
+		color: $white,
+		bg: $green
+	),
+	warning: (
+		color: $white,
+		bg: $orange
+	),
+	error: (
+		color: $white,
+		bg: $red
+	),
+	dark: (
+		color: $white,
+		bg: $darkgray
+	),
+);
+
+@each $thm in $btn {
+	$_name: nth($thm, 1);
+	$_values: nth($thm, 2);
+	.progress-bar-#{$_name} {
+		@include _progress-bar (
+			$c: map-get($_values, c),
+			$bg: map-get($_values, bg)
+		);
+	}
 }

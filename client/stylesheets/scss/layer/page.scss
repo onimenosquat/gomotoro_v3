@@ -9,12 +9,19 @@
 .page--login {
 	@extend .page;
 	padding: 4em 0;
-	@include imgBg( "../images/bg-nature-blur.jpg" );
+	@include imgBg( "../images/bg-blur-city.jpg" );
 	@include vScroll;
 }
 
 .page--users {
 	@extend .page;
+}
+
+.page--agenda {
+	@extend .page;
+	padding: 4em 0;
+	height: 100%;
+	@include vScroll;
 }
 
 .page-listing,

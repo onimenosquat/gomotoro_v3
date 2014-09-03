@@ -25,6 +25,7 @@ app = {
 			home : '_users',
 			users : '_users',
 			projects : '_projects',
+			days : '_agenda',
 		},
 
 		changePage : function() {
@@ -95,6 +96,7 @@ app = {
 			minTime: '07:00:00',
 			maxTime: '20:00:00',
 			axisFormat: 'HH:mm',
+			timezone: 'local',
 			dayClick: function(date, jsEvent, view) {
 				alert('Clicked on: ' + date.format());
 			},
@@ -107,7 +109,7 @@ app = {
 					events.push({
 						title: 'Pomodoro',
 						start: new Date( item.timestamp ).toISOString(),
-					// end: new Date( item.timestamp + item.timer - item.current ).toISOString()
+						end: new Date( item.timestamp + item.timer - item.current ).toISOString()
 				})
 				});
 
@@ -116,7 +118,7 @@ app = {
 		});
 
 		this.$user_cal.fullCalendar( 'changeView', Session.get('viewCal') );
-		this.$user_cal.fullCalendar( 'refresh' );
+		this.$user_cal.fullCalendar( 'refetchEvents' );
 
 	},
 
