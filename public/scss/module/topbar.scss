@@ -1,15 +1,10 @@
 .navbar {
-	position: absolute;
-	z-index: 10;
-	top: 0;
-	left: 0;
-	right: 0;
 	background-color: $white;
-	margin: 0;
-	height: 4em;
-	line-height: 4em;
+	margin: 0 0 2em;
+	height: 2em;
+	line-height: 2em;
 	border: none;
-	// border-bottom: 1px solid $whitesmoke;
+	min-height: 0;
 	@include borderRadius(0);
 	@include boxShadow;
 
@@ -42,7 +37,7 @@
 	}
 
 	.nav {
-		height: 4em;
+		height: 2em;
 		float: none;
 		display: inline-block;
 	}
@@ -52,7 +47,7 @@
 	}
 
 	.nav > li {
-		height: 4em;
+		height: 2em;
 		float: none;
 		display: inline-block;
 		vertical-align: 0;
@@ -94,5 +89,23 @@
 		border: 1px solid $whitesmoke;
 		border-top: none;
 		@include boxShadow( none );
+	}
+}
+
+.navbar.header{
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4em;
+	line-height: 4em;
+
+	.nav {
+		height: 4em;
+	}
+
+	.nav > li {
+		height: 4em;
 	}
 }

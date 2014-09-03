@@ -7,12 +7,16 @@
 
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.css">
 	<link rel="stylesheet" href="css/main.css">
 
     <link rel="icon" type="image/png" href="images/favicon.png" />
-
+	
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.js"></script>
+
 </head>
 
 <body>
@@ -103,7 +107,7 @@
 
 <!-- TOPBAR -->
 <template name="topbar">
-	<nav class="navbar" role="navigation">
+	<nav class="navbar header" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#/users"><h2 class="app-title"><b>G</b>o<b>M</b>o<b>T</b>oro</h2></a>
@@ -244,10 +248,28 @@
 		</div>
 	</header>
 	<div class="page-content">
+		
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="btn-group">
+					<a href="#" class="btn btn-primary">Pomodoro</a>
+					<a href="#" class="btn btn-primary">Production</a>
+				</div>
+			</div>
+			<div class="col-xs-6 text-right">
+				<div class="btn-group">
+					<a href="#" class="change-view-cal btn btn-dark" data-view="basicDay">Day</a>
+					<a href="#" class="change-view-cal btn btn-dark" data-view="basicWeek">Week</a>
+					<a href="#" class="change-view-cal btn btn-dark" data-view="month">Month</a>
+					</div>
+			</div>
+		</div>
+					
+		<div class="user-calendar"></div>
 
 		<div class="row">
 			<div class="col-xs-12">
-				<h3>Pomodoro <span class="label label-default">{{ pmdr.length }}</span></h3>
+				<h3>Pomodoro <span class="label label-primary">{{ pmdr.total }}</span></h3>
 				<div class="progress">
 					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ pmdr.percent_complete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pmdr.percent_complete }}%;">
 						Complete

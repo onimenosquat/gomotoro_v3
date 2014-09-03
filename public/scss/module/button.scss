@@ -33,6 +33,11 @@
 	}
 }
 
+@mixin _label ( $c, $bg ){
+	color: $c;
+	background-color: $bg;
+}
+
 $btn: (
 	default: (
 		color: $white,
@@ -133,4 +138,16 @@ $btn: (
 
 .open > .dropdown-toggle {
 	@include boxShadow( none );
+}
+
+
+@each $thm in $btn {
+	$_name: nth($thm, 1);
+	$_values: nth($thm, 2);
+	.label-#{$_name} {
+		@include _label(
+			$c: map-get($_values, color),
+			$bg: map-get($_values, bg)
+		);
+	}
 }

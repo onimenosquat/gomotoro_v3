@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900");
 html {
   height: 100%; }
@@ -849,7 +850,7 @@ select.form-control, .dropdown-menu select.form-control {
     margin-left: 0.4em;
     vertical-align: 0.1em; }
 
-.btn-primary {
+.btn-primary, .fc-button  {
   background-color: #6699cc;
   border-color: #407fbf;
   color: white;
@@ -858,7 +859,7 @@ select.form-control, .dropdown-menu select.form-control {
   -ms-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0; }
-  .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  .btn-primary:hover, .fc-button :hover, .btn-primary:active, .fc-button :active, .btn-primary:focus, .fc-button :focus {
     background-color: #407fbf;
     border-color: #407fbf;
     color: white;
@@ -872,13 +873,13 @@ select.form-control, .dropdown-menu select.form-control {
     -ms-box-shadow: none;
     -o-box-shadow: none;
     box-shadow: none; }
-  .btn-primary:active {
+  .btn-primary:active, .fc-button :active {
     background-color: #578fc7; }
-  .btn-primary .caret {
+  .btn-primary .caret, .fc-button  .caret {
     margin-left: 0.4em;
     vertical-align: 0.1em; }
 
-.open > .dropdown-toggle.btn-primary {
+.open > .dropdown-toggle.btn-primary, .open > .dropdown-toggle.fc-button  {
   background-color: #6699cc;
   border-color: #407fbf;
   color: white;
@@ -887,7 +888,7 @@ select.form-control, .dropdown-menu select.form-control {
   -ms-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0; }
-  .open > .dropdown-toggle.btn-primary:hover, .open > .dropdown-toggle.btn-primary:active, .open > .dropdown-toggle.btn-primary:focus {
+  .open > .dropdown-toggle.btn-primary:hover, .open > .dropdown-toggle.fc-button :hover, .open > .dropdown-toggle.btn-primary:active, .open > .dropdown-toggle.fc-button :active, .open > .dropdown-toggle.btn-primary:focus, .open > .dropdown-toggle.fc-button :focus {
     background-color: #407fbf;
     border-color: #407fbf;
     color: white;
@@ -901,9 +902,9 @@ select.form-control, .dropdown-menu select.form-control {
     -ms-box-shadow: none;
     -o-box-shadow: none;
     box-shadow: none; }
-  .open > .dropdown-toggle.btn-primary:active {
+  .open > .dropdown-toggle.btn-primary:active, .open > .dropdown-toggle.fc-button :active {
     background-color: #578fc7; }
-  .open > .dropdown-toggle.btn-primary .caret {
+  .open > .dropdown-toggle.btn-primary .caret, .open > .dropdown-toggle.fc-button  .caret {
     margin-left: 0.4em;
     vertical-align: 0.1em; }
 
@@ -1209,20 +1210,44 @@ select.form-control, .dropdown-menu select.form-control {
   -o-box-shadow: none;
   box-shadow: none; }
 
+.label-default {
+  color: white;
+  background-color: #cccccc; }
+
+.label-clear {
+  color: #222222;
+  background-color: white; }
+
+.label-primary {
+  color: white;
+  background-color: #6699cc; }
+
+.label-success {
+  color: white;
+  background-color: #33cc99; }
+
+.label-warning {
+  color: white;
+  background-color: #ff6600; }
+
+.label-error {
+  color: white;
+  background-color: #ff6666; }
+
+.label-dark {
+  color: white;
+  background-color: #41464d; }
+
 .panel {
   position: absolute; }
 
 .navbar {
-  position: absolute;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  right: 0;
   background-color: white;
-  margin: 0;
-  height: 4em;
-  line-height: 4em;
+  margin: 0 0 2em;
+  height: 2em;
+  line-height: 2em;
   border: none;
+  min-height: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
@@ -1254,13 +1279,13 @@ select.form-control, .dropdown-menu select.form-control {
     font-weight: normal;
     display: inline-block; }
   .navbar .nav {
-    height: 4em;
+    height: 2em;
     float: none;
     display: inline-block; }
   .navbar .navbar-right {
     margin: 0 !important; }
   .navbar .nav > li {
-    height: 4em;
+    height: 2em;
     float: none;
     display: inline-block;
     vertical-align: 0; }
@@ -1295,6 +1320,19 @@ select.form-control, .dropdown-menu select.form-control {
     -ms-box-shadow: none;
     -o-box-shadow: none;
     box-shadow: none; }
+
+.navbar.header {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4em;
+  line-height: 4em; }
+  .navbar.header .nav {
+    height: 4em; }
+  .navbar.header .nav > li {
+    height: 4em; }
 
 .circle_pmdr {
   position: relative;

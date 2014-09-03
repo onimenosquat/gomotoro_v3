@@ -9,6 +9,7 @@ Session.set('project_selected', null);
 Session.set('this', Date.now());
 Session.set('filter_timeline_user', {})
 Session.set('filter_timeline_project', {})
+Session.set('viewCal', 'basicWeek');
 
 // my app
 app = {
