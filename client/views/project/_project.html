@@ -20,23 +20,10 @@
 		</div>
 	</header>
 	<div class="page-content">
-		<div class="btn-group">
-			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-				Show <strong>{{timeline_filter}}</strong> <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" class="filter-timeline" data-type="pomodoro">Pomodoro</a></li>
-				<li><a href="#" class="filter-timeline" data-type="project">Project</a></li>
-				<li><a href="#" class="filter-timeline" data-type="message">Message</a></li>
-				<li><a href="#" class="filter-timeline" data-type="user">User</a></li>
-				<li class="divider"></li>
-				<li><a href="#" class="link-success reset-timeline">All Events</a></li>
-			</ul>
+		<div class="page-detail user">
+			{{#with user}}
+			{{> _user}}
+			{{/with}}
 		</div>
-		<ul class="timeline">
-			{{#each timeline_item}}
-				{{>timeline}}
-			{{/each}}
-		</ul>
 	</div>
 </template>

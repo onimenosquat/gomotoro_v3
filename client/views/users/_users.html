@@ -3,19 +3,19 @@
 	<div class="page--users">
 		<div class="container-fluid container-height">
 			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-no-padding">
+				<div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 col-no-padding">
 					<div class="page-listing">
-						<ul class="users_listing">
+						<ul class="user-listing">
 							{{#each users}}
-								{{> _user_listing}}
+								{{> _user-listing}}
 							{{/each}}
 						</ul>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6 col-no-padding">
-					<div class="page-detail user_detail">
-						{{#with user_selected}}
-							{{> _user_detail}}
+				<div class="col-xs-12 col-sm-7 col-md-8 col-lg-6 col-no-padding">
+					<div class="page-detail user">
+						{{#with user}}
+							{{> _user}}
 						{{/with}}
 					</div>
 				</div>

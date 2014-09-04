@@ -12,10 +12,9 @@
 									Filter <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="#" class="filtre-project-listing" data-type="multimedia">Multimedia</a></li>
-									<li><a href="#" class="filtre-project-listing" data-type="app">App</a></li>
-									<li><a href="#" class="filtre-project-listing" data-type="web">Web</a></li>
-									<li><a href="#" class="filtre-project-listing" data-type="webapp">Web app</a></li>
+									{{#each project_type}}
+										<li><a href="#" class="create-new-project" data-type="{{name}}">{{name}}</a></li>
+									{{/each}}
 									<li class="divider"></li>
 									<li><a href="#" class="link-success filtre-project-listing" data-type="">All Type</a></li>
 								</ul>

@@ -1,4 +1,4 @@
-Template._user_detail.helpers({
+Template._user.helpers({
 
 	pmdr : function () {
 
@@ -15,6 +15,6 @@ Template._user_detail.helpers({
 
 });
 
-Template._user_detail.events({
+Template._user.events({
 
 });

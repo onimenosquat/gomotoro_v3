@@ -18,7 +18,7 @@ Template._users.helpers({
 
 	},
 
-	user_selected : function () {
+	user : function () {
 		return  Meteor.users.findOne( Session.get('router').id || Meteor.userId() );
 	},
 

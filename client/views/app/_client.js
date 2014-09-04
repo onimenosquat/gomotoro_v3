@@ -161,7 +161,7 @@ Handlebars.registerHelper('user_is_free', function () {
 });
 
 Handlebars.registerHelper('user_is_selected', function () {
-    return Session.get('router').id == this._id;
+    return (Session.get('router').id && Session.get('router').id == this._id) || ( ! Session.get('router').id && Meteor.userId() == this._id);
 });
 
 Handlebars.registerHelper('user_is_logged', function () {

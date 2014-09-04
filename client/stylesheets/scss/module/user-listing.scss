@@ -1,6 +1,4 @@
-ul.users_listing {}
-
-.user_listing {
+.user_listing li {
 	display: block;
 	position: relative;
 	z-index: 1;
@@ -18,10 +16,6 @@ ul.users_listing {}
 	strong {
 
 		font-weight: lighter;
-	}
-	
-	&:hover{
-		background-color: $whitegray;
 	}
 
 	&.is-selected,

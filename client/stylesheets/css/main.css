@@ -1648,21 +1648,19 @@ select.form-control, .dropdown-menu select.form-control {
 .is-free .user-status {
   color: #33cc99; }
 
-.user_listing {
+.user_listing li {
   display: block;
   position: relative;
   z-index: 1; }
-  .user_listing > a {
+  .user_listing li > a {
     padding: 1.5em 0;
     display: block;
     color: #222222; }
-  .user_listing h4 {
+  .user_listing li h4 {
     margin: 1em 0 0 0; }
-  .user_listing strong {
+  .user_listing li strong {
     font-weight: lighter; }
-  .user_listing:hover {
-    background-color: #f8f8f8; }
-  .user_listing.is-selected, .user_listing.is-selected:hover {
+  .user_listing li.is-selected, .user_listing li.is-selected:hover {
     background-color: white; }
 
 .user-avatar, .user-avatar--small, .user-avatar--big {
@@ -1693,12 +1691,12 @@ select.form-control, .dropdown-menu select.form-control {
 .user-avatar--big {
   font-size: 4em; }
 
-.user_detail .header-detail {
+.user .header-detail {
   padding: 4em 3em 1em;
   background-color: #41464d;
   color: white;
   text-align: center; }
-  .user_detail .header-detail .form-control {
+  .user .header-detail .form-control {
     text-align: center;
     background: none;
     border: none;
@@ -1713,11 +1711,11 @@ select.form-control, .dropdown-menu select.form-control {
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
     border-radius: 3px; }
-    .user_detail .header-detail .form-control:hover, .user_detail .header-detail .form-control:focus {
+    .user .header-detail .form-control:hover, .user .header-detail .form-control:focus {
       background-color: rgba(34, 34, 34, 0.67); }
-  .user_detail .header-detail .user-avatar, .user_detail .header-detail .user-avatar--small, .user_detail .header-detail .user-avatar--big {
+  .user .header-detail .user-avatar, .user .header-detail .user-avatar--small, .user .header-detail .user-avatar--big {
     margin: 0; }
-    .user_detail .header-detail .user-avatar .form-control, .user_detail .header-detail .user-avatar--small .form-control, .user_detail .header-detail .user-avatar--big .form-control {
+    .user .header-detail .user-avatar .form-control, .user .header-detail .user-avatar--small .form-control, .user .header-detail .user-avatar--big .form-control {
       font-size: 0.25em;
       position: absolute;
       top: 50%;
@@ -1733,7 +1731,7 @@ select.form-control, .dropdown-menu select.form-control {
       -ms-transition: 0.3s ease 0.9s;
       -o-transition: 0.3s ease 0.9s;
       transition: 0.3s ease 0.9s; }
-    .user_detail .header-detail .user-avatar:hover .form-control, .user_detail .header-detail .user-avatar--small:hover .form-control, .user_detail .header-detail .user-avatar--big:hover .form-control {
+    .user .header-detail .user-avatar:hover .form-control, .user .header-detail .user-avatar--small:hover .form-control, .user .header-detail .user-avatar--big:hover .form-control {
       opacity: 1;
       visibility: visible;
       -webkit-transition: 0.3s ease;
@@ -1741,15 +1739,15 @@ select.form-control, .dropdown-menu select.form-control {
       -ms-transition: 0.3s ease;
       -o-transition: 0.3s ease;
       transition: 0.3s ease; }
-  .user_detail .header-detail .title-detail {
+  .user .header-detail .title-detail {
     margin: 1em 0 2em 0;
     color: white; }
-    .user_detail .header-detail .title-detail h2, .user_detail .header-detail .title-detail h4 {
+    .user .header-detail .title-detail h2, .user .header-detail .title-detail h4 {
       margin: 0;
       line-height: 1.4em; }
-    .user_detail .header-detail .title-detail h4 {
+    .user .header-detail .title-detail h4 {
       color: #cccccc; }
-    .user_detail .header-detail .title-detail .form-control {
+    .user .header-detail .title-detail .form-control {
       margin-left: auto;
       margin-right: auto;
       width: 100%;
@@ -1759,8 +1757,8 @@ select.form-control, .dropdown-menu select.form-control {
       -o-transition: 0.3s ease;
       transition: 0.3s ease; }
       @media (min-width: 768px) {
-        .user_detail .header-detail .title-detail .form-control {
+        .user .header-detail .title-detail .form-control {
           width: 50%; } }
       @media (min-width: 1200px) {
-        .user_detail .header-detail .title-detail .form-control {
+        .user .header-detail .title-detail .form-control {
           width: 33%; } }
