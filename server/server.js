@@ -1,7 +1,7 @@
 Pomodoro = new Meteor.Collection("pomodoro");
 Project = new Meteor.Collection("project");
 Project_type = new Meteor.Collection("project_type");
-Events = new Meteor.Collection("events");
+//Events = new Meteor.Collection("events");
 
 var timers = {},
 	app = {};

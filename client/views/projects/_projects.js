@@ -2,7 +2,6 @@ Template._projects.helpers({
 
 	projects : function () {
 		var p = Project.find({});
-		if ( !Session.get('project_selected') ) Session.set('project_selected', p.fetch()[0]._id );
 		return p;
 	},
 

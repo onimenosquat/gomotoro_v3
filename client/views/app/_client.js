@@ -1,12 +1,10 @@
 Pomodoro = new Meteor.Collection("pomodoro");
 Project = new Meteor.Collection("project");
 Project_type = new Meteor.Collection("project_type");
-Events = new Meteor.Collection("events");
+//Events = new Meteor.Collection("events");
 
 // init router fn & obj
 Session.set('router', {});
-// ??
-Session.set('this', Date.now());
 
 // my app
 app = {
