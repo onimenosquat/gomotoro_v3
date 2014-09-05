@@ -15,7 +15,6 @@ Template._users.helpers({
 
 	users : function () {
 		return _.sortBy( Meteor.users.find({}, {sort : {"profile.name" : 1}}).fetch(), function ( user ) { return !( user._id == Meteor.userId()) });
-
 	},
 
 	user : function () {

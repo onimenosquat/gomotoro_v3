@@ -68,12 +68,8 @@
 				width: 100%;
 				@include transition(0.3s ease);
 
-				@include respond-to ( small ){
-					width: 50%
-				}
-
 				@include respond-to ( large ){
-					width: 33%
+					width: 75%
 				}
 			}
 		}

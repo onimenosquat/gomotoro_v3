@@ -1,4 +1,4 @@
-.user_listing li {
+.user-listing li {
 	display: block;
 	position: relative;
 	z-index: 1;
@@ -10,16 +10,23 @@
 	}
 
 	h4 {
-		margin: 1em 0 0 0;
+		margin: 0;
 	}
 
 	strong {
-
 		font-weight: lighter;
 	}
 
 	&.is-selected,
 	&.is-selected:hover {
-		background-color: $white;
+		background-color: $darkgray;
+
+		& > a {
+			color: $white;
+		}
+	}
+
+	.user-info {
+		margin-top: 0.5em;
 	}
 }

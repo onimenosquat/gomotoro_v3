@@ -7,6 +7,7 @@
     font-size: 5em;
     overflow: hidden;
     border-radius: 100%;
+    background-color: $white;
     color: $black;
 }
 
@@ -41,6 +42,7 @@
     bottom: 0;
     width: 200%;
     border-radius: 100%;
+    background-color: $green;
 }
 
 .circle_pmdr-half:nth-child(2) {
@@ -66,12 +68,13 @@
     position: absolute;
     z-index: 3;
     background-color: white;
-    top: 0.1em;
-    left: 0.1em;
-    bottom: 0.1em;
-    right: 0.1em;
+    top: 0.15em;
+    left: 0.15em;
+    bottom: 0.15em;
+    right: 0.15em;
     font-size: 0.4em;
-    line-height: 2.15em;
+    line-height: 2em;
+    font-weight: bold;
     color: $black;
     @include borderRadius( 100% );
     @include imgBg();
@@ -111,15 +114,34 @@
             visibility: visible;
         } 
 
+        .circle_pmdr .circle_pmdr-half-progress {
+            background-color: $white;
+        }
+
         .circle_pmdr:hover .circle_pmdr-timer {
             background-color: $green;
             color: $white;
         }
+
+        .circle_pmdr:hover .circle_pmdr-half-progress {
+            background-color: $green;
+        }
     }
 
     &.is-working {
+
+        .circle_pmdr-timer {
+            background-color: $orange;
+            color: $white;
+        }
+
         .circle_pmdr:hover .circle_pmdr-half-progress {
             background-color: $red;
+        }
+
+        .circle_pmdr:hover .circle_pmdr-timer {
+            background-color: $red;
+            color: $white;
         }
     }
 }
@@ -136,20 +158,9 @@
         .time small {
             display: none;
         }
-
-        &:hover {
-            color: $red;
-        }
     }
 
     .circle_pmdr-half-progress {
         background-color: $orange;
-    }
-
-    &.is-selected {
-
-        .circle_pmdr {
-            background-color: $whitegray;
-        }
     }
 }

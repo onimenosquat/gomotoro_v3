@@ -2,14 +2,12 @@
 	@include borderRadius(0);
 	@include boxShadow(none);
 	@include boxSizing;
+	@include appearance;
 	border: none;
 	background-color: $white;
 	border: 1px solid $white;
 	border-bottom-color: $gray;
 	height: 3em;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
 
 	&.active,
 	&:hover,

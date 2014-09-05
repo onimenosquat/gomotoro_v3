@@ -1,3 +1,61 @@
-.fc-button {
-	@extend .btn-primary;
+.ui-button {
+	@include _btn($black, $whitesmoke);
+	@include appearance;
+	border: none;
+}
+
+.fc-toolbar .fc-center h2{
+	text-transform: uppercase;
+	color: $darkgray;
+}
+
+.fc-today-button {
+	@include _btn($white, $green);
+}
+
+.fc-day-header {
+	text-align: center;
+	font-weight: lighter;
+	padding: 0.4em 0 !important;
+	font-size: 1.2em;
+}
+
+.fc-next-button,
+.fc-prev-button {
+	@include _btn($white, $darkgray);
+	padding-left: 1em !important;
+	padding-right: 1em !important;
+
+
+	i {
+		vertical-align: 0.1em;
+		font-size: 0.8em;
+	}
+}
+
+.ui-state-active {
+	@include _btn($white, $blue);
+}
+
+.fc-day-grid-event {
+	@include borderRadius(0);
+	padding: 0.4em;
+	background-color: $gray;
+	border: none;
+	border-left: 0.4em solid $gray;
+	color: $darkgray !important;
+
+	.fc-title {
+		font-size: 1.1em;
+		margin-left: 0.4em;
+	}
+
+
+	&.event-success {
+		border-color: $green;
+	}
+
+	&.event-fail {
+		border-color: $red;
+	}
 }

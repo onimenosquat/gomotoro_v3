@@ -22,6 +22,10 @@
 	padding: 4em 0;
 	height: 100%;
 	@include vScroll;
+
+	.page-content {
+		padding: 3em;
+	}
 }
 
 .page-listing,
@@ -53,9 +57,12 @@
 
 }
 
-.page-detail {}
+.page-detail {
+	background-color: $whitesmoke;
+}
 
 .page-content {
-	padding: 2em 3em 0;
+	padding: 2em 3em;
+	background-color: $white;
 	@include boxSizing;
 }

@@ -38,6 +38,12 @@
 	transition: $string;
 }
 
+@mixin appearance ( $string: none ) {
+	-webkit-appearance: $string;
+	-moz-appearance: $string;
+	appearance: $string;
+}
+
 @mixin imgBg ($img: "http://lorempixel.com/300/300", $p: center center) {
 	background-image: url( $img );
 	background-repeat: no-repeat;

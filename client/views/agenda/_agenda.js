@@ -21,5 +21,5 @@ Template._agenda.events({
 
 		Session.set('viewCal', view);
 		app.userCalRender();
-	}
+	},
 });

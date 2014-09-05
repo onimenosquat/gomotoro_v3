@@ -86,6 +86,7 @@ app = {
 	},
 
 	userCalRender : function () {
+		var that = this;
 
 		this.$user_cal = $('.user-calendar');
 
@@ -96,20 +97,57 @@ app = {
 			minTime: '07:00:00',
 			maxTime: '20:00:00',
 			axisFormat: 'HH:mm',
+			timeFormat: 'HH:mm',
+			theme: true,
+			themeButtonIcons: false,
+			firstDay: 1,
+			height: 'auto',
+			contentHeight: 'auto',
 			timezone: 'local',
+
+			monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+			monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec'],
+			dayNames : ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+			dayNamesShort : ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+			
+			header: {
+				left:   'prev,today,next',
+				center: 'title',
+				right:  'basicDay,basicWeek,month'
+			},
+			columnFormat: {
+				month: 'ddd',
+				week: 'ddd D',
+				day: 'dddd D MMMM'
+			},
+			titleFormat: {
+				month: 'MMM YYYY',
+				week: "MMM YYYY",
+				day: 'MMM YYYY'
+			},
+			buttonText: {
+				today: "Aujourd'hui",
+				month: "Mois",
+				week: "Semaine",
+				day: "Jour",
+				prev: "",
+				next: "",
+			},
+
 			dayClick: function(date, jsEvent, view) {
 				alert('Clicked on: ' + date.format());
 			},
 			events: function (start, end, timezone, callback) {
-				var pmdr = Pomodoro.find({ user_id : Session.get('router').id || Meteor.userId() }).fetch(),
+				var pmdr = Pomodoro.find({ user_id : Meteor.userId() }).fetch(),
 				events = [];
 
 				_.each( pmdr, function ( item ) {
 					if ( !item.complete && !item.cancel ) return false;
 					events.push({
-						title: 'Pomodoro',
+						title: 'Pomodoro [' + app.helper.timer( item.timer - item.current ) + ']',
 						start: new Date( item.timestamp ).toISOString(),
-						end: new Date( item.timestamp + item.timer - item.current ).toISOString()
+						end: new Date( item.timestamp + item.timer - item.current ).toISOString(),
+						className : item.complete ? "event-success" : "event-fail",
 				})
 				});
 
@@ -118,7 +156,11 @@ app = {
 		});
 
 		this.$user_cal.fullCalendar( 'changeView', Session.get('viewCal') );
-		this.$user_cal.fullCalendar( 'refetchEvents' );
+		setTimeout( function() {
+			that.$user_cal.fullCalendar( 'refetchEvents' );
+			$( '.fc-next-button' ).html('<i class="glyphicon glyphicon-chevron-right"></i>').addClass('btn-dark');
+			$( '.fc-prev-button' ).html('<i class="glyphicon glyphicon-chevron-left"></i>').addClass('btn-dark');
+		}, 300);
 
 	},
 
