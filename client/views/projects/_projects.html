@@ -13,7 +13,7 @@
 								</button>
 								<ul class="dropdown-menu" role="menu">
 									{{#each project_type}}
-										<li><a href="#" class="create-new-project" data-type="{{name}}">{{name}}</a></li>
+										<li><a href="#" class="filter-project" data-type="{{name}}">{{name}}</a></li>
 									{{/each}}
 									<li class="divider"></li>
 									<li><a href="#" class="link-success filtre-project-listing" data-type="">All Type</a></li>
@@ -25,11 +25,7 @@
 									New project <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu--right" role="menu">
-									{{#each project_type}}
-										<li><a href="#" class="create-new-project" data-type="{{name}}">{{name}}</a></li>
-									{{/each}}
-									<li class="divider"></li>
-									<li><form class="add-projet-type"><input type="text" class="form-control form-control--clear" placeholder="New type"></form></li>
+									<li><form class="add-projet"><input type="text" class="form-control form-control--clear" placeholder="Project name"></form></li>
 								</ul>
 							</div>
 

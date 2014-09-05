@@ -5,11 +5,8 @@ Events = new Meteor.Collection("events");
 
 // init router fn & obj
 Session.set('router', {});
-Session.set('project_selected', null);
+// ??
 Session.set('this', Date.now());
-Session.set('filter_timeline_user', {})
-Session.set('filter_timeline_project', {})
-Session.set('viewCal', 'basicWeek');
 
 // my app
 app = {
@@ -155,12 +152,10 @@ app = {
 			},
 		});
 
-		this.$user_cal.fullCalendar( 'changeView', Session.get('viewCal') );
-		setTimeout( function() {
-			that.$user_cal.fullCalendar( 'refetchEvents' );
-			$( '.fc-next-button' ).html('<i class="glyphicon glyphicon-chevron-right"></i>').addClass('btn-dark');
-			$( '.fc-prev-button' ).html('<i class="glyphicon glyphicon-chevron-left"></i>').addClass('btn-dark');
-		}, 300);
+		that.$user_cal.fullCalendar( 'changeView', 'basicWeek' );
+		that.$user_cal.fullCalendar( 'refetchEvents' );
+		$( '.fc-next-button' ).html('<i class="glyphicon glyphicon-chevron-right"></i>').addClass('btn-dark');
+		$( '.fc-prev-button' ).html('<i class="glyphicon glyphicon-chevron-left"></i>').addClass('btn-dark');
 
 	},
 
@@ -169,24 +164,11 @@ app = {
 
 // hashchange
 Meteor.startup( function () {
-
-	Session.set('team_user_selected', Meteor.userId() || null);
 	
 	// JQUERY
 	$( window ).on( 'hashchange', function( event ) {
 		app.router.changePage();
 	});
-
-	var elem = document.getElementById("fullscreen");
-	if (elem && elem.requestFullscreen) {
-		elem.requestFullscreen();
-	} else if (elem && elem.msRequestFullscreen) {
-		elem.msRequestFullscreen();
-	} else if (elem && elem.mozRequestFullScreen) {
-		elem.mozRequestFullScreen();
-	} else if (elem && elem.webkitRequestFullscreen) {
-		elem.webkitRequestFullscreen();
-	}
 
 });
 

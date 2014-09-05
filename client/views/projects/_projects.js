@@ -17,44 +17,22 @@ Template._projects.helpers({
 });
 
 Template._projects.events({
-	'click .create-new-project' : function ( e ) {
-		e.preventDefault();
-		var $el = $(e.currentTarget),
-			type = $el.data('type'),
-			model = {
-				name : "New project",
-				type : type,
-			};
-		
-		Project.insert( model, function (err, id) {
-			Events.insert({
-				active : true,
-				project_id : Meteor.userId(),
-				notif : "project",
-				type : "default",
-				timestamp : Date.now(),
-				date : app.helper.date( Date.now() ),
-				title : "New project",
-				message : "New project has been created"
-			});
-		});
-	},
-
-	'submit .add-projet-type' : function ( e ) {
+	'submit .add-projet' : function ( e ) {
 		e.preventDefault();
 		var $el = $(e.currentTarget).find('input'),
 			name = $el.val().toLowerCase(),
 			model = {
+				type : "new",
 				name : name,
 			};
 
-		if ( !name || Project_type.find({ name : name }).fetch().length ) return false;
+		if ( !name || Project.find({ name : name }).fetch().length ) return false;
 		
 		$el.val( null )
-		Project_type.insert( model );
+		Project.insert( model );
 	},
 
-	'click .add-projet-type' : function ( e ) {
+	'click .add-projet' : function ( e ) {
 		e.stopPropagation()
 	},
 
